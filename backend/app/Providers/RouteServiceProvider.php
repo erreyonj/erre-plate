@@ -17,7 +17,7 @@ class RouteServiceProvider extends ServiceProvider
 
                 require base_path('routes/api.php');
                 require base_path('routes/auth.php');
-                require base_path('routes/customer.php');
+                require base_path('routes/customers.php');
                 require base_path('routes/admin.php');
                 require base_path('routes/chefs.php');
                 require base_path('routes/orders.php');
