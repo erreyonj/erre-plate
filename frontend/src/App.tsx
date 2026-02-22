@@ -1,12 +1,10 @@
-import { useState } from 'react'
 import './App.css'
 
 function App() {
-
   return (
     <>
-      <h1 className="text-3xl font-bold underline text-eplate-tan">
-        Welcome to Erre Plate
+      <h1 className="">
+        Welcome to Erre Plate!!
       </h1>
     </>
   )
