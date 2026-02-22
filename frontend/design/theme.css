@@ -1,0 +1,25 @@
+/**
+ * Erre-Plate design tokens for Tailwind CSS
+ *
+ * Import this after tailwindcss to register the eplate-* color utilities.
+ * Usage: bg-eplate-tan, text-eplate-charcoal, border-eplate-gold, etc.
+ *
+ * Values are mirrored from design/theme.ts - keep in sync when updating.
+ */
+
+@theme {
+  /* Brand palette */
+  --color-eplate-tan: #a3866d;
+  --color-eplate-charcoal: #2b322a;
+  --color-eplate-cream: #d6d7d1;
+  --color-eplate-brown: #56402b;
+  --color-eplate-gold: #f1b84d;
+  --color-eplate-forest: #364524;
+  --color-eplate-terracotta: #c96b3a;
+
+  /* Semantic colors */
+  --color-eplate-success: #22c55e;
+  --color-eplate-error: #ef4444;
+  --color-eplate-info: #3b82f6;
+  --color-eplate-warning: #f59e0b;
+}
