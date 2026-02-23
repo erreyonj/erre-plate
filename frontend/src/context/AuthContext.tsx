@@ -7,12 +7,13 @@ import {
   type ReactNode,
 } from 'react';
 import {
-  getStoredToken,
-  clearStoredToken,
+  hasAccessToken,
+  clearAccessToken,
   setRefreshHandler,
 } from '../services/api';
 import {
   useMeQuery,
+  useRestoreSessionQuery,
   useLoginMutation,
   useRegisterMutation,
   useLogoutMutation,
@@ -47,7 +48,8 @@ interface AuthProviderProps {
 }
 
 export function AuthProvider({ children }: AuthProviderProps) {
-  const hasToken = !!getStoredToken();
+  const { isLoading: isRestoring } = useRestoreSessionQuery();
+  const hasToken = hasAccessToken();
   const { data: user, isLoading: isMeLoading, isError } = useMeQuery(hasToken);
   const loginMutation = useLoginMutation();
   const registerMutation = useRegisterMutation();
@@ -57,13 +59,12 @@ export function AuthProvider({ children }: AuthProviderProps) {
 
   const performRefresh = useCallback(async (): Promise<string | null> => {
     if (isRefreshing.current) return null;
-    if (!getStoredToken()) return null;
     isRefreshing.current = true;
     try {
       const token = await refreshMutation.mutateAsync();
       return token;
     } catch {
-      clearStoredToken();
+      clearAccessToken();
       return null;
     } finally {
       isRefreshing.current = false;
@@ -93,12 +94,12 @@ export function AuthProvider({ children }: AuthProviderProps) {
     try {
       await logoutMutation.mutateAsync();
     } catch {
-      clearStoredToken();
+      clearAccessToken();
     }
   }, [logoutMutation]);
 
   const isAuthenticated = !!user && !isError;
-  const isLoading = hasToken && isMeLoading;
+  const isLoading = isRestoring || (hasToken && isMeLoading);
 
   const value: AuthContextValue = {
     user: isError ? null : user,

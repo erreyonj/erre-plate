@@ -1,8 +1,13 @@
 import { useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { useAuth } from '../../context/AuthContext'
 
-export function Login() {
+interface LoginProps {
+  /** When provided, used instead of Link for switching to register */
+  onSwitchToRegister?: () => void
+}
+
+export function Login({ onSwitchToRegister }: LoginProps) {
   const { login } = useAuth()
   const navigate = useNavigate()
   const [email, setEmail] = useState('')
@@ -95,12 +100,22 @@ export function Login() {
 
       <p className="mt-6 text-center text-sm text-eplate-charcoal/80">
         Don&apos;t have an account?{' '}
-        <Link
-          to="/auth/register"
-          className="font-medium text-eplate-gold hover:text-eplate-terracotta transition-colors"
-        >
-          Create one
-        </Link>
+        {onSwitchToRegister ? (
+          <button
+            type="button"
+            onClick={onSwitchToRegister}
+            className="font-medium text-eplate-gold hover:text-eplate-terracotta transition-colors"
+          >
+            Create one
+          </button>
+        ) : (
+          <a
+            href="/register"
+            className="font-medium text-eplate-gold hover:text-eplate-terracotta transition-colors"
+          >
+            Create one
+          </a>
+        )}
       </p>
     </div>
   )

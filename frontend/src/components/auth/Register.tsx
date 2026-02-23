@@ -1,8 +1,13 @@
 import { useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { useAuth } from '../../context/AuthContext'
 
-export function Register() {
+interface RegisterProps {
+  /** When provided, used instead of Link for switching to login */
+  onSwitchToLogin?: () => void
+}
+
+export function Register({ onSwitchToLogin }: RegisterProps) {
   const { register } = useAuth()
   const navigate = useNavigate()
   const [form, setForm] = useState({
@@ -62,7 +67,7 @@ export function Register() {
         Create account
       </h1>
       <p className="text-eplate-brown/80 text-sm sm:text-base mb-6">
-        Join Erre Plate and start exploring
+        Join AirPlate and start exploring
       </p>
 
       <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-5">
@@ -204,12 +209,22 @@ export function Register() {
 
       <p className="mt-6 text-center text-sm text-eplate-charcoal/80">
         Already have an account?{' '}
-        <Link
-          to="/auth/login"
-          className="font-medium text-eplate-gold hover:text-eplate-terracotta transition-colors"
-        >
-          Sign in
-        </Link>
+        {onSwitchToLogin ? (
+          <button
+            type="button"
+            onClick={onSwitchToLogin}
+            className="font-medium text-eplate-gold hover:text-eplate-terracotta transition-colors"
+          >
+            Sign in
+          </button>
+        ) : (
+          <a
+            href="/login"
+            className="font-medium text-eplate-gold hover:text-eplate-terracotta transition-colors"
+          >
+            Sign in
+          </a>
+        )}
       </p>
     </div>
   )

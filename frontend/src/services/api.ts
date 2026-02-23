@@ -5,23 +5,30 @@ const API_BASE = import.meta.env.VITE_API_URL ?? 'http://localhost:8000';
 export const api = axios.create({
   baseURL: API_BASE,
   headers: { 'Content-Type': 'application/json' },
+  withCredentials: true,
 });
 
-const TOKEN_KEY = 'auth_token';
+/** Access token stored in memory only (not persisted). Cleared on tab close. */
+let accessToken: string | null = null;
 
-/** Get stored token (for AuthContext and interceptors). */
-export function getStoredToken(): string | null {
-  return localStorage.getItem(TOKEN_KEY);
+/** Get access token from memory. */
+export function getAccessToken(): string | null {
+  return accessToken;
 }
 
-/** Set token in storage (called after login/refresh). */
-export function setStoredToken(token: string): void {
-  localStorage.setItem(TOKEN_KEY, token);
+/** Set access token in memory (called after login/refresh). */
+export function setAccessToken(token: string): void {
+  accessToken = token;
 }
 
-/** Remove token from storage (called on logout). */
-export function clearStoredToken(): void {
-  localStorage.removeItem(TOKEN_KEY);
+/** Clear access token from memory (called on logout). */
+export function clearAccessToken(): void {
+  accessToken = null;
+}
+
+/** Whether we have an access token (for enabling initial /me or refresh attempt). */
+export function hasAccessToken(): boolean {
+  return !!accessToken;
 }
 
 /** Callback for token refresh - AuthContext will provide this. */
@@ -30,9 +37,9 @@ export function setRefreshHandler(handler: () => Promise<string | null>) {
   onRefresh = handler;
 }
 
-/** Attach token to outgoing requests. */
+/** Attach access token to outgoing requests. */
 api.interceptors.request.use((config: InternalAxiosRequestConfig) => {
-  const token = getStoredToken();
+  const token = getAccessToken();
   if (token) {
     config.headers.Authorization = `Bearer ${token}`;
   }
@@ -55,6 +62,7 @@ api.interceptors.response.use(
       original._retry = true;
       const newToken = await onRefresh();
       if (newToken) {
+        setAccessToken(newToken);
         original.headers.Authorization = `Bearer ${newToken}`;
         return api(original);
       }

@@ -1,5 +1,5 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { api, setStoredToken, clearStoredToken } from '../api';
+import { api, setAccessToken, clearAccessToken } from '../api';
 import { queryKeys } from '../queryKeys';
 import type { User } from '../../types/user';
 
@@ -58,6 +58,19 @@ async function refreshToken(): Promise<string> {
   return data.token;
 }
 
+/** Try to restore session from refresh cookie. Returns user if successful. */
+async function restoreSession(): Promise<User | null> {
+  try {
+    const token = await refreshToken();
+    setAccessToken(token);
+    const user = await fetchMe();
+    return user;
+  } catch {
+    clearAccessToken();
+    return null;
+  }
+}
+
 // --- Hooks ---
 
 export function useLoginMutation() {
@@ -66,7 +79,7 @@ export function useLoginMutation() {
   return useMutation({
     mutationFn: login,
     onSuccess: (res) => {
-      setStoredToken(res.token);
+      setAccessToken(res.token);
       queryClient.setQueryData(queryKeys.auth.me(), res.user);
     },
   });
@@ -78,7 +91,7 @@ export function useRegisterMutation() {
   return useMutation({
     mutationFn: register,
     onSuccess: (res) => {
-      setStoredToken(res.token);
+      setAccessToken(res.token);
       queryClient.setQueryData(queryKeys.auth.me(), res.user);
     },
   });
@@ -90,7 +103,7 @@ export function useLogoutMutation() {
   return useMutation({
     mutationFn: logout,
     onSuccess: () => {
-      clearStoredToken();
+      clearAccessToken();
       queryClient.removeQueries({ queryKey: queryKeys.auth.all });
     },
   });
@@ -106,11 +119,27 @@ export function useMeQuery(enabled: boolean) {
   });
 }
 
+export function useRestoreSessionQuery() {
+  const queryClient = useQueryClient();
+  return useQuery({
+    queryKey: [...queryKeys.auth.all, 'restore'] as const,
+    queryFn: async () => {
+      const user = await restoreSession();
+      if (user) {
+        queryClient.setQueryData(queryKeys.auth.me(), user);
+      }
+      return user;
+    },
+    staleTime: Infinity,
+    retry: false,
+  });
+}
+
 export function useRefreshMutation() {
   return useMutation({
     mutationFn: refreshToken,
     onSuccess: (token) => {
-      setStoredToken(token);
+      setAccessToken(token);
     },
   });
 }
