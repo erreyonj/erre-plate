@@ -9,6 +9,8 @@ use Tymon\JWTAuth\Facades\JWTAuth;
 
 class AuthService
 {
+    public const REFRESH_COOKIE = 'refresh_token';
+
     public function register(array $data): User
     {
         $userData = [
@@ -25,7 +27,7 @@ class AuthService
     }
 
     /**
-     * Attempt login and return JWT token, or false if credentials are invalid.
+     * Attempt login and return access token, or false if credentials are invalid.
      */
     public function login(array $credentials): string|false
     {
@@ -43,13 +45,38 @@ class AuthService
         return Auth::guard('api')->user();
     }
 
-    public function createToken(User $user): string
+    /**
+     * Create short-lived access token (from config JWT_TTL, default 15 min).
+     */
+    public function createAccessToken(User $user): string
     {
         return JWTAuth::fromUser($user);
     }
 
-    public function refreshToken(): string
+    /**
+     * Create long-lived refresh token (from config JWT_REFRESH_TTL).
+     * Stored in httpOnly cookie by controller.
+     */
+    public function createRefreshToken(User $user): string
     {
-        return JWTAuth::refresh(JWTAuth::getToken());
+        $factory = JWTAuth::factory();
+        $originalTtl = $factory->getTTL();
+        $factory->setTTL(config('jwt.refresh_ttl', 20160)); // 2 weeks default
+        $token = JWTAuth::fromUser($user);
+        $factory->setTTL($originalTtl);
+        return $token;
+    }
+
+    /**
+     * Refresh using token from cookie. Returns new access token.
+     */
+    public function refreshTokenFromCookie(): string
+    {
+        $token = request()->cookie(self::REFRESH_COOKIE);
+        if (!$token) {
+            throw new \Tymon\JWTAuth\Exceptions\JWTException('Refresh token not found');
+        }
+        JWTAuth::setToken($token);
+        return JWTAuth::refresh();
     }
 }

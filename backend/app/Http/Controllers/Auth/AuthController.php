@@ -7,12 +7,34 @@ use App\Services\AuthService;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Validation\ValidationException;
+use Symfony\Component\HttpFoundation\Cookie;
 
 class AuthController extends Controller
 {
     public function __construct(
         private AuthService $authService
     ) {}
+
+    private function attachRefreshCookie(JsonResponse $response, string $refreshToken): JsonResponse
+    {
+        $minutes = (int) config('jwt.refresh_ttl', 20160);
+        $response->headers->setCookie(
+            Cookie::create(AuthService::REFRESH_COOKIE)
+                ->withValue($refreshToken)
+                ->withPath('/')
+                // ->withMaxAge($minutes * 60)
+                ->withHttpOnly(true)
+                ->withSecure(request()->secure())
+                ->withSameSite('lax')
+        );
+        return $response;
+    }
+
+    private function clearRefreshCookie(JsonResponse $response): JsonResponse
+    {
+        $response->headers->clearCookie(AuthService::REFRESH_COOKIE, '/');
+        return $response;
+    }
 
     /**
      * Register a new user.
@@ -30,18 +52,21 @@ class AuthController extends Controller
         ]);
 
         $user = $this->authService->register($validated);
-        $token = $this->authService->createToken($user);
+        $accessToken = $this->authService->createAccessToken($user);
+        $refreshToken = $this->authService->createRefreshToken($user);
 
-        return response()->json([
+        $response = response()->json([
             'message' => 'User registered successfully',
             'user' => $user,
-            'token' => $token,
+            'token' => $accessToken,
             'token_type' => 'bearer',
         ], 201);
+
+        return $this->attachRefreshCookie($response, $refreshToken);
     }
 
     /**
-     * Login and return JWT token.
+     * Login and return access token. Refresh token in httpOnly cookie.
      */
     public function login(Request $request): JsonResponse
     {
@@ -50,32 +75,41 @@ class AuthController extends Controller
             'password' => ['required', 'string'],
         ]);
 
-        $token = $this->authService->login($credentials);
+        $accessToken = $this->authService->login($credentials);
 
-        if ($token === false) {
+        if ($accessToken === false) {
             throw ValidationException::withMessages([
                 'email' => ['The login credentials are incorrect.'],
             ]);
         }
 
         $user = $this->authService->me();
+        $refreshToken = $this->authService->createRefreshToken($user);
 
-        return response()->json([
+        $response = response()->json([
             'message' => 'Login successful',
             'user' => $user,
-            'token' => $token,
+            'token' => $accessToken,
             'token_type' => 'bearer',
         ]);
+
+        return $this->attachRefreshCookie($response, $refreshToken);
     }
 
     /**
-     * Log the user out (invalidate the token).
+     * Log the user out and clear refresh cookie.
      */
     public function logout(): JsonResponse
     {
-        $this->authService->logout();
+        // Invalidate if we have a token (e.g. from Authorization header)
+        try {
+            $this->authService->logout();
+        } catch (\Throwable) {
+            // Ignore if no token
+        }
 
-        return response()->json(['message' => 'Successfully logged out']);
+        $response = response()->json(['message' => 'Successfully logged out']);
+        return $this->clearRefreshCookie($response);
     }
 
     /**
@@ -89,14 +123,14 @@ class AuthController extends Controller
     }
 
     /**
-     * Refresh a token.
+     * Refresh access token using httpOnly cookie. No Bearer token required.
      */
     public function refresh(): JsonResponse
     {
-        $token = $this->authService->refreshToken();
+        $accessToken = $this->authService->refreshTokenFromCookie();
 
         return response()->json([
-            'token' => $token,
+            'token' => $accessToken,
             'token_type' => 'bearer',
         ]);
     }
