@@ -4,8 +4,7 @@ import { useTheme } from '@mui/material/styles'
 import MenuIcon from '@mui/icons-material/Menu'
 import { Outlet } from 'react-router-dom'
 import RoleBottomNav from '../../components/global/roleBottomNav'
-import RoleMobileDrawer from '../../components/global/RoleMobileDrawer'
-
+import RoleMobileDrawer from '../../components/global/roleMobileDrawer'
 interface MobileLayoutProps {
   role?: 'customer' | 'chef'
 }

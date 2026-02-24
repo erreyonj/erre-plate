@@ -21,7 +21,7 @@ export function Login({ onSwitchToRegister }: LoginProps) {
     setError('')
     setIsLoading(true)
     try {
-      const user = await login(email, password)
+      await login(email, password)
       navigate('/dashboard', { replace: true })
     } catch (err: unknown) {
       const message =

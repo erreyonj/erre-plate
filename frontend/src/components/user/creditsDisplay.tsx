@@ -1,6 +1,6 @@
 import { Box, Typography } from '@mui/material'
 import { useTheme } from '@mui/material/styles'
-import { useAuth } from '../../contexts/AuthContext'
+// import { useAuth } from '../../contexts/AuthContext'
 
 interface CreditsDisplayProps {
   credits?: number
@@ -9,7 +9,7 @@ interface CreditsDisplayProps {
 export default function CreditsDisplay({ credits = 19 }: CreditsDisplayProps) {
   const theme = useTheme()
   // Get actual credits balance from user
-  const user = useAuth()
+  // const user = useAuth()
 
   return (
     <Box sx={{ display: 'flex', alignItems: 'baseline', gap: 1 }}>

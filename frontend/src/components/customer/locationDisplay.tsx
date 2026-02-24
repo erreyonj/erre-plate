@@ -1,4 +1,4 @@
-import { Box, colors, Icon, Typography } from '@mui/material'
+import { Box, Typography } from '@mui/material'
 import { LocationOn } from '@mui/icons-material'
 import { useTheme } from '@mui/material/styles'
 

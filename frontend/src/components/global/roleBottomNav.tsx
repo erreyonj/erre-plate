@@ -35,7 +35,6 @@ interface RoleBottomNavProps {
 
 export default function RoleBottomNav({ role, value, onChange }: RoleBottomNavProps) {
   const theme = useTheme()
-  const mode = theme.palette.mode
 
   return (
     <Paper
