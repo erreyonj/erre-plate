@@ -28,6 +28,7 @@ interface RefreshResponse {
 async function login(credentials: { email: string; password: string }) {
   const { data } = await api.post<LoginResponse>('/login', credentials);
   return data;
+  //
 }
 
 async function register(payload: {
