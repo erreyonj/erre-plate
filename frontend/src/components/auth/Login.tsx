@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useAuth } from '../../contexts/AuthContext'
+import { Typography } from '@mui/material'
 
 interface LoginProps {
   /** When provided, used instead of Link for switching to register */
@@ -20,7 +21,7 @@ export function Login({ onSwitchToRegister }: LoginProps) {
     setError('')
     setIsLoading(true)
     try {
-      await login(email, password)
+      const user = await login(email, password)
       navigate('/dashboard', { replace: true })
     } catch (err: unknown) {
       const message =
@@ -35,9 +36,9 @@ export function Login({ onSwitchToRegister }: LoginProps) {
 
   return (
     <div className="auth-card">
-      <h3 className="text-2xl sm:text-3xl font-semibold text-eplate-charcoal mb-10">
+      <Typography variant='h3' className="text-2xl sm:text-3xl font-semibold text-eplate-charcoal mb-10 font-">
         Welcome back
-      </h3>
+      </Typography>
       <p className="text-eplate-brown/80 text-sm sm:text-base mb-6">
         Sign in to your account
       </p>

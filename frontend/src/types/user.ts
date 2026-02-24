@@ -11,3 +11,14 @@ export interface User {
   address?: Record<string, unknown> | null;
   credit_balance?: number;
 }
+
+export type ChefCard = {
+  id: string
+  name: string
+  rating: number
+  reviews: number
+  priceFrom: number
+  availabilityLabel: string
+  availabilityTone: 'success' | 'warning'
+  liked?: boolean
+}

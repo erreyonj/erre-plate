@@ -1,8 +1,8 @@
-import { Navigate, useLocation } from 'react-router-dom';
+import { Navigate, Outlet, useLocation } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 
 interface ProtectedRouteProps {
-  children: React.ReactNode;
+  children?: React.ReactNode;
   /** If provided, user must have one of these roles. */
   allowedRoles?: Array<'customer' | 'chef' | 'admin'>;
   /** Where to redirect when unauthenticated. */
@@ -15,7 +15,7 @@ export function ProtectedRoute({
   children,
   allowedRoles,
   loginPath = '/login',
-  forbiddenPath = '/dashboard',
+  forbiddenPath = '/customer/dashboard',
 }: ProtectedRouteProps) {
   const { pathname } = useLocation();
   const { user, isAuthenticated, isLoading } = useAuth();
@@ -37,5 +37,9 @@ export function ProtectedRoute({
     return <Navigate to={forbiddenPath} replace />;
   }
 
-  return <>{children}</>;
+  if (children) {
+    return <>{children}</>;
+  }
+
+  return <Outlet />;
 }
