@@ -1,5 +1,5 @@
 import { Navigate, useLocation } from 'react-router-dom';
-import { useAuth } from '../context/AuthContext';
+import { useAuth } from '../contexts/AuthContext';
 
 interface ProtectedRouteProps {
   children: React.ReactNode;
@@ -15,7 +15,7 @@ export function ProtectedRoute({
   children,
   allowedRoles,
   loginPath = '/login',
-  forbiddenPath = '/',
+  forbiddenPath = '/dashboard',
 }: ProtectedRouteProps) {
   const { pathname } = useLocation();
   const { user, isAuthenticated, isLoading } = useAuth();

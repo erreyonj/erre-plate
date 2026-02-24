@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { useAuth } from '../../context/AuthContext'
+import { useAuth } from '../../contexts/AuthContext'
 
 interface RegisterProps {
   /** When provided, used instead of Link for switching to login */
