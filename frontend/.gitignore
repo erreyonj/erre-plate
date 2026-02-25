@@ -22,3 +22,7 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Build Docs and Structural Sketch docs
+Erre Plate Weekly Menu System V1.pdf
+

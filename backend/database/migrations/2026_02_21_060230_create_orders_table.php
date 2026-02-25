@@ -13,11 +13,46 @@ return new class extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained('users');
-            $table->foreignId('chef_profile_id')->constrained('chef_profiles');
-            $table->enum('status', ['pending', 'confirmed', 'preparing', 'ready', 'delivered', 'cancelled'])->default('pending');
-            $table->decimal('total', 10, 2)->default(0);
-            $table->jsonb('delivery_address')->nullable();
+        
+            // Who is ordering
+            $table->foreignId('customer_id')
+                ->constrained('users')
+                ->cascadeOnDelete();
+        
+            // Which chef fulfills it
+            $table->foreignId('chef_profile_id')
+                ->constrained('chef_profiles')
+                ->cascadeOnDelete();
+        
+            // Which menu bundle was purchased
+            $table->foreignId('weekly_menu_id')
+                ->constrained('weekly_menus')
+                ->restrictOnDelete();
+        
+            // Order workflow (8-state from project spec)
+            $table->enum('status', [
+                'pending',
+                'accepted',
+                'shopping',
+                'preparing',
+                'ready',
+                'delivered',
+                'completed',
+                'cancelled'
+            ])->default('pending');
+        
+            // Pricing snapshot
+            $table->decimal('bundle_price', 10, 2);
+            // V2 credit system to be integrated
+            // $table->decimal('credit_used', 10, 2)->default(0);
+            $table->decimal('cash_paid', 10, 2)->default(0);
+        
+            // Delivery info
+            $table->jsonb('delivery_address');
+        
+            // Optional: snapshot of menu at time of order
+            $table->jsonb('menu_snapshot')->nullable();
+        
             $table->timestamps();
         });
     }

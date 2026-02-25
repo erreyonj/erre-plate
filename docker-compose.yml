@@ -45,7 +45,7 @@ services:
 
   # React Frontend (dev server)
   frontend:
-    image: node:18-alpine
+    image: node:22-alpine
     container_name: errePlate_web
     working_dir: /app
     ports:
