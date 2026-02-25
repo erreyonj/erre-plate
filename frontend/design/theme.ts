@@ -62,6 +62,7 @@ export const themeSettings = (mode: PaletteMode) => {
         dark: eplateColors.brown,
         contrastText: eplateColors.charcoal,
       },
+      third: {main: eplateColors.terracotta},
       error: { main: eplateColors.error },
       warning: { main: eplateColors.warning },
       info: { main: eplateColors.info },

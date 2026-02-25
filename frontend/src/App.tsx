@@ -6,8 +6,9 @@ import Browse from './pages/customer/Browse'
 import MenuBuilder from './pages/chef/MenuBuilder'
 import Orders from './pages/customer/Orders'
 import Tickets from './pages/chef/Tickets'
-import CustomerProfile from './pages/customer/Profile'
-import ChefProfile from './pages/chef/Profile'
+import CustomerProfile from './pages/customer/CustomerProfile'
+import CustomerProfileEdit from './pages/customer/ProfileEdit'
+import ChefProfile from './pages/chef/ChefProfile'
 import CustomerLayout from './pages/layouts/CustomerLayout'
 import ChefLayout from './pages/layouts/ChefLayout'
 import { DashboardRedirect } from './routes/DashboardRedirect'
@@ -34,6 +35,7 @@ function App() {
           <Route path="dashboard" element={<Browse />} />
           <Route path="orders" element={<Orders />} />
           <Route path="profile" element={<CustomerProfile />} />
+          <Route path="profile/edit" element={<CustomerProfileEdit />} />
         </Route>
 
         {/* Chef routes with responsive layout */}

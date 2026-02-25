@@ -23,6 +23,18 @@ interface RefreshResponse {
   token_type: string;
 }
 
+interface UpdateProfilePayload {
+  first_name: string;
+  last_name: string;
+  phone?: string | null;
+  dietary_preferences?: string | null;
+  allergies?: string | null;
+}
+
+interface UpdateProfileResponse {
+  user: User;
+}
+
 // --- API calls ---
 
 async function login(credentials: { email: string; password: string }) {
@@ -70,6 +82,11 @@ async function restoreSession(): Promise<User | null> {
     clearAccessToken();
     return null;
   }
+}
+
+async function updateProfile(payload: UpdateProfilePayload): Promise<User> {
+  const { data } = await api.put<UpdateProfileResponse>('/customer/profile', payload);
+  return data.user;
 }
 
 // --- Hooks ---
@@ -141,6 +158,17 @@ export function useRefreshMutation() {
     mutationFn: refreshToken,
     onSuccess: (token) => {
       setAccessToken(token);
+    },
+  });
+}
+
+export function useUpdateProfileMutation() {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: updateProfile,
+    onSuccess: (user) => {
+      queryClient.setQueryData(queryKeys.auth.me(), user);
     },
   });
 }
