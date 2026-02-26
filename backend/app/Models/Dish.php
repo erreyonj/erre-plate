@@ -18,9 +18,9 @@ class Dish extends Model
         'chef_profile_id',
         'name',
         'description',
-        'category',
-        'base_price',
+        'meal_type',
         'prep_time_minutes',
+        'ingredients',
         'dietary_tags',
         'metadata',
         'is_active',
@@ -34,7 +34,7 @@ class Dish extends Model
     protected function casts(): array
     {
         return [
-            'base_price' => 'decimal:2',
+            'ingredients' => 'array',
             'dietary_tags' => 'array',
             'metadata' => 'array',
             'is_active' => 'boolean',

@@ -3,7 +3,7 @@ import './App.css'
 import { ProtectedRoute } from './routes/ProtectedRoute'
 import { Auth } from './pages/auth/Auth'
 import Browse from './pages/customer/Browse'
-import MenuBuilder from './pages/chef/MenuBuilder'
+import Menus from './pages/chef/Menus'
 import Orders from './pages/customer/Orders'
 import Tickets from './pages/chef/Tickets'
 import CustomerProfile from './pages/customer/CustomerProfile'
@@ -11,6 +11,8 @@ import CustomerProfileEdit from './pages/customer/ProfileEdit'
 import ChefProfile from './pages/chef/ChefProfile'
 import CustomerLayout from './pages/layouts/CustomerLayout'
 import ChefLayout from './pages/layouts/ChefLayout'
+import MenuBuilder from './pages/chef/MenuBuilder'
+import AllMenus from './pages/chef/AllMenus'
 import { DashboardRedirect } from './routes/DashboardRedirect'
 
 function App() {
@@ -47,7 +49,9 @@ function App() {
             </ProtectedRoute>
           }
         >
-          <Route path="dashboard" element={<MenuBuilder />} />
+          <Route path="dashboard" element={<Menus />} />
+          <Route path="menus/all" element={<AllMenus />} />
+          <Route path="menus/:menuId/edit" element={<MenuBuilder />} />
           <Route path="orders" element={<Tickets />} />
           <Route path="profile" element={<ChefProfile />} />
         </Route>

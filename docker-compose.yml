@@ -30,6 +30,7 @@ services:
     volumes:
       - ./backend:/var/www/html
     environment:
+      APP_KEY: base64:fZq2hAFTOCXB1EwNIQeOPPRm1RwTNLREeSUTqSpJY/k=
       DB_CONNECTION: pgsql
       DB_HOST: postgres
       DB_PORT: 5432

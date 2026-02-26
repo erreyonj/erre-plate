@@ -57,6 +57,19 @@ class WeeklyMenu extends Model
     }
 
     /**
+     * Alias for API / resources: assigned dishes with nested dish.
+     */
+    public function assignedDishes()
+    {
+        return $this->hasMany(WeeklyMenuDish::class);
+    }
+
+    public function chefProfile(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    {
+        return $this->belongsTo(ChefProfile::class, 'chef_profile_id');
+    }
+
+    /**
      * Boot the model and enforce domain constraints.
      */
     protected static function booted(): void
@@ -90,24 +103,6 @@ class WeeklyMenu extends Model
             // When locking a menu for the first time, set locked_at.
             if ($menu->isDirty('is_locked') && $menu->is_locked && $menu->locked_at === null) {
                 $menu->locked_at = Carbon::now();
-            }
-
-            // For full-scope menus that are being published, require at least one dish per meal type.
-            if ($menu->status === 'published' && $scope === 'full') {
-                $requiredTypes = ['breakfast', 'lunch', 'dinner'];
-
-                $typeCounts = $menu->weeklyMenuDishes()
-                    ->whereIn('meal_type', $requiredTypes)
-                    ->selectRaw('meal_type, COUNT(*) as count')
-                    ->groupBy('meal_type')
-                    ->pluck('count', 'meal_type')
-                    ->toArray();
-
-                foreach ($requiredTypes as $type) {
-                    if (! isset($typeCounts[$type]) || $typeCounts[$type] < 1) {
-                        throw new \RuntimeException('Full-scope menus must include at least one dish for each of breakfast, lunch, and dinner.');
-                    }
-                }
             }
         });
     }

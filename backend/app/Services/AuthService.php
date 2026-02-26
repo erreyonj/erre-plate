@@ -6,6 +6,7 @@ use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Tymon\JWTAuth\Facades\JWTAuth;
+use Illuminate\Support\Facades\DB;
 
 class AuthService
 {
@@ -13,17 +14,26 @@ class AuthService
 
     public function register(array $data): User
     {
-        $userData = [
-            'first_name' => $data['first_name'],
-            'last_name' => $data['last_name'],
-            'email' => $data['email'],
-            'password_hash' => Hash::make($data['password']),
-            'role' => $data['role'] ?? 'customer',
-            'phone' => $data['phone'] ?? null,
-            'address' => $data['address'] ?? null,
-        ];
+        return DB::transaction(function () use ($data) {
 
-        return User::create($userData);
+            $user = User::create([
+                'first_name' => $data['first_name'],
+                'last_name'  => $data['last_name'],
+                'email'      => $data['email'],
+                'password_hash'   => Hash::make($data['password']),
+                'role'       => $data['role'],
+                'phone'      => $data['phone'] ?? null,
+                'address'    => $data['address'] ?? null,
+            ]);
+    
+            if ($user->role === 'chef') {
+                $user->chefProfile()->create([
+                    // optionally default fields here
+                ]);
+            }
+    
+            return $user->load('chefProfile');
+        });
     }
 
     /**

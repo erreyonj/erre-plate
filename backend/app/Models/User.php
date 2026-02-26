@@ -82,4 +82,12 @@ class User extends Authenticatable implements JWTSubject
     {
         return trim("{$this->first_name} {$this->last_name}");
     }
+
+    /**
+     * Get the chef profile when user is a chef.
+     */
+    public function chefProfile(): \Illuminate\Database\Eloquent\Relations\HasOne
+    {
+        return $this->hasOne(ChefProfile::class);
+    }
 }
