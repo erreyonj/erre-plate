@@ -12,7 +12,8 @@ import { useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom'
 import { useAuth } from '../../contexts/AuthContext'
 import { useUpdateProfileMutation } from '../../hooks/useProfiles'
-import { useState } from 'react'
+import { useLoadScript, Autocomplete } from '@react-google-maps/api'
+import { useState, useRef } from 'react'
 import { eplateColors } from '../../../design/theme'
 import { queryKeys } from '../../services/queryKeys'
 
@@ -31,6 +32,13 @@ export default function CustomerProfileEdit() {
   const { user } = useAuth()
   const updateProfile = useUpdateProfileMutation()
   const [isInEditMode, setIsInEditMode] = useState(false)
+
+  const { isLoaded } = useLoadScript({
+    googleMapsApiKey: import.meta.env.VITE_GOOGLE_MAPS_KEY,
+    libraries: ['places'],
+  })
+
+  const autocompleteRef = useRef<google.maps.places.Autocomplete | null>(null)
 
   const {
     register,
@@ -97,7 +105,7 @@ export default function CustomerProfileEdit() {
               disabled={!isInEditMode}
             />
 
-            <Box
+            {/* <Box
               sx={{
                 mt: 2,
                 p: 1.5,
@@ -112,7 +120,19 @@ export default function CustomerProfileEdit() {
               <Typography variant="body2" sx={{ color: 'text.secondary' }}>
                 Address editing will be available soon once Google Places is wired up.
               </Typography>
-            </Box>
+            </Box> */}
+
+            {isLoaded && (
+              <Autocomplete
+              onLoad={(auto) => (autocompleteRef.current = auto)}
+              onPlaceChanged={() => {
+                const place = autocompleteRef.current?.getPlace()
+                console.log(place)
+              }}
+            >
+              <TextField fullWidth label="Address" />
+            </Autocomplete>
+            )}
 
             <TextField
               label="Dietary preferences"
