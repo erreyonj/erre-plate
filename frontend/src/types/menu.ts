@@ -38,6 +38,36 @@ export interface WeeklyMenu {
   assigned_dishes: AssignedDish[]
 }
 
+export interface WeeklyMenuSummary {
+  id: number
+  title: string
+  duration_days: number
+  menu_scope: MenuScope
+  required_meal_count: number
+  base_price: string | number
+  status: MenuStatus
+  created_at: string
+  updated_at: string
+}
+
+export interface WeeklyMenuDetail extends WeeklyMenuSummary {
+  description?: string | null
+  assigned_dishes?: Array<{
+    id: number
+    dish_id: number
+    meals_covered: number
+    meal_type: MealType
+    dish: {
+      id: number
+      name: string
+      description: string
+      meal_type: 'breakfast' | 'lunch' | 'dinner'
+      ingredients: unknown
+      dietary_tags: unknown
+    }
+  }>
+}
+
 export function calculateRequiredMealCount(durationDays: 5 | 7, scope: MenuScope): number {
   if (scope === 'full') {
     return durationDays * 3

@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom'
 import EplateButton from '../../components/global/EplateButton'
 import MenuCard from '../../components/chef/menu/MenuCard'
 import EmptyState from '../../components/chef/menu/EmptyState'
-import { useChefMenus, useCreateWeeklyMenu } from '../../hooks/menus'
+import { useChefMenus, useCreateWeeklyMenu } from '../../hooks/useMenus'
 
 export default function Menus() {
   const theme = useTheme()

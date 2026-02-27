@@ -12,9 +12,9 @@ import {
   usePublishWeeklyMenu,
   useUpdateWeeklyMenu,
   useWeeklyMenu,
-  type WeeklyMenuDetail,
-} from '../../hooks/menus'
-import { useChefDishes, useCreateDish } from '../../hooks/dishes'
+} from '../../hooks/useMenus'
+import type { WeeklyMenuDetail } from '../../types/menu'
+import { useChefDishes, useCreateDish } from '../../hooks/useDishes'
 import type { AssignedDish, Dish, Ingredient } from '../../types/menu'
 
 function mapAssignedDishesToUi(menu: WeeklyMenuDetail | undefined): AssignedDish[] {

@@ -1,6 +1,6 @@
 import { Card, CardContent, Chip, Stack, Typography, Box } from '@mui/material'
 import { useTheme } from '@mui/material/styles'
-import type { WeeklyMenuSummary } from '../../../hooks/menus'
+import type { WeeklyMenuSummary } from '../../../types/menu'
 import EplateButton from '../../global/EplateButton'
 
 interface MenuCardProps {

@@ -4,7 +4,8 @@ import { useTheme } from '@mui/material/styles'
 import { useNavigate } from 'react-router-dom'
 import MenuCard from '../../components/chef/menu/MenuCard'
 import EplateButton from '../../components/global/EplateButton'
-import { useChefMenus, type MenuStatus } from '../../hooks/menus'
+import { useChefMenus } from '../../hooks/useMenus'
+import type { MenuStatus } from '../../types/menu'
 
 const PAGE_SIZE = 10
 
