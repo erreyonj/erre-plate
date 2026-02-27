@@ -1,21 +1,45 @@
 import { api } from '../api';
+import type {
+  UpdateProfilePayload,
+  UpdateProfileResponse,
+  UpdateChefProfilePayload,
+  UpdateChefProfileResponse,
+  ChefProfile
+} from '../../types/profile';
+import type { User } from '../../types/user';
 
-export const fetchProfile = async () => {
-  const { data } = await api.get('/profile');
+/** Get base authenticated user */
+export const fetchProfile = async (): Promise<User> => {
+  const { data } = await api.get<User>('/profile');
   return data;
 };
 
-export const updateProfile = async (payload: any) => {
-  const { data } = await api.put('/profile', payload);
+/** Update base profile */
+export async function updateProfile(
+  payload: UpdateProfilePayload
+): Promise<User> {
+  const { data } = await api.put<UpdateProfileResponse>(
+    '/profile',
+    payload
+  );
+
+  return data.user;
+}
+
+/** Get chef extension profile */
+export const fetchChefProfile = async (): Promise<ChefProfile> => {
+  const { data } = await api.get<ChefProfile>('/profile/chef');
   return data;
 };
 
-export const fetchChefProfile = async () => {
-  const { data } = await api.get('/profile/chef');
-  return data;
-};
+/** Update chef extension profile */
+export const updateChefProfile = async (
+  payload: UpdateChefProfilePayload
+): Promise<ChefProfile> => {
+  const { data } = await api.put<UpdateChefProfileResponse>(
+    '/profile/chef',
+    payload
+  );
 
-export const updateChefProfile = async (payload: any) => {
-  const { data } = await api.put('/profile/chef', payload);
-  return data;
+  return data.chefProfile;
 };

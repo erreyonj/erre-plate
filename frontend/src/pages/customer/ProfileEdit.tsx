@@ -10,7 +10,7 @@ import { useTheme } from '@mui/material/styles'
 import { useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom'
 import { useAuth } from '../../contexts/AuthContext'
-import { useUpdateProfileMutation } from '../../services/queries/authQueries'
+import { useUpdateProfileMutation } from '../../hooks/useProfiles'
 import { useState } from 'react'
 import { eplateColors } from '../../../design/theme'
 

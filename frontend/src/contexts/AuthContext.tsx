@@ -18,7 +18,7 @@ import {
   useRegisterMutation,
   useLogoutMutation,
   useRefreshMutation,
-} from '../services/queries/authQueries';
+} from '../hooks/useAuthHooks';
 import type { User } from '../types/user';
 
 interface AuthContextValue {
