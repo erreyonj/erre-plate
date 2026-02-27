@@ -7,12 +7,14 @@ import {
   Typography,
 } from '@mui/material'
 import { useTheme } from '@mui/material/styles'
+import { useQueryClient } from '@tanstack/react-query'
 import { useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom'
 import { useAuth } from '../../contexts/AuthContext'
 import { useUpdateProfileMutation } from '../../hooks/useProfiles'
 import { useState } from 'react'
 import { eplateColors } from '../../../design/theme'
+import { queryKeys } from '../../services/queryKeys'
 
 type ProfileFormValues = {
   first_name: string
@@ -24,6 +26,7 @@ type ProfileFormValues = {
 
 export default function CustomerProfileEdit() {
   const theme = useTheme()
+  const queryClient = useQueryClient()
   const navigate = useNavigate()
   const { user } = useAuth()
   const updateProfile = useUpdateProfileMutation()
@@ -45,6 +48,7 @@ export default function CustomerProfileEdit() {
 
   const onSubmit = async (values: ProfileFormValues) => {
     await updateProfile.mutateAsync(values)
+    queryClient.invalidateQueries({queryKey: queryKeys.auth.me()})
     navigate('/customer/profile')
   }
 
