@@ -10,6 +10,7 @@ export interface User {
   phone?: string | null;
   address?: Record<string, unknown> | null;
   credit_balance?: number;
+  photo_url?: string | null;
 }
 
 export type ChefCard = {

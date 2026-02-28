@@ -6,6 +6,7 @@ export interface UpdateProfilePayload {
     phone?: string | null;
     dietary_preferences?: string | null;
     allergies?: string | null;
+    photo_url?: string | null;
   }
   
   export interface UpdateProfileResponse {

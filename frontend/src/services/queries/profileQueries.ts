@@ -26,6 +26,14 @@ export async function updateProfile(
   return data.user;
 }
 
+export async function uploadProfilePhoto(file: File) {
+  const formData = new FormData()
+  formData.append('photo', file)
+
+  const { data } = await api.post('/profile/photo', formData)
+  return data
+}
+
 /** Get chef extension profile */
 export const fetchChefProfile = async (): Promise<ChefProfile> => {
   const { data } = await api.get<ChefProfile>('/profile/chef');
