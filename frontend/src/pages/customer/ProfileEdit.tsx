@@ -6,6 +6,7 @@ import {
   TextField,
   Typography,
 } from '@mui/material'
+import { PhotoUpload } from '../../components/user/photoUpload'
 import { useTheme } from '@mui/material/styles'
 import { useQueryClient } from '@tanstack/react-query'
 import { useForm } from 'react-hook-form'
@@ -80,6 +81,9 @@ export default function CustomerProfileEdit() {
             sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}
           >
             <Box sx={{ display: 'flex', gap: 1.5 }}>
+
+              <PhotoUpload />
+
               <TextField
                 label="First name"
                 fullWidth
