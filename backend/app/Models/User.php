@@ -90,4 +90,13 @@ class User extends Authenticatable implements JWTSubject
     {
         return $this->hasOne(ChefProfile::class);
     }
+
+
+    /**
+     * Customer Orders relationship
+     */
+    public function orders()
+    {
+        return $this->hasMany(Order::class, 'customer_id');
+    }
 }

@@ -14,22 +14,18 @@ return new class extends Migration
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
         
-            // Who is ordering
             $table->foreignId('customer_id')
                 ->constrained('users')
                 ->cascadeOnDelete();
         
-            // Which chef fulfills it
             $table->foreignId('chef_profile_id')
                 ->constrained('chef_profiles')
                 ->cascadeOnDelete();
         
-            // Which menu bundle was purchased
             $table->foreignId('weekly_menu_id')
                 ->constrained('weekly_menus')
                 ->restrictOnDelete();
         
-            // Order workflow (8-state from project spec)
             $table->enum('status', [
                 'pending',
                 'accepted',
@@ -41,19 +37,20 @@ return new class extends Migration
                 'cancelled'
             ])->default('pending');
         
-            // Pricing snapshot
             $table->decimal('bundle_price', 10, 2);
-            // V2 credit system to be integrated
-            // $table->decimal('credit_used', 10, 2)->default(0);
             $table->decimal('cash_paid', 10, 2)->default(0);
         
-            // Delivery info
             $table->jsonb('delivery_address');
-        
-            // Optional: snapshot of menu at time of order
             $table->jsonb('menu_snapshot')->nullable();
         
+            $table->date('delivery_date');
+        
+            // Optional future-proofing
+            // $table->timestamp('cutoff_at')->nullable();
+        
             $table->timestamps();
+        
+            $table->index(['chef_profile_id', 'delivery_date']);
         });
     }
 

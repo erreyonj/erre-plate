@@ -5,30 +5,41 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use App\Services\ChefAvailabilityService;
 
 class ChefProfile extends Model
 {
     protected $table = 'chef_profiles';
 
+    protected $appends = ['is_available'];
+
     protected $fillable = [
-        'user_id',
         'bio',
         'specialties',
         'hourly_rate',
-        'rating_average',
-        'rating_count',
-        'max_orders_per_week',
-        'availability',
-        'status',
+        'max_orders_per_cycle',
+        'is_paused',
+        'delivery_day',
+        'cutoff_day',
+        'cutoff_time',
     ];
+
+    public function getIsAvailableAttribute(): bool
+    {
+        return app(ChefAvailabilityService::class)
+            ->isChefAvailable($this);
+    }
 
     protected function casts(): array
     {
         return [
             'specialties' => 'array',
-            'availability' => 'array',
             'hourly_rate' => 'decimal:2',
             'rating_average' => 'decimal:2',
+            'is_paused' => 'boolean',
+            'delivery_day' => 'integer',
+            'cutoff_day' => 'integer',
+            'cutoff_time' => 'datetime:H:i',
         ];
     }
 
@@ -45,5 +56,10 @@ class ChefProfile extends Model
     public function dishes(): HasMany
     {
         return $this->hasMany(Dish::class, 'chef_profile_id');
+    }
+
+    public function orders(): HasMany
+    {
+        return $this->hasMany(Order::class, 'chef_profile_id');
     }
 }
