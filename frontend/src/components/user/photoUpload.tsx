@@ -1,9 +1,12 @@
+import { Box, Typography, useTheme } from "@mui/material";
 import { useAuth } from "../../contexts/AuthContext";
 import { useUploadProfilePhoto } from "../../hooks/useProfiles";
+import defaultAvatar from "/erre.Plate-default-avatar.1.png"
 
 export function PhotoUpload() {
   const { user } = useAuth()
   const { mutateAsync, isPending } = useUploadProfilePhoto()
+  const theme = useTheme()
 
   const handleUpload = async (
     e: React.ChangeEvent<HTMLInputElement>
@@ -31,9 +34,9 @@ export function PhotoUpload() {
   }
 
   return (
-    <div className="flex items-center space-x-4">
+    <Box className="flex flex-col gap-3 items-center space-x-4 w-full">
       <img
-        src={user?.photo_url || '/default-avatar.png'}
+        src={user?.photo_url || defaultAvatar}
         alt="Profile"
         className="w-20 h-20 rounded-full object-cover"
       />
@@ -45,10 +48,10 @@ export function PhotoUpload() {
           className="hidden"
           disabled={isPending}
         />
-        <span className="px-4 py-2 bg-blue-600 text-white rounded-md">
-          {isPending ? 'Uploading...' : 'Change Photo'}
-        </span>
+        <Typography className="px-4 py-2 text-white rounded-md" sx={{bgcolor: theme.palette.primary.main}}>
+          {isPending ? 'Uploading...' : user?.photo_url ? 'Change Photo' : 'Upload Photo'}
+        </Typography>
       </label>
-    </div>
+    </Box>
   )
 }

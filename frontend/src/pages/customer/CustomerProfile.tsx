@@ -89,6 +89,7 @@ export default function CustomerProfile() {
           }}
         >
           <Avatar
+            src={user?.photo_url || ''}
             sx={{
               width: 72,
               height: 72,

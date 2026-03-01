@@ -12,6 +12,10 @@ Route::get('/test', function() {
     ]);
 });
 
+Route::get('/phpinfo-test', function () {
+    phpinfo();
+});
+
 Route::get('/health', function() {
     try {
         DB::connection()->getPdo();

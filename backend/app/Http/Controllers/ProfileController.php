@@ -14,6 +14,12 @@ class ProfileController extends Controller
 
     public function update(Request $request)
     {
+        dd(
+            $request->all(),
+            $request->hasFile('photo'),
+            $request->file('photo')
+        );
+
         $validated = $request->validate([
             'first_name' => 'string|max:255',
             'last_name' => 'string|max:255',

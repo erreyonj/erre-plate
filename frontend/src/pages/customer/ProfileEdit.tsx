@@ -80,10 +80,10 @@ export default function CustomerProfileEdit() {
             onSubmit={handleSubmit(onSubmit)}
             sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}
           >
+
+            <PhotoUpload />
+            
             <Box sx={{ display: 'flex', gap: 1.5 }}>
-
-              <PhotoUpload />
-
               <TextField
                 label="First name"
                 fullWidth

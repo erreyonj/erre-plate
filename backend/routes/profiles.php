@@ -21,3 +21,7 @@ Route::middleware(['auth:api', 'role:chef'])->group(function () {
     Route::get('/profile/chef', [ChefProfileController::class, 'show']);
     Route::put('/profile/chef', [ChefProfileController::class, 'update']);
 });
+
+Route::middleware(['auth:api'])->group(function(){
+    Route::post('/profile/photo', [ProfileController::class, 'uploadPhoto']);
+});
