@@ -14,16 +14,20 @@ class ProfileController extends Controller
 
     public function update(Request $request)
     {
-        dd(
-            $request->all(),
-            $request->hasFile('photo'),
-            $request->file('photo')
-        );
-
         $validated = $request->validate([
             'first_name' => 'string|max:255',
             'last_name' => 'string|max:255',
             'phone' => 'nullable|string|max:20',
+            'dietary_preferences' => 'nullable|string|max:255',
+            'allergies' => 'nullable|string|max:255',
+            'address' => 'nullable|array',
+            'address.street' => 'nullable|string|max:255',
+            'address.city' => 'nullable|string|max:255',
+            'address.state' => 'nullable|string|max:255',
+            'address.zip' => 'nullable|string|max:20',
+            'address.country' => 'nullable|string|max:255',
+            'address.lat' => 'nullable|numeric',
+            'address.lng' => 'nullable|numeric',
         ]);
 
         $request->user()->update($validated);
