@@ -32,6 +32,7 @@ class ChefProfileController extends Controller
             'bio' => 'nullable|string|max:5000',
             'slug' => 'nullable|string|max:255',
             'tagline' => 'nullable|string|max:100',
+            'credit_balance' => 'nullable|numeric|min:0|max:10000',
             'specialties' => 'nullable|array',
             'specialties.*' => 'string|max:100',
             'hourly_rate' => 'nullable|numeric|min:0|max:10000',

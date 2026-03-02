@@ -34,6 +34,7 @@ export interface UpdateProfilePayload {
     slug?: string | null,
     tagline?: string | null,
     specialties: string[] | null
+    credit_balance: string // decimal comes back as string
   
     hourly_rate: string // decimal comes back as string
     max_orders_per_cycle: number

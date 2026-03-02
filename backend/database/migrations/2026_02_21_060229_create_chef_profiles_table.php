@@ -21,6 +21,7 @@ return new class extends Migration
             $table->text('tagline')->nullable();
             $table->text('bio')->nullable();
             $table->jsonb('specialties')->nullable();
+            $table->decimal('credit_balance', 10, 2)->default(0);
             $table->decimal('hourly_rate', 10, 2)->default(0);
             $table->integer('max_orders_per_cycle')->default(3);
             $table->boolean('is_paused')->default(false);
