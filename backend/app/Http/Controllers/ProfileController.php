@@ -4,12 +4,37 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Cloudinary\Cloudinary;
+use App\Models\ChefProfile;
 
 class ProfileController extends Controller
 {
     public function show(Request $request)
     {
         return response()->json($request->user());
+    }
+
+    public function showPublic(string $id)
+    {
+        $chef = ChefProfile::with('user')
+            ->where('is_paused', false)
+            ->find($id);
+
+        if (!$chef) {
+            return response()->json(['message' => 'Chef not found'], 404);
+        }
+
+        return response()->json($chef);
+    }
+
+    public function index(Request $request)
+    {
+        $chefs = ChefProfile::with('user')
+            // Optional filters:
+            // ->where('is_paused', false)
+            ->latest()
+            ->paginate(20);
+
+        return response()->json($chefs);
     }
 
     public function update(Request $request)

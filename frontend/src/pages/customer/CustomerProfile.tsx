@@ -8,6 +8,7 @@ import {
   Divider,
   IconButton,
   Stack,
+  Tooltip,
   Typography,
 } from '@mui/material'
 import { useTheme } from '@mui/material/styles'
@@ -19,6 +20,7 @@ import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos'
 import { useNavigate } from 'react-router-dom'
 import type { User } from '../../types/user'
 import { useAuth } from '../../contexts/AuthContext'
+import LocaleButton from '../../components/global/localeButton'
 
 function getDisplayName(user: User | null | undefined) {
   if (!user) return 'Guest'
@@ -35,7 +37,7 @@ export default function CustomerProfile() {
 
   // Placeholder stats until wired to real data
   const savedChefs = 0
-  const totalMealsPrepped = 0
+  const totalMealsEnjoyed = 0
   const hasDietaryPreferences = false
 
   const hasRecentOrder = false
@@ -109,7 +111,13 @@ export default function CustomerProfile() {
             >
               {displayName}
             </Typography>
-            <Typography
+
+
+            {user?.address?.city ?? (
+                <LocaleButton />
+            )}
+
+            {/* <Typography
               variant="body2"
               sx={{ color: 'text.secondary' }}
               noWrap
@@ -120,7 +128,7 @@ export default function CustomerProfile() {
               <Typography variant="body2" sx={{ color: 'text.secondary' }} noWrap>
                 {user.phone}
               </Typography>
-            )}
+            )} */}
             {typeof user?.credit_balance === 'number' && (
               <Chip
                 size="small"
@@ -225,10 +233,10 @@ export default function CustomerProfile() {
               </Box>
               <Box sx={{ minWidth: 0 }}>
                 <Typography variant="caption" sx={{ textTransform: 'uppercase', letterSpacing: 0.5 }}>
-                  Meals prepped
+                  Meals Enjoyed
                 </Typography>
                 <Typography variant="body2" sx={{ fontWeight: 700 }}>
-                  {totalMealsPrepped}
+                  {totalMealsEnjoyed}
                 </Typography>
               </Box>
             </Box>

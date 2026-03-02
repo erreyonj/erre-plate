@@ -11,6 +11,7 @@ interface MobileLayoutProps {
 
 export default function MobileLayout({ role = 'customer' }: MobileLayoutProps) {
   const theme = useTheme()
+  const mode = theme.palette.mode
   const [nav, setNav] = useState<string>('home')
   const [isDrawerOpen, setIsDrawerOpen] = useState(false)
 
@@ -27,7 +28,7 @@ export default function MobileLayout({ role = 'customer' }: MobileLayoutProps) {
         }}
       >
         <Toolbar sx={{ minHeight: 64, display: 'flex', justifyContent: 'space-between' }}>
-          <Typography
+          {/* <Typography
             component="div"
             sx={{
               fontWeight: 900,
@@ -38,7 +39,12 @@ export default function MobileLayout({ role = 'customer' }: MobileLayoutProps) {
             }}
           >
             airplate
-          </Typography>
+          </Typography> */}
+          <img
+            src={mode === 'light' ? '/errePlate.iconography.landscape3 /logo-black.png' : '/errePlate.iconography.landscape3 /logo-gray.png'} 
+            alt='AIRPLATE LOGO'
+            className='w-36'
+          />
           <IconButton
             aria-label="Open menu"
             edge="end"
@@ -50,7 +56,7 @@ export default function MobileLayout({ role = 'customer' }: MobileLayoutProps) {
         </Toolbar>
       </AppBar>
 
-      <Box id="PAGE_CONTENT" sx={{ px: 2, pt: 2, pb: 14 }}>
+      <Box id="PAGE_CONTENT" sx={{ px: .5, pt: 2, pb: 14 }}>
         <Outlet />
       </Box>
 

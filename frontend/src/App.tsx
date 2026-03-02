@@ -7,7 +7,7 @@ import Menus from './pages/chef/Menus'
 import Orders from './pages/customer/Orders'
 import Tickets from './pages/chef/Tickets'
 import CustomerProfile from './pages/customer/CustomerProfile'
-import CustomerProfileEdit from './pages/customer/ProfileEdit'
+import ProfileEdit from './pages/profile/ProfileEdit'
 import ChefProfile from './pages/chef/ChefProfile'
 import CustomerLayout from './pages/layouts/CustomerLayout'
 import ChefLayout from './pages/layouts/ChefLayout'
@@ -37,7 +37,7 @@ function App() {
           <Route path="dashboard" element={<Browse />} />
           <Route path="orders" element={<Orders />} />
           <Route path="profile" element={<CustomerProfile />} />
-          <Route path="profile/edit" element={<CustomerProfileEdit />} />
+          <Route path="profile/edit" element={<ProfileEdit />} />
         </Route>
 
         {/* Chef routes with responsive layout */}
@@ -54,6 +54,7 @@ function App() {
           <Route path="menus/:menuId/edit" element={<MenuBuilder />} />
           <Route path="orders" element={<Tickets />} />
           <Route path="profile" element={<ChefProfile />} />
+          <Route path="profile/edit" element={<ProfileEdit />} />
         </Route>
       </Route>
 

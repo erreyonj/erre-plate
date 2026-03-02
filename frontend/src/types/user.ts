@@ -8,7 +8,15 @@ export interface User {
   email: string;
   role: UserRole;
   phone?: string | null;
-  address?: Record<string, unknown> | null;
+  address?: {
+    street?: string
+    city?: string
+    state?: string
+    zip?: string
+    country?: string
+    lat?: number
+    lng?: number
+  }
   credit_balance?: number;
   photo_url?: string | null;
 }
@@ -22,4 +30,16 @@ export type ChefCard = {
   availabilityLabel: string
   availabilityTone: 'success' | 'warning'
   liked?: boolean
+}
+
+export type ExtractedAddress = {
+  address: {
+    street?: string
+    city?: string
+    state?: string
+    zip?: string
+    country?: string
+    lat?: number
+    lng?: number
+  }
 }

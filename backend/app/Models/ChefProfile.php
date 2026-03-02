@@ -15,6 +15,8 @@ class ChefProfile extends Model
 
     protected $fillable = [
         'bio',
+        'slug',
+        'tagline',
         'specialties',
         'hourly_rate',
         'max_orders_per_cycle',
@@ -33,6 +35,7 @@ class ChefProfile extends Model
     protected function casts(): array
     {
         return [
+            'tagline' => 'string',
             'specialties' => 'array',
             'hourly_rate' => 'decimal:2',
             'rating_average' => 'decimal:2',

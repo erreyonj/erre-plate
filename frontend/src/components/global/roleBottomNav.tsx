@@ -38,7 +38,7 @@ export default function RoleBottomNav({ role, value, onChange }: RoleBottomNavPr
 
   return (
     <Paper
-      elevation={6}
+      elevation={20}
       sx={{
         position: 'fixed',
         left: 16,
@@ -55,7 +55,7 @@ export default function RoleBottomNav({ role, value, onChange }: RoleBottomNavPr
         showLabels={false}
         sx={{
           height: 64,
-          bgcolor: 'transparent',
+          bgcolor: theme.palette.primary.main,
           '& .MuiBottomNavigationAction-root': {
             minWidth: 0,
             color: 'rgba(255,255,255,0.9)',

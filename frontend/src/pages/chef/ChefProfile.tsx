@@ -29,6 +29,7 @@ function getDisplayName(user: User | null | undefined) {
 export default function ChefProfile() {
   const theme = useTheme()
   const { user } = useAuth()
+  const isChef = user?.role === 'chef'
   const navigate = useNavigate()
 
   const displayName = getDisplayName(user)
@@ -151,6 +152,7 @@ export default function ChefProfile() {
               whiteSpace: 'nowrap',
               alignSelf: 'flex-start',
             }}
+            onClick={() => navigate(isChef ? '/chef/profile/edit' :'/customer/profile/edit', {replace: true})}
           >
             Edit profile
           </Button>
