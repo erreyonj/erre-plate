@@ -26,6 +26,7 @@ class User extends Authenticatable implements JWTSubject
         'role',
         'phone',
         'address',
+        'neighborhood_id',
         'credit_balance',
     ];
 
@@ -47,7 +48,8 @@ class User extends Authenticatable implements JWTSubject
     {
         return [
             'address' => 'array',
-            'credit_balance' => 'decimal:2',
+            'neighborhood_id' => 'integer',
+            // 'credit_balance' => 'decimal:2',
         ];
     }
 
@@ -98,5 +100,10 @@ class User extends Authenticatable implements JWTSubject
     public function orders()
     {
         return $this->hasMany(Order::class, 'customer_id');
+    }
+
+    public function neighborhood()
+    {
+        return $this->belongsTo(Neighborhood::class, 'neighborhood_id');
     }
 }

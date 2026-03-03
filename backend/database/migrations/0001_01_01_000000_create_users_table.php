@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('last_name')->nullable();
             $table->string('phone')->nullable();
             $table->jsonb('address')->nullable();
-            $table->decimal('credit_balance', 10, 2)->default(0);
+            $table->foreignId('neighborhood_id')->nullable()->constrained('neighborhoods');
             $table->timestamps();
         });
 

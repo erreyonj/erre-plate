@@ -25,6 +25,7 @@ class ChefProfile extends Model
         'delivery_day',
         'cutoff_day',
         'cutoff_time',
+        'neighborhood_id',
     ];
 
     public function getIsAvailableAttribute(): bool
@@ -45,6 +46,7 @@ class ChefProfile extends Model
             'delivery_day' => 'integer',
             'cutoff_day' => 'integer',
             'cutoff_time' => 'datetime:H:i',
+            'neighborhood_id' => 'integer',
         ];
     }
 
@@ -66,5 +68,10 @@ class ChefProfile extends Model
     public function orders(): HasMany
     {
         return $this->hasMany(Order::class, 'chef_profile_id');
+    }
+
+    public function neighborhood()
+    {
+        return $this->belongsTo(Neighborhood::class, 'neighborhood_id');
     }
 }

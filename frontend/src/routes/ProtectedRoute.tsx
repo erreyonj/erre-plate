@@ -15,7 +15,7 @@ export function ProtectedRoute({
   children,
   allowedRoles,
   loginPath = '/login',
-  forbiddenPath = '/customer/dashboard',
+  forbiddenPath = '/login',
 }: ProtectedRouteProps) {
   const { pathname } = useLocation();
   const { user, isAuthenticated, isLoading } = useAuth();

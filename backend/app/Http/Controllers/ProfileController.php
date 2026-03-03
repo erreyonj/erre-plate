@@ -13,28 +13,51 @@ class ProfileController extends Controller
         return response()->json($request->user());
     }
 
-    public function showPublic(string $id)
+    public function showPublicChef(string $slug)
     {
-        $chef = ChefProfile::with('user')
+        $chefProfile = ChefProfile::with('user')
+            ->where('status', 'approved')
             ->where('is_paused', false)
-            ->find($id);
+            ->where('slug', $slug)
+            ->first();
 
-        if (!$chef) {
-            return response()->json(['message' => 'Chef not found'], 404);
+        if (!$chefProfile) {
+            return response()->json(['message' => 'Chef profile not found'], 404);
         }
 
-        return response()->json($chef);
+        return response()->json($chefProfile);
     }
 
     public function index(Request $request)
     {
-        $chefs = ChefProfile::with('user')
-            // Optional filters:
-            // ->where('is_paused', false)
-            ->latest()
-            ->paginate(20);
+        $neighborhoodId = $request->query('neighborhood');
+        $chefsQuery = ChefProfile::with('user')
+        ->where('status', 'approved')
+        // ->where('is_available', true)
+        ->when($neighborhoodId, function ($query) use ($neighborhoodId) {
+            $query->whereHas('user', function ($q) use ($neighborhoodId) {
+                $q->where('neighborhood_id', $neighborhoodId);
+            });
+        })
+        ->get();
 
-        return response()->json($chefs);
+        return response()->json($chefsQuery);
+    }
+
+    public function indexByNeighborhood(Request $request)
+    {
+        $neighborhoodId = $request->query('neighborhood');
+        $chefsQuery = ChefProfile::with('user')
+        ->where('status', 'approved')
+        // ->where('is_available', true)
+        ->when($neighborhoodId, function ($query) use ($neighborhoodId) {
+            $query->whereHas('user', function ($q) use ($neighborhoodId) {
+                $q->where('neighborhood_id', $neighborhoodId);
+            });
+        })
+        ->get();
+
+        return response()->json($chefsQuery->latest()->paginate(20));
     }
 
     public function update(Request $request)

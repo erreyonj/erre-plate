@@ -29,12 +29,12 @@ function App() {
         <Route
           path="/customer"
           element={
-            <ProtectedRoute allowedRoles={['customer']}>
+            <ProtectedRoute allowedRoles={['customer']} forbiddenPath="/customer/browse">
               <CustomerLayout />
             </ProtectedRoute>
           }
         >
-          <Route path="dashboard" element={<Browse />} />
+          <Route path="browse" element={<Browse />} />
           <Route path="orders" element={<Orders />} />
           <Route path="profile" element={<CustomerProfile />} />
           <Route path="profile/edit" element={<ProfileEdit />} />
@@ -44,7 +44,7 @@ function App() {
         <Route
           path="/chef"
           element={
-            <ProtectedRoute allowedRoles={['chef']}>
+            <ProtectedRoute allowedRoles={['chef']} forbiddenPath="/chef/dashboard">
               <ChefLayout />
             </ProtectedRoute>
           }

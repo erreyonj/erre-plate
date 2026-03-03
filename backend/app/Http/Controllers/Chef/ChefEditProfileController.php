@@ -7,7 +7,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Validation\Rules\Enum;
 use App\Enums\Weekday;
 
-class ChefProfileController extends Controller
+class ChefEditProfileController extends Controller
 {
     public function me(Request $request)
     {

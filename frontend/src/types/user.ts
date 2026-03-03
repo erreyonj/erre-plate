@@ -8,6 +8,7 @@ export interface User {
   email: string;
   role: UserRole;
   phone?: string | null;
+  neighborhood_id?: number | null;
   address?: {
     street?: string
     city?: string

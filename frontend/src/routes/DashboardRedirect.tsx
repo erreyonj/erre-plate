@@ -4,7 +4,7 @@ import { Navigate } from "react-router-dom"
 function getDashboardPath(role: string): string {
   switch (role) {
     case 'customer':
-      return '/customer/dashboard'
+      return '/customer/browse'
     case 'chef':
       return '/chef/dashboard'
     case 'admin':

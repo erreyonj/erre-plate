@@ -2,18 +2,21 @@ import LocationOnIcon from '@mui/icons-material/LocationOn';
 import { Link as RouterLink } from 'react-router-dom';
 import { Chip, useTheme } from '@mui/material';
 import { useAuth } from '../../contexts/AuthContext'
+import { neighborhoodNameByID } from '../../utils/neighborhoodByID';
 
 
 
 export default function LocaleButton() {
     const { user } = useAuth();
     const theme = useTheme();
-    const city = user?.address?.city
-    if (!city) return (
+    // const neighborhood = useFetchNeighborhood()
+    const neighborhoodID = user?.neighborhood_id
+    const role = user?.role
+    if (!neighborhoodID) return (
         <Chip
-            label="Add location"
+            label="Add location for Chefs near you"
             component={RouterLink}
-            to="/profile/edit"
+            to={`/${role}/profile/edit`}
             clickable
             size="small"
             variant="outlined"
@@ -25,9 +28,9 @@ export default function LocaleButton() {
     return (
         <Chip
             icon={<LocationOnIcon sx={{ fontSize: 16 }} />}
-            label={city}
+            label={neighborhoodNameByID(neighborhoodID) || 'Madison, WI'}
             component={RouterLink}
-            to={`/browse?city=${encodeURIComponent(city)}`}
+            to={`/browse?neighborhood=${encodeURIComponent(neighborhoodID)}`}
             clickable
             size="small"
             variant="outlined"
