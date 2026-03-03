@@ -21,7 +21,7 @@ export default function BrowseCard({ chef, liked = false }: BrowseCardProps) {
     chef.status === 'approved' && !chef.is_paused
 
   const availabilityLabel = isAvailable
-    ? `Available • Order by ${chef.cutoff_day}`
+    ? `Available • Order by ${chef.cutoff_day.slice(0,3)}`
     : 'Currently Unavailable'
 
   const availabilityTone = isAvailable ? 'success' : 'warning'

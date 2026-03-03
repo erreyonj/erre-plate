@@ -1,31 +1,43 @@
 import { Box, Grid, Typography } from '@mui/material'
-import type { ChefCard } from '../../types/user'
 import BrowseCard from './browseCard'
 import type { ChefProfile } from '../../types/profile'
 import EmptyChefGrid from './EmptyChefGrid'
+import { useNavigate } from 'react-router-dom'
 
 type ChefGridProps = {
   chefs: ChefProfile[]
   isLoading: boolean,
-  emptyMessage?: string
+  emptyMessage?: string,
+  neighborhood?: number | null,
+  setNeighborhood: (id: number | null) => void
 }
 
 export default function ChefGrid({
   chefs,
+  neighborhood,
+  setNeighborhood
 }: ChefGridProps) {
+    const navigate = useNavigate()
+
   if (!chefs || chefs.length === 0) {
     return (
-        <EmptyChefGrid hasNeighborhood={true} />
+        <EmptyChefGrid 
+            hasNeighborhood={!!neighborhood} 
+            onBrowseAll={() => setNeighborhood(null)}
+            onUpdateProfile={() => navigate('/customer/profile/edit')}
+        />
     )
   }
 
   return (
-    <Grid container spacing={2}>
-      {chefs.map((chef) => (
-        <Grid xs={12} sm={6} md={4} lg={3} key={chef.id}>
-          <BrowseCard chef={chef} />
+    <Box className={`h-full`}>
+        <Grid container spacing={2}>
+        {chefs.map((chef) => (
+            <Grid xs={12} sm={6} md={4} lg={3} key={chef.id} className={`last:mb-36`}>
+            <BrowseCard chef={chef} />
+            </Grid>
+        ))}
         </Grid>
-      ))}
-    </Grid>
+    </Box>
   )
 }

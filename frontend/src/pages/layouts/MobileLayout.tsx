@@ -16,9 +16,9 @@ export default function MobileLayout({ role = 'customer' }: MobileLayoutProps) {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false)
 
   return (
-    <Box id="MOBILE_LAYOUT" sx={{ minHeight: '100vh', width: '100%', bgcolor: theme.palette.background.default }}>
+    <Box id="MOBILE_LAYOUT" className={`flex flex-col`} sx={{ height: '100vh', width: '100%', bgcolor: theme.palette.background.default }}>
       <AppBar
-        position="sticky"
+        position="fixed"
         elevation={2}
         sx={{
           bgcolor: theme.palette.background.default,
@@ -56,7 +56,7 @@ export default function MobileLayout({ role = 'customer' }: MobileLayoutProps) {
         </Toolbar>
       </AppBar>
 
-      <Box id="PAGE_CONTENT" sx={{ px: .5, pt: 2, pb: 14 }}>
+      <Box id="PAGE_CONTENT" className={`mt-[66px]`} sx={{ display:'flex', flexDirection:'column', flex:1, overflowY:'auto', px: .5, pb: 14 }}>
         <Outlet />
       </Box>
 

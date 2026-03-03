@@ -25,6 +25,9 @@ export default function LocaleButton() {
         />
     )
 
+    console.log(neighborhoodNameByID(neighborhoodID));
+    
+
 
     return (
         <Chip

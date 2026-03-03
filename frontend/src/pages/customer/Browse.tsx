@@ -11,7 +11,7 @@ import type { ChefCard } from '../../types/user'
 export default function Browse() {
   const theme = useTheme()
   const mode = theme.palette.mode
-  const { neighborhood } = useBrowseFilters()
+  const { neighborhood, setNeighborhood } = useBrowseFilters()
 
   const { data, isLoading } = useBrowseChefsQuery(neighborhood)
 
@@ -25,7 +25,7 @@ export default function Browse() {
     <>
       <BrowseHeader />
 
-      <ChefGrid chefs={data ?? []} isLoading={isLoading} />
+      <ChefGrid chefs={data ?? []} isLoading={isLoading} neighborhood={neighborhood} setNeighborhood={setNeighborhood} />
 
       {/* <Box className="flex justify-center items-center h-8 rounded-md mb-2" sx={{bgcolor: mode === 'light' ? "#e8e9e4" : theme.palette.background.paper}}>
         <Typography variant="body2" className="w-full text-center" sx={{color: theme.palette.text.primary}}>
