@@ -49,10 +49,10 @@ class CustomerSeeder extends Seeder
                     'first_name' => $name[0],
                     'last_name' => $name[1],
                     'email' => strtolower($name[0] . '.' . $name[1] . '@erreplate.test'),
-                    'password' => Hash::make('password'),
+                    'password_hash' => Hash::make('password'),
                     'role' => 'customer',
                     'phone' => $faker->phoneNumber,
-                    'credit_balance' => $creditBalance,
+                    // 'credit_balance' => $creditBalance,
                     'neighborhood_id' => $neighborhood->id,
                     'address' => [
                         'street' => $faker->streetAddress,

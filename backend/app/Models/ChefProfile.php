@@ -43,9 +43,9 @@ class ChefProfile extends Model
             'credit_balance' => 'decimal:2',
             'rating_average' => 'decimal:2',
             'is_paused' => 'boolean',
-            'delivery_day' => 'integer',
-            'cutoff_day' => 'integer',
-            'cutoff_time' => 'datetime:H:i',
+            // 'delivery_day' => 'integer',
+            // 'cutoff_day' => 'integer',
+            'cutoff_time' => 'string',
             'neighborhood_id' => 'integer',
         ];
     }

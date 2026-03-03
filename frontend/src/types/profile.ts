@@ -6,6 +6,7 @@ export interface UpdateProfilePayload {
     phone?: string | null;
     dietary_preferences?: string | null;
     allergies?: string | null;
+    role: 'customer' | 'chef';
     // photo_url?: string | null;
     address: {
       street?: string
@@ -51,6 +52,7 @@ export interface UpdateProfilePayload {
   
     created_at: string
     updated_at: string
+    user?: User
   }
 
   // Should  we add PublicChefProfile here?

@@ -27,7 +27,9 @@ class User extends Authenticatable implements JWTSubject
         'phone',
         'address',
         'neighborhood_id',
-        'credit_balance',
+        'dietary_preferences',
+        'allergies',
+        // 'credit_balance',
     ];
 
     /**
@@ -49,6 +51,8 @@ class User extends Authenticatable implements JWTSubject
         return [
             'address' => 'array',
             'neighborhood_id' => 'integer',
+            'dietary_preferences' => 'array',
+            'allergies' => 'array',
             // 'credit_balance' => 'decimal:2',
         ];
     }

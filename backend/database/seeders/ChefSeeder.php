@@ -8,6 +8,7 @@ use App\Models\Neighborhood;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 use Faker\Factory as Faker;
 
 class ChefSeeder extends Seeder
@@ -60,10 +61,9 @@ class ChefSeeder extends Seeder
                     'first_name' => $name[0],
                     'last_name' => $name[1],
                     'email' => strtolower($name[0] . '.' . $name[1] . '@erreplate.test'),
-                    'password' => Hash::make('password'),
+                    'password_hash' => Hash::make('password'),
                     'role' => 'chef',
                     'phone' => $faker->phoneNumber,
-                    'credit_balance' => rand(50, 300),
                     'neighborhood_id' => $neighborhood->id,
                     'address' => [
                         'street' => $faker->streetAddress,
@@ -93,12 +93,15 @@ class ChefSeeder extends Seeder
                         ->values()
                         ->toArray(),
                     'hourly_rate' => rand(25, 75),
-                    'max_orders_per_week' => $maxOrders,
-                    'rating_avg' => rand(42, 50) / 10, // 4.2 – 5.0
-                    'rating_count' => rand(5, 100),
+                    'max_orders_per_cycle' => $maxOrders,
+                    'credit_balance' => rand(50, 300),
+                    'slug' => Str::slug($name[0] . ' ' . $name[1]),
                     'status' => 'approved',
-                    'is_available' => $isAvailable,
-                    'current_orders' => $currentOrders,
+                    'tagline' => $faker->sentence(3),
+                    'delivery_day' => $faker->dayOfWeek,
+                    'cutoff_day' => $faker->dayOfWeek,
+                    'cutoff_time' => $faker->time('H:i'),
+                    'is_paused' => false,
                 ]);
             }
         });

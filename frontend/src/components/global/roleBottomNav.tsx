@@ -16,7 +16,7 @@ interface NavItem {
 
 const navConfig: Record<Role, NavItem[]> = {
   customer: [
-    { value: 'home', icon: <HomeIcon />, to: '/customer/dashboard' },
+    { value: 'home', icon: <HomeIcon />, to: '/customer/browse' },
     { value: 'orders', icon: <ReceiptLongIcon />, to: '/customer/orders' },
     { value: 'profile', icon: <PersonOutlineIcon />, to: '/customer/profile' },
   ],

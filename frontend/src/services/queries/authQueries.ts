@@ -1,5 +1,5 @@
 import { api, setAccessToken, clearAccessToken } from '../api';
-import type { LoginResponse, RegisterResponse, MeResponse, RefreshResponse } from '../../types/auth'
+import type { LoginResponse, RegisterResponse, MeResponse, RefreshResponse, RegisterPayload } from '../../types/auth'
 import type { User } from '../../types/user';
 
 
@@ -11,16 +11,7 @@ export async function login(credentials: { email: string; password: string }) {
   //
 }
 
-export async function register(payload: {
-  first_name: string;
-  last_name: string;
-  email: string;
-  password: string;
-  password_confirmation: string;
-  role?: 'customer' | 'chef' | 'admin';
-  phone?: string;
-  address?: Record<string, unknown>;
-}) {
+export async function register(payload: RegisterPayload) {
   const { data } = await api.post<RegisterResponse>('/register', payload);
   return data;
 }

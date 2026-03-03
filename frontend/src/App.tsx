@@ -14,6 +14,8 @@ import ChefLayout from './pages/layouts/ChefLayout'
 import MenuBuilder from './pages/chef/MenuBuilder'
 import AllMenus from './pages/chef/AllMenus'
 import { DashboardRedirect } from './routes/DashboardRedirect'
+import OnboardingLayout from './pages/layouts/OnboardingLayout'
+import OnboardingV1 from './pages/onboarding/Onboardingv1'
 
 function App() {
   return (
@@ -22,6 +24,10 @@ function App() {
       <Route path="/" element={<Auth />} />
       <Route path="/register" element={<Auth />} />
       <Route path="/dashboard" element={<DashboardRedirect />} />
+
+      <Route path="/onboarding" element={<OnboardingLayout />}>
+        <Route path="new-user" element={<OnboardingV1 />} />
+      </Route>
 
       {/* Authenticated routes */}
       <Route element={<ProtectedRoute />}>
@@ -35,6 +41,7 @@ function App() {
           }
         >
           <Route path="browse" element={<Browse />} />
+          {/* <Route path="browse?neighborhood=:neighborhoodId" element={<Browse />} /> */}
           <Route path="orders" element={<Orders />} />
           <Route path="profile" element={<CustomerProfile />} />
           <Route path="profile/edit" element={<ProfileEdit />} />

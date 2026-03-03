@@ -42,6 +42,8 @@ export default function CustomerProfile() {
 
   const hasRecentOrder = false
 
+  console.log(user)
+
   return (
     <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
       {/* Header row with title + notification bell */}
@@ -113,9 +115,7 @@ export default function CustomerProfile() {
             </Typography>
 
 
-            {user?.address?.city ?? (
-                <LocaleButton />
-            )}
+            <LocaleButton />
 
             {/* <Typography
               variant="body2"

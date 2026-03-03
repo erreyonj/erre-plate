@@ -49,6 +49,9 @@ class AuthController extends Controller
             'role' => ['required', 'string', 'in:customer,chef,admin'],
             'phone' => ['nullable', 'string', 'max:50'],
             'address' => ['nullable', 'array'],
+            'address.zip' => ['required', 'string','max:20'],
+            'dietary_preferences' => ['nullable', 'array'],
+            'allergies' => ['nullable', 'array'],
         ]);
 
         $user = $this->authService->register($validated);

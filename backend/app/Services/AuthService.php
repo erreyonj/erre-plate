@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Models\Neighborhood;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -14,26 +15,32 @@ class AuthService
 
     public function register(array $data): User
     {
-        return DB::transaction(function () use ($data) {
+        $zip = $data['address']['zip'] ?? null;
 
-            $user = User::create([
-                'first_name' => $data['first_name'],
-                'last_name'  => $data['last_name'],
-                'email'      => $data['email'],
-                'password_hash'   => Hash::make($data['password']),
-                'role'       => $data['role'],
-                'phone'      => $data['phone'] ?? null,
-                'address'    => $data['address'] ?? null,
+        $neighborhood = null;
+
+        if ($zip) {
+            $neighborhood = Neighborhood::where('zip_code', $zip)->first();
+        }
+
+        $user = User::create([
+            'first_name'      => $data['first_name'],
+            'last_name'       => $data['last_name'],
+            'email'           => $data['email'],
+            'password_hash'   => Hash::make($data['password']), // confirm column name
+            'role'            => $data['role'],
+            'phone'           => $data['phone'] ?? null,
+            'address'         => $data['address'] ?? null,
+            'neighborhood_id' => $neighborhood?->id,
+        ]);
+
+        if ($user->role === 'chef') {
+            $user->chefProfile()->create([
+                'status' => 'pending', // important for approval flow
             ]);
-    
-            if ($user->role === 'chef') {
-                $user->chefProfile()->create([
-                    // optionally default fields here
-                ]);
-            }
-    
-            return $user->load('chefProfile');
-        });
+        }
+
+        return $user->load(['chefProfile', 'neighborhood']);
     }
 
     /**

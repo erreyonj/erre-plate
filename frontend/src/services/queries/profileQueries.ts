@@ -7,6 +7,7 @@ import type {
   ChefProfile
 } from '../../types/profile';
 import type { User } from '../../types/user';
+import type { FetchChefsParams } from '../../types/queryParams';
 
 /** Get base authenticated user */
 export const fetchProfile = async (): Promise<User> => {
@@ -34,7 +35,7 @@ export async function uploadProfilePhoto(file: File) {
   return data
 }
 
-/** Get chef extension profile */
+/** Get own chef extension profile */
 export const fetchChefProfile = async (): Promise<ChefProfile> => {
   const { data } = await api.get<ChefProfile>('/profile/chef/me');
   return data;
@@ -51,3 +52,13 @@ export const updateChefProfile = async (
 
   return data.chefProfile;
 };
+
+
+// * PUBLIC CHEF PROFILE SEARCH QUERIES
+
+export const fetchChefs = async (params: FetchChefsParams): Promise<ChefProfile[]> => {
+  const { data } = await api.get<ChefProfile[]>('/chefs', {params: {
+    neighborhood: params.neighborhood ?? undefined
+  }});
+  return data
+}

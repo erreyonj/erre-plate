@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Cloudinary\Cloudinary;
 use App\Models\ChefProfile;
+use App\Models\Neighborhood;
+use Illuminate\Support\Facades\DB;
 
 class ProfileController extends Controller
 {
@@ -66,8 +68,10 @@ class ProfileController extends Controller
             'first_name' => 'string|max:255',
             'last_name' => 'string|max:255',
             'phone' => 'nullable|string|max:20',
-            'dietary_preferences' => 'nullable|string|max:255',
-            'allergies' => 'nullable|string|max:255',
+            'dietary_preferences' => 'nullable|array',
+            'dietary_preferences.*' => 'string|max:255',
+            'allergies' => 'nullable|array',
+            'allergies.*' => 'string|max:255',
             'address' => 'nullable|array',
             'address.street' => 'nullable|string|max:255',
             'address.city' => 'nullable|string|max:255',
@@ -78,9 +82,27 @@ class ProfileController extends Controller
             'address.lng' => 'nullable|numeric',
         ]);
 
-        $request->user()->update($validated);
+        return DB::transaction(function () use ($validated, $request) {
 
-        return response()->json($request->user());
+            $user = $request->user();
+    
+            $user->update($validated);
+    
+            $zip = $validated['address']['zip'] ?? null;
+    
+            if ($zip) {
+                $neighborhood = Neighborhood::where('zip_code', $zip)->first();
+                $user->neighborhood_id = $neighborhood?->id;
+            } else {
+                $user->neighborhood_id = null;
+            }
+    
+            $user->save();
+    
+            return response()->json(
+                $user->load('neighborhood')
+            );
+        });
     }
 
     public function uploadPhoto(Request $request)

@@ -73,7 +73,7 @@ class ChefAvailabilityService
 
     protected function nextWeekday(string $weekday): Carbon
     {
-        $date = Carbon::now()->next($weekday);
+        $date = Carbon::now()->next(strtolower($weekday));
 
         // If today is that weekday, we want today — not next week
         if (Carbon::now()->isSameDay($date)) {

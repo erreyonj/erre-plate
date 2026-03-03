@@ -20,7 +20,7 @@ export function Auth() {
   const { pathname } = useLocation()
   const mode = getModeFromPath(pathname)
 
-  const switchToRegister = () => navigate('/register', { replace: true })
+  const switchToRegister = () => navigate('/onboarding/new-user', { replace: true })
   const switchToLogin = () => navigate('/login', { replace: true })
 
   return (

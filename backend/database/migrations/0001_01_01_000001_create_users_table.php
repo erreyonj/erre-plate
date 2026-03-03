@@ -20,6 +20,8 @@ return new class extends Migration
             $table->string('last_name')->nullable();
             $table->string('phone')->nullable();
             $table->jsonb('address')->nullable();
+            $table->jsonb('dietary_preferences')->nullable();
+            $table->jsonb('allergies')->nullable();
             $table->foreignId('neighborhood_id')->nullable()->constrained('neighborhoods');
             $table->timestamps();
         });

@@ -21,6 +21,7 @@ export default function LocaleButton() {
             size="small"
             variant="outlined"
             color="default"
+            id='add-locale-button'
         />
     )
 
@@ -30,7 +31,7 @@ export default function LocaleButton() {
             icon={<LocationOnIcon sx={{ fontSize: 16 }} />}
             label={neighborhoodNameByID(neighborhoodID) || 'Madison, WI'}
             component={RouterLink}
-            to={`/browse?neighborhood=${encodeURIComponent(neighborhoodID)}`}
+            to={`/${role}/browse?neighborhood=${encodeURIComponent(neighborhoodID)}`}
             clickable
             size="small"
             variant="outlined"
@@ -47,6 +48,7 @@ export default function LocaleButton() {
                 borderColor: theme.palette.primary.light,
             },
             }}
+            id='add-locale-button'
         />
     )
 }

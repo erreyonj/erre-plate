@@ -22,7 +22,7 @@ class Order extends Model
     {
         return [
             'total_price' => 'decimal:2',
-            'delivery_date' => 'datetime',
+            'delivery_date' => 'string',
         ];
     }
 

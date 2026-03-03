@@ -3,7 +3,7 @@ import { useTheme } from '@mui/material/styles'
 import { useNavigate } from 'react-router-dom'
 import EplateButton from '../../components/global/EplateButton'
 import MenuCard from '../../components/chef/menu/MenuCard'
-import EmptyState from '../../components/chef/menu/EmptyState'
+import EmptyMenuState from '../../components/chef/menu/EmptyMenusState'
 import { useChefMenus, useCreateWeeklyMenu } from '../../hooks/useMenus'
 
 export default function Menus() {
@@ -78,7 +78,7 @@ export default function Menus() {
       )}
 
       {!isLoading && !isError && menus && menus.length === 0 && (
-        <EmptyState onCreateFirstMenu={handleCreateMenu} />
+        <EmptyMenuState onCreateFirstMenu={handleCreateMenu} />
       )}
 
       {!isLoading && !isError && menus && menus.length > 0 && (

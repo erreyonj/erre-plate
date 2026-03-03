@@ -1,11 +1,11 @@
 import { Box, Typography } from '@mui/material'
 import EplateButton from '../../global/EplateButton'
 
-interface EmptyStateProps {
+interface EmptyMenuStateProps {
   onCreateFirstMenu: () => void
 }
 
-export default function EmptyState({ onCreateFirstMenu }: EmptyStateProps) {
+export default function EmptyMenuState({ onCreateFirstMenu }: EmptyMenuStateProps) {
   return (
     <Box
       sx={{

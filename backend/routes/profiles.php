@@ -19,8 +19,6 @@ Route::middleware(['auth:api'])->group(function () {
 Route::middleware(['auth:api'])->group(function () {
     // Full Index
     Route::get('/chefs', [ProfileController::class, 'index']);
-    // By neighborhood
-    Route::get('/chefs', [ProfileController::class, 'indexByNeighborhood']);
     // Get single chef
     Route::get('/chefs/:slug', [ProfileController::class, 'showPublicChef']);
 });

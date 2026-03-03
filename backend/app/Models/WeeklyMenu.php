@@ -44,7 +44,7 @@ class WeeklyMenu extends Model
             'metadata' => 'array',
             'is_default' => 'boolean',
             'is_locked' => 'boolean',
-            'locked_at' => 'datetime',
+            'locked_at' => 'boolean',
         ];
     }
 

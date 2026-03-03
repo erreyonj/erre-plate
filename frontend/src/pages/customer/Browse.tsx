@@ -1,19 +1,37 @@
 import { Box, Typography, useTheme } from '@mui/material'
 import BrowseHeader from '../../components/customer/browseHeader'
+import { useSearchParams } from 'react-router-dom'
+import { useBrowseFilters } from '../../hooks/useBrowseFilters'
+import { useBrowseChefsQuery } from '../../hooks/useProfiles'
+import EmptyChefGrid from '../../components/chef/EmptyChefGrid'
+import ChefGrid from '../../components/chef/ChefGrid'
+import type { ChefCard } from '../../types/user'
 
 
 export default function Browse() {
   const theme = useTheme()
   const mode = theme.palette.mode
+  const { neighborhood } = useBrowseFilters()
+
+  const { data, isLoading } = useBrowseChefsQuery(neighborhood)
+
+
+  if(!neighborhood) {
+    return <EmptyChefGrid hasNeighborhood={false} />
+  }
+
+
   return (
     <>
       <BrowseHeader />
 
-      <Box className="flex justify-center items-center h-8 rounded-md mb-2" sx={{bgcolor: mode === 'light' ? "#e8e9e4" : theme.palette.background.paper}}>
+      <ChefGrid chefs={data ?? []} isLoading={isLoading} />
+
+      {/* <Box className="flex justify-center items-center h-8 rounded-md mb-2" sx={{bgcolor: mode === 'light' ? "#e8e9e4" : theme.palette.background.paper}}>
         <Typography variant="body2" className="w-full text-center" sx={{color: theme.palette.text.primary}}>
           We&apos;re cooking up some stellar chefs for you!
         </Typography>
-      </Box>
+      </Box> */}
     </>
   )
 }
