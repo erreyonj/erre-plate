@@ -6,6 +6,8 @@ import { useBrowseChefsQuery } from '../../hooks/useProfiles'
 import EmptyChefGrid from '../../components/chef/EmptyChefGrid'
 import ChefGrid from '../../components/chef/ChefGrid'
 import type { ChefCard } from '../../types/user'
+import LoadingState from '../../components/global/LoadingState'
+import ChefCookingCarousel from '../../components/chef/cookingIconsCarousel'
 
 
 export default function Browse() {
@@ -14,6 +16,15 @@ export default function Browse() {
   const { neighborhood, setNeighborhood } = useBrowseFilters()
 
   const { data, isLoading } = useBrowseChefsQuery(neighborhood)
+
+  if (isLoading) {
+    return (
+      <LoadingState 
+        carousel={<ChefCookingCarousel />}
+        message="We're finding stellar chefs near you!..."
+      />
+    )
+  }
 
 
   if(!neighborhood) {

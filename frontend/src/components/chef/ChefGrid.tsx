@@ -31,7 +31,7 @@ export default function ChefGrid({
 
   return (
     <Box className={`h-full`}>
-        <Grid container spacing={2}>
+        <Grid container spacing={3} className={`pt-4 justify-center`}>
         {chefs.map((chef) => (
             <Grid xs={12} sm={6} md={4} lg={3} key={chef.id} className={`last:mb-36`}>
             <BrowseCard chef={chef} />

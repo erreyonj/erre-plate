@@ -79,7 +79,7 @@ export default function BrowseCard({ chef, liked = false }: BrowseCardProps) {
       {/* Content */}
       <Box sx={{ px: 1.5, pt: 1, pb: 1.5 }}>
         <Typography
-          sx={{ fontWeight: 800, color: '#000', fontSize: 15 }}
+          sx={{ fontWeight: 800, color: theme.palette.text.primary, fontSize: 15 }}
           noWrap
         >
           {fullName || 'Private Chef'}
@@ -87,7 +87,7 @@ export default function BrowseCard({ chef, liked = false }: BrowseCardProps) {
 
         {/* Rating */}
         <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5, mt: 0.5 }}>
-          <Typography sx={{ color: '#000', fontWeight: 700, fontSize: 14 }}>
+          <Typography sx={{ color: theme.palette.text.primary, fontWeight: 700, fontSize: 14 }}>
             {rating.toFixed(1)}
           </Typography>
           <StarIcon
@@ -101,7 +101,7 @@ export default function BrowseCard({ chef, liked = false }: BrowseCardProps) {
         {/* Pricing */}
         <Typography sx={{ color: 'rgba(0,0,0,0.7)', fontSize: 13, mt: 0.5 }}>
           From{' '}
-          <Box component="span" sx={{ color: '#000', fontWeight: 800 }}>
+          <Box component="span" sx={{ color: theme.palette.text.primary, fontWeight: 800 }}>
             ${hourlyRate}
           </Box>{' '}
           / hr

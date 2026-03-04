@@ -56,7 +56,7 @@ export default function MobileLayout({ role = 'customer' }: MobileLayoutProps) {
         </Toolbar>
       </AppBar>
 
-      <Box id="PAGE_CONTENT" className={`mt-[66px]`} sx={{ display:'flex', flexDirection:'column', flex:1, overflowY:'auto', px: .5, pb: 14 }}>
+      <Box id="PAGE_CONTENT" className={`mt-[64px]`} sx={{ display:'flex', flexDirection:'column', flex:1, overflowY:'auto', px: .2, pb: 14 }}>
         <Outlet />
       </Box>
 

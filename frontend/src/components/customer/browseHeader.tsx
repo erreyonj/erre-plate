@@ -7,7 +7,7 @@ export default function BrowseHeader() {
   const theme = useTheme()
   return (
     <Box id="BROWSE_HEADER" 
-      className={`mb-4 rounded-md drop p-1`} 
+      className={`mb-4 py-4 rounded-md drop`} 
       sx={{ 
         position:'sticky', top:0, 
         zIndex:(theme) => theme.zIndex.appBar - 1,  
@@ -21,23 +21,24 @@ export default function BrowseHeader() {
       </Box>
         <LocationDisplay />
 
-        {/* <Box
+        <Box
           sx={{
             position: 'absolute',
             left: 0,
             right: 0,
-            bottom: -32,
+            bottom: -38,
             height: 40,
+            bgcolor: 'transparent',
 
-            backdropFilter: 'blur(24px)',
-            WebkitBackdropFilter: 'blur(24px)',
+            backdropFilter: 'blur(32px)',
+            WebkitBackdropFilter: 'blur(32px)',
 
             maskImage: 'linear-gradient(to bottom, black, transparent)',
             WebkitMaskImage: 'linear-gradient(to bottom, black, transparent)',
 
             pointerEvents: 'none',
           }}
-        /> */}
+        />
     </Box>
   )
 }
