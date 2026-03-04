@@ -68,6 +68,10 @@ export interface WeeklyMenuDetail extends WeeklyMenuSummary {
   }>
 }
 
+export interface MenuCardCarouselProps {
+  menus: WeeklyMenu[]
+}
+
 export function calculateRequiredMealCount(durationDays: 5 | 7, scope: MenuScope): number {
   if (scope === 'full') {
     return durationDays * 3

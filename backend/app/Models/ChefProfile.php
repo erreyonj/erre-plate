@@ -6,9 +6,20 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use App\Services\ChefAvailabilityService;
+use Illuminate\Support\Str;
+
 
 class ChefProfile extends Model
 {
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::creating(function ($chef) {
+            $chef->slug = self::generateUniqueSlug();
+        });
+    }
     protected $table = 'chef_profiles';
 
     protected $appends = ['is_available'];
@@ -48,6 +59,15 @@ class ChefProfile extends Model
             'cutoff_time' => 'string',
             'neighborhood_id' => 'integer',
         ];
+    }
+
+    private static function generateUniqueSlug(): string
+    {
+        do {
+            $slug = Str::random(9); // gives you "Qz76t443o" style
+        } while (static::where('slug', $slug)->exists());
+
+        return $slug;
     }
 
     public function user(): BelongsTo

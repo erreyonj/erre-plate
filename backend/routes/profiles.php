@@ -17,9 +17,9 @@ Route::middleware(['auth:api'])->group(function () {
 
 // Authorized Users can GET chefs
 Route::middleware(['auth:api'])->group(function () {
-    // Full Index
+    // Full Index of public profiles (by neighborhood currently)
     Route::get('/chefs', [ProfileController::class, 'index']);
-    // Get single chef
+    // Get single chef public profile
     Route::get('/chefs/:slug', [ProfileController::class, 'showPublicChef']);
 });
 

@@ -17,7 +17,7 @@ return new class extends Migration
                 ->constrained()
                 ->cascadeOnDelete();
 
-            $table->text('slug')->unique()->nullable();
+            $table->string('slug', 12)->unique()->nullable();
             $table->text('tagline')->nullable();
             $table->text('bio')->nullable();
             $table->jsonb('specialties')->nullable();

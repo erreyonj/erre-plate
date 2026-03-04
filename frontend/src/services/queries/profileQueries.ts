@@ -4,6 +4,7 @@ import type {
   UpdateProfileResponse,
   UpdateChefProfilePayload,
   UpdateChefProfileResponse,
+  PublicChefProfile,
   ChefProfile
 } from '../../types/profile';
 import type { User } from '../../types/user';
@@ -41,6 +42,13 @@ export const fetchChefProfile = async (): Promise<ChefProfile> => {
   return data;
 };
 
+
+/** Get Chef's PUBLIC profile */
+export const fetchPublicChefProfile = async (slug: string): Promise<PublicChefProfile> => {
+  const { data } = await api.get<PublicChefProfile>(`/chef/${slug}`);
+  return data;
+};
+
 /** Update chef extension profile */
 export const updateChefProfile = async (
   payload: UpdateChefProfilePayload
@@ -56,8 +64,8 @@ export const updateChefProfile = async (
 
 // * PUBLIC CHEF PROFILE SEARCH QUERIES
 
-export const fetchChefs = async (params: FetchChefsParams): Promise<ChefProfile[]> => {
-  const { data } = await api.get<ChefProfile[]>('/chefs', {params: {
+export const fetchChefs = async (params: FetchChefsParams): Promise<PublicChefProfile[]> => {
+  const { data } = await api.get<PublicChefProfile[]>('/chefs', {params: {
     neighborhood: params.neighborhood ?? undefined
   }});
   return data

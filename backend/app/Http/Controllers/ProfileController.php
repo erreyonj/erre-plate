@@ -7,6 +7,7 @@ use Cloudinary\Cloudinary;
 use App\Models\ChefProfile;
 use App\Models\Neighborhood;
 use Illuminate\Support\Facades\DB;
+use App\Http\Resources\PublicChefProfileResource;
 
 class ProfileController extends Controller
 {
@@ -27,39 +28,41 @@ class ProfileController extends Controller
             return response()->json(['message' => 'Chef profile not found'], 404);
         }
 
-        return response()->json($chefProfile);
+        return new PublicChefProfileResource($chefProfile);
+
+        // return response()->json($publicChefProfile);
     }
 
     public function index(Request $request)
     {
         $neighborhoodId = $request->query('neighborhood');
-        $chefsQuery = ChefProfile::with('user')
-        ->where('status', 'approved')
-        // ->where('is_available', true)
-        ->when($neighborhoodId, function ($query) use ($neighborhoodId) {
-            $query->whereHas('user', function ($q) use ($neighborhoodId) {
-                $q->where('neighborhood_id', $neighborhoodId);
-            });
-        })
-        ->get();
 
-        return response()->json($chefsQuery);
+        $chefs = ChefProfile::where('status', 'approved')
+            ->where('is_paused', false)
+            ->when($neighborhoodId, function ($query) use ($neighborhoodId) {
+                $query->where('neighborhood_id', $neighborhoodId);
+            })
+            ->latest()
+            ->paginate(20);
+
+        return PublicChefProfileResource::collection($chefs);
     }
 
     public function indexByNeighborhood(Request $request)
     {
         $neighborhoodId = $request->query('neighborhood');
-        $chefsQuery = ChefProfile::with('user')
+        $chefs = ChefProfile::with('user')
         ->where('status', 'approved')
         // ->where('is_available', true)
         ->when($neighborhoodId, function ($query) use ($neighborhoodId) {
-            $query->whereHas('user', function ($q) use ($neighborhoodId) {
-                $q->where('neighborhood_id', $neighborhoodId);
-            });
+            $query->where('neighborhood_id', $neighborhoodId);
         })
-        ->get();
+        ->latest()
+        ->paginate(20);
 
-        return response()->json($chefsQuery->latest()->paginate(20));
+        $publicChefsQuery = PublicChefProfileResource::collection($chefs);
+
+        return response()->json($publicChefsQuery);
     }
 
     public function update(Request $request)

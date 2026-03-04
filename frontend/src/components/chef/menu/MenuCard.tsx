@@ -5,6 +5,7 @@ import EplateButton from '../../global/EplateButton'
 
 interface MenuCardProps {
   menu: WeeklyMenuSummary
+  compact?: boolean
   onEdit: () => void
   onPublish: () => void
   onArchive: () => void

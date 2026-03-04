@@ -1,11 +1,11 @@
 import { Box, Grid, Typography } from '@mui/material'
 import BrowseCard from './browseCard'
-import type { ChefProfile } from '../../types/profile'
+import type { PublicChefProfile } from '../../types/profile'
 import EmptyChefGrid from './EmptyChefGrid'
 import { useNavigate } from 'react-router-dom'
 
 type ChefGridProps = {
-  chefs: ChefProfile[]
+  chefs: PublicChefProfile[]
   isLoading: boolean,
   emptyMessage?: string,
   neighborhood?: number | null,

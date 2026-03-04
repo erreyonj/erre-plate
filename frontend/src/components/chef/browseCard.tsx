@@ -3,22 +3,24 @@ import { useTheme } from '@mui/material/styles'
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder'
 import SoupKitchenIcon from '@mui/icons-material/SoupKitchen'
 import StarIcon from '@mui/icons-material/Star'
-import type { ChefProfile } from '../../types/profile'
+import type { PublicChefProfile } from '../../types/profile'
 
 type BrowseCardProps = {
-  chef: ChefProfile
+  chef: PublicChefProfile
   liked?: boolean
 }
 
 export default function BrowseCard({ chef, liked = false }: BrowseCardProps) {
   const theme = useTheme()
+  console.log(chef);
+  
 
   const fullName = `${chef.user?.first_name} ${chef.user?.last_name}`
   const rating = Number(chef.rating_average || 0)
   const hourlyRate = Number(chef.hourly_rate)
 
   const isAvailable =
-    chef.status === 'approved' && !chef.is_paused
+    chef.is_available
 
   const availabilityLabel = isAvailable
     ? `Available • Order by ${chef.cutoff_day.slice(0,3)}`
