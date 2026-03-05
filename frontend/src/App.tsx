@@ -16,6 +16,7 @@ import AllMenus from './pages/chef/AllMenus'
 import { DashboardRedirect } from './routes/DashboardRedirect'
 import OnboardingLayout from './pages/layouts/OnboardingLayout'
 import OnboardingV1 from './pages/onboarding/Onboardingv1'
+import PublicChefProfile from './pages/chef/PublicChefProfile'
 
 function App() {
   return (
@@ -64,6 +65,17 @@ function App() {
           <Route path="profile/edit" element={<ProfileEdit />} />
         </Route>
       </Route>
+
+      <Route
+        path="/chef"
+        element={
+          <ProtectedRoute forbiddenPath="/customer/browse">
+            <CustomerLayout />
+          </ProtectedRoute>
+        }
+      >
+        <Route path=":slug" element={<PublicChefProfile />} />
+      </Route >
 
       <Route
         path="/admin"

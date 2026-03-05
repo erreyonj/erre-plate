@@ -8,7 +8,7 @@ import RamenDiningIcon from '@mui/icons-material/RamenDining'
 import IconCarousel from '../global/iconCarousel'
 
 
-export default function ChefCookingCarousel() {
+export default function ChefIconsCarousel() {
   const theme = useTheme()
 
   const iconStyle = {

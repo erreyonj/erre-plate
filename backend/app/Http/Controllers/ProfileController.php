@@ -6,8 +6,11 @@ use Illuminate\Http\Request;
 use Cloudinary\Cloudinary;
 use App\Models\ChefProfile;
 use App\Models\Neighborhood;
+use App\Models\WeeklyMenu;
 use Illuminate\Support\Facades\DB;
 use App\Http\Resources\PublicChefProfileResource;
+use App\Http\Resources\WeeklyMenuIndexResource;
+use App\Http\Resources\WeeklyMenuResource;
 
 class ProfileController extends Controller
 {
@@ -18,29 +21,50 @@ class ProfileController extends Controller
 
     public function showPublicChef(string $slug)
     {
-        $chefProfile = ChefProfile::with('user')
+        $chef = ChefProfile::with('user')
             ->where('status', 'approved')
             ->where('is_paused', false)
             ->where('slug', $slug)
             ->first();
 
-        if (!$chefProfile) {
+        if (!$chef) {
             return response()->json(['message' => 'Chef profile not found'], 404);
         }
 
-        return new PublicChefProfileResource($chefProfile);
+        // Featured menu
+        $featuredMenu = WeeklyMenu::with('assignedDishes.dish.photos')
+            ->where('chef_profile_id', $chef->id)
+            ->where('status', 'published')
+            ->where('is_default', true)
+            ->first();
 
-        // return response()->json($publicChefProfile);
+        // Other menus
+        $weeklyMenus = WeeklyMenu::with('assignedDishes.dish.photos')
+            ->where('chef_profile_id', $chef->id)
+            ->where('status', 'published')
+            ->where('is_default', false)
+            ->get();
+
+        return response()->json([
+            'chef' => new PublicChefProfileResource($chef),
+            'featured_menu' => $featuredMenu
+                ? new WeeklyMenuResource($featuredMenu)
+                : null,
+            'weekly_menus' => WeeklyMenuIndexResource::collection($weeklyMenus),
+        ]);
     }
 
     public function index(Request $request)
     {
         $neighborhoodId = $request->query('neighborhood');
 
-        $chefs = ChefProfile::where('status', 'approved')
+        $chefs = ChefProfile::with('user')
+            ->where('status', 'approved')
             ->where('is_paused', false)
             ->when($neighborhoodId, function ($query) use ($neighborhoodId) {
-                $query->where('neighborhood_id', $neighborhoodId);
+                $query->whereHas('user', function ($q) use ($neighborhoodId) {
+                    $q->where('neighborhood_id', $neighborhoodId);
+                });
             })
             ->latest()
             ->paginate(20);
@@ -52,6 +76,7 @@ class ProfileController extends Controller
     {
         $neighborhoodId = $request->query('neighborhood');
         $chefs = ChefProfile::with('user')
+        ->with('user')
         ->where('status', 'approved')
         // ->where('is_available', true)
         ->when($neighborhoodId, function ($query) use ($neighborhoodId) {

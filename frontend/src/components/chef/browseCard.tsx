@@ -4,6 +4,7 @@ import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder'
 import SoupKitchenIcon from '@mui/icons-material/SoupKitchen'
 import StarIcon from '@mui/icons-material/Star'
 import type { PublicChefProfile } from '../../types/profile'
+import { Link, useNavigate } from 'react-router-dom'
 
 type BrowseCardProps = {
   chef: PublicChefProfile
@@ -12,10 +13,10 @@ type BrowseCardProps = {
 
 export default function BrowseCard({ chef, liked = false }: BrowseCardProps) {
   const theme = useTheme()
-  console.log(chef);
+  const navigate = useNavigate()
   
 
-  const fullName = `${chef.user?.first_name} ${chef.user?.last_name}`
+  const fullName = `${chef.first_name} ${chef.last_name}`
   const rating = Number(chef.rating_average || 0)
   const hourlyRate = Number(chef.hourly_rate)
 
@@ -30,6 +31,7 @@ export default function BrowseCard({ chef, liked = false }: BrowseCardProps) {
 
   return (
     <Card
+      id={`CHEF_CARD_${chef.slug}`}
       variant="outlined"
       sx={{
         borderRadius: 3,
@@ -74,18 +76,23 @@ export default function BrowseCard({ chef, liked = false }: BrowseCardProps) {
             placeItems: 'center',
           }}
         >
-          <SoupKitchenIcon sx={{ fontSize: 42, color: '#fff' }} />
+          {chef.photo_url 
+            ? <img src={`${chef.photo_url}`} height={25} width={20}/>
+            : <SoupKitchenIcon sx={{ fontSize: 42, color: '#fff' }} />
+          }
         </Box>
       </Box>
 
       {/* Content */}
       <Box sx={{ px: 1.5, pt: 1, pb: 1.5 }}>
-        <Typography
-          sx={{ fontWeight: 800, color: theme.palette.text.primary, fontSize: 15 }}
-          noWrap
-        >
-          {fullName || 'Private Chef'}
-        </Typography>
+        <Link to={`/chef/${chef.slug}`}>
+          <Typography
+            sx={{ fontWeight: 800, color: theme.palette.text.primary, fontSize: 15 }}
+            noWrap
+          >
+            {fullName || 'Private Chef'}
+          </Typography>
+        </ Link>
 
         {/* Rating */}
         <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5, mt: 0.5 }}>

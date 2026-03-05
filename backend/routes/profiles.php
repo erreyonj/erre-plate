@@ -20,7 +20,7 @@ Route::middleware(['auth:api'])->group(function () {
     // Full Index of public profiles (by neighborhood currently)
     Route::get('/chefs', [ProfileController::class, 'index']);
     // Get single chef public profile
-    Route::get('/chefs/:slug', [ProfileController::class, 'showPublicChef']);
+    Route::get('/chefs/{slug}', [ProfileController::class, 'showPublicChef']);
 });
 
 // Authorized Users can POST their photo

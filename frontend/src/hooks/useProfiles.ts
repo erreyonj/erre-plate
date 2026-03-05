@@ -11,11 +11,18 @@ export function useChefProfile() {
 }
 
 
+// export function usePublicChefProfile(slug: string) {
+//   return useQuery({
+//     queryKey: queryKeys.publicChefProfile.detail(slug),
+//     queryFn: () => fetchPublicChefProfile(slug),
+//     enabled: !!slug, // prevents undefined firing
+//   })
+// }
+
 export function usePublicChefProfile(slug: string) {
   return useQuery({
     queryKey: queryKeys.publicChefProfile.detail(slug),
     queryFn: () => fetchPublicChefProfile(slug),
-    enabled: !!slug, // prevents undefined firing
   })
 }
 

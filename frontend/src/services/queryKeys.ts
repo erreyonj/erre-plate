@@ -13,7 +13,7 @@ export const queryKeys = {
   },
   publicChefProfile: {
     all: ['public-chef-profile'] as const,
-    detail: (slug: string) =>
+    detail: (slug: string | undefined) =>
       [...queryKeys.publicChefProfile.all, slug] as const,
   },
   customers: {

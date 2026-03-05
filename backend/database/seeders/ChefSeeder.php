@@ -132,7 +132,7 @@ class ChefSeeder extends Seeder
 
                 ChefProfile::create([
                     'user_id' => $user->id,
-                    'bio' => $faker->paragraph(2),
+                    'bio' => $faker->paragraph(3),
                     'specialties' => collect($specialtyPool)
                         ->random(rand(2, 4))
                         ->values()

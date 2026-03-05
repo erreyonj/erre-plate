@@ -48,5 +48,11 @@ class Dish extends Model
     {
         return $this->hasMany(WeeklyMenuDish::class);
     }
+
+    public function photos()
+    {
+        return $this->hasMany(DishPhoto::class)
+            ->orderBy('sort_order');
+    }
 }
 

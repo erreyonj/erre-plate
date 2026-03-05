@@ -10,6 +10,11 @@ export interface Ingredient {
   unit: string
 }
 
+export interface DishPhoto {
+  id: number
+  url: string
+}
+
 export interface Dish {
   id: string
   name: string
@@ -17,6 +22,8 @@ export interface Dish {
   meal_type: MealType
   ingredients: Ingredient[]
   dietary_tags: string[]
+  prep_time_minutes?: number | null
+  photos?: DishPhoto[]
 }
 
 export interface AssignedDish {
@@ -26,7 +33,7 @@ export interface AssignedDish {
   meal_type: MealType
 }
 
-export interface WeeklyMenu {
+export interface WeeklyMenuBuilder {
   id: string
   title: string
   duration_days: 5 | 7
@@ -36,6 +43,16 @@ export interface WeeklyMenu {
   status: MenuStatus
   is_default?: boolean
   assigned_dishes: AssignedDish[]
+}
+
+export interface PublicWeeklyMenu {
+  id: string
+  title: string
+  duration_days: 5 | 7
+  menu_scope: MenuScope
+  status: MenuStatus
+  base_price: number
+  dishes: Dish[]
 }
 
 export interface WeeklyMenuSummary {
@@ -69,7 +86,12 @@ export interface WeeklyMenuDetail extends WeeklyMenuSummary {
 }
 
 export interface MenuCardCarouselProps {
-  menus: WeeklyMenu[]
+  menus: WeeklyMenuBuilder[]
+}
+
+export interface FeaturedMenuCardProps {
+  menu: WeeklyMenuBuilder
+  onOrder?: () => void
 }
 
 export function calculateRequiredMealCount(durationDays: 5 | 7, scope: MenuScope): number {

@@ -11,7 +11,7 @@ export default function BrowseHeader() {
       sx={{ 
         position:'sticky', top:0, 
         zIndex:(theme) => theme.zIndex.appBar - 1,  
-        
+        pl: 2,
         boxShadow: '0 12px 12px rgb(0 0 0 / 0.15)',
         bgcolor: theme.palette.background.default
     }}>

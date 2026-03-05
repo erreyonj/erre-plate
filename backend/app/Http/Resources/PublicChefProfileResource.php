@@ -22,6 +22,11 @@ class PublicChefProfileResource extends JsonResource
             'cutoff_time'  => $this->cutoff_time,
             'status'       => $this->status,
             'is_available' => $this->is_available, // hits your appended accessor
+
+            // From associated User
+            'photo_url'    => $this->user->photo_url,
+            'first_name'   => $this->user->first_name,
+            'last_name'   => $this->user->last_name,
         ];
     }
 }

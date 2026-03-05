@@ -5,7 +5,9 @@ import type {
   UpdateChefProfilePayload,
   UpdateChefProfileResponse,
   PublicChefProfile,
-  ChefProfile
+  ChefProfile,
+  PublicChefPageResponse,
+  PaginatedResponse
 } from '../../types/profile';
 import type { User } from '../../types/user';
 import type { FetchChefsParams } from '../../types/queryParams';
@@ -44,10 +46,15 @@ export const fetchChefProfile = async (): Promise<ChefProfile> => {
 
 
 /** Get Chef's PUBLIC profile */
-export const fetchPublicChefProfile = async (slug: string): Promise<PublicChefProfile> => {
-  const { data } = await api.get<PublicChefProfile>(`/chef/${slug}`);
-  return data;
-};
+// export const fetchPublicChefProfile = async (slug: string | undefined): Promise<PublicChefProfile> => {
+//   const { data } = await api.get<PublicChefProfile>(`/chef/${slug}`);
+//   return data;
+// };
+
+export async function fetchPublicChefProfile(slug: string) {
+  const { data } = await api.get<PublicChefPageResponse>(`/chefs/${slug}`)
+  return data
+}
 
 /** Update chef extension profile */
 export const updateChefProfile = async (
@@ -64,9 +71,17 @@ export const updateChefProfile = async (
 
 // * PUBLIC CHEF PROFILE SEARCH QUERIES
 
-export const fetchChefs = async (params: FetchChefsParams): Promise<PublicChefProfile[]> => {
-  const { data } = await api.get<PublicChefProfile[]>('/chefs', {params: {
-    neighborhood: params.neighborhood ?? undefined
-  }});
-  return data
+export const fetchChefs = async (
+  params: FetchChefsParams
+): Promise<PublicChefProfile[]> => {
+  const { data } = await api.get<PaginatedResponse<PublicChefProfile[]>>(
+    '/chefs',
+    {
+      params: {
+        neighborhood: params.neighborhood ?? undefined,
+      },
+    }
+  )
+
+  return data.data
 }

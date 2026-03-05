@@ -1,4 +1,5 @@
 import type { User } from "./user";
+import type { PublicWeeklyMenu, WeeklyMenuSummary } from "./menu";
 
 export interface UpdateProfilePayload {
   first_name: string;
@@ -31,6 +32,8 @@ export interface ChefProfile {
   id: number;
   user_id: number;
 
+  first_name: string
+  last_name: string
   bio: string | null;
   slug?: string | null;
   tagline?: string | null;
@@ -52,7 +55,7 @@ export interface ChefProfile {
 
   created_at: string;
   updated_at: string;
-  user?: User;
+  photo_url: string;
 }
 
 export interface PublicChefProfile extends Omit<ChefProfile, 
@@ -68,7 +71,11 @@ export interface ChefPublicHeroProps {
   chef: PublicChefProfile;
 }
 
-// Should  we add PublicChefProfile here?
+export interface PublicChefPageResponse {
+  chef: PublicChefProfile
+  featured_menu: PublicWeeklyMenu | null
+  weekly_menus: WeeklyMenuSummary[]
+}
 
 /**
  * Payload for updating a chef profile.
@@ -114,3 +121,22 @@ export type ProfileFormValues = {
   lat?: number;
   lng?: number;
 };
+
+export type PaginatedResponse<T> = {
+  data: T
+  links: {
+    first: string | null
+    last: string | null
+    prev: string | null
+    next: string | null
+  }
+  meta: {
+    current_page: number
+    from: number | null
+    last_page: number
+    path: string
+    per_page: number
+    to: number | null
+    total: number
+  }
+}
