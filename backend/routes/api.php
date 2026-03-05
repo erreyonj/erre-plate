@@ -30,3 +30,10 @@ Route::get('/health', function() {
         'timestamp' => now()
     ]);
 });
+
+Route::get('/debug-env', function() {
+    return response()->json([
+        'app_env' => env('APP_ENV'),
+        'cors_origins' => env('CORS_ALLOWED_ORIGINS'),
+    ]);
+});
