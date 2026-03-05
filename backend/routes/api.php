@@ -37,3 +37,16 @@ Route::get('/debug-env', function() {
         'cors_origins' => env('CORS_ALLOWED_ORIGINS'),
     ]);
 });
+
+
+// routes/api.php - temporary
+Route::get('/debug-boot', function () {
+    return response()->json([
+        'app_env' => env('APP_ENV'),
+        'app_key_set' => !empty(env('APP_KEY')),
+        'db_connection' => env('DB_CONNECTION'),
+        'db_host' => env('DB_HOST'),
+        'db_database' => env('DB_DATABASE'),
+        'db_connected' => DB::connection()->getPdo() ? true : false,
+    ]);
+});
