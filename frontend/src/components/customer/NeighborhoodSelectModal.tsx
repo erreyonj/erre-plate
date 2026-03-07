@@ -7,17 +7,16 @@ import {
     ListItemText,
     Typography,
     useTheme,
+    Box
   } from '@mui/material'
+import { useNeighborhoodsQuery } from '../../hooks/useNeighborhoods'
+import { Cancel, Close } from '@mui/icons-material'
   
-  interface Neighborhood {
-    id: number
-    name: string
-  }
   
   interface Props {
     open: boolean
     onClose: () => void
-    onSelect: (id: number | null) => void
+    onSelect: (id: number | 'all') => void
   }
   
   export default function NeighborhoodSelectorModal({
@@ -27,25 +26,25 @@ import {
   }: Props) {
     const theme = useTheme()
   
-    // For now static — later fetch from API
-    const neighborhoods: Neighborhood[] = [
-      { id: 9, name: 'East Madison' },
-      { id: 10, name: 'West Madison' },
-      { id: 12, name: 'South Madison' },
-    ]
+    const { data } = useNeighborhoodsQuery()
+    const neighborhoods = data?.data
   
     return (
       <Dialog open={open} onClose={onClose} fullWidth maxWidth="xs">
-        <DialogTitle sx={{ fontWeight: 700 }}>
-          Choose Neighborhood
-        </DialogTitle>
+        <Box className={`flex justify-between`}>
+          <DialogTitle sx={{ fontWeight: 700 }}>
+            Choose Neighborhood
+          </DialogTitle>
+        </Box>
   
         <DialogContent>
           <List>
-            {neighborhoods.map((n) => (
+            {neighborhoods?.map((n) => (
               <ListItemButton
                 key={n.id}
-                onClick={() => onSelect(n.id)}
+                onClick={() => {
+                  onSelect(n.id)
+                }}
                 sx={{
                   borderRadius: 2,
                   '&:hover': {
@@ -65,7 +64,9 @@ import {
   
             {/* Browse All Option */}
             <ListItemButton
-              onClick={() => onSelect(null)}
+              onClick={() => {
+                onSelect('all')
+              }}
               sx={{ borderRadius: 2 }}
             >
               <ListItemText

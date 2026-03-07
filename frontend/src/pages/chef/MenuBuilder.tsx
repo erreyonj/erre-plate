@@ -294,9 +294,9 @@ export default function MenuBuilder() {
             }}
             className="space-y-3"
           >
-            <Typography variant="subtitle1" sx={{ fontWeight: 600 }}>
+            {/* <Typography variant="subtitle1" sx={{ fontWeight: 600 }}>
               Assigned dishes
-            </Typography>
+            </Typography> */}
 
             <Stack direction="row" justifyContent="space-between" alignItems="center">
               <Typography variant="subtitle1" sx={{ fontWeight: 600 }}>

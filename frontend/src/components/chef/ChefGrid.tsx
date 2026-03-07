@@ -9,7 +9,7 @@ type ChefGridProps = {
   isLoading: boolean,
   emptyMessage?: string,
   neighborhood?: number | null,
-  setNeighborhood: (id: number | null) => void
+  setNeighborhood: (id: number | 'all') => void
 }
 
 export default function ChefGrid({
@@ -24,7 +24,7 @@ export default function ChefGrid({
     return (
         <EmptyChefGrid 
             hasNeighborhood={!!neighborhood} 
-            onBrowseAll={() => setNeighborhood(null)}
+            onBrowseAll={() => setNeighborhood('all')}
             onUpdateProfile={() => navigate('/customer/profile/edit')}
         />
     )

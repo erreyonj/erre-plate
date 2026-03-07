@@ -1,6 +1,7 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { fetchChefProfile, updateChefProfile, updateProfile, uploadProfilePhoto, fetchChefs, fetchPublicChefProfile } from '../services/queries/profileQueries';
 import { queryKeys } from '../services/queryKeys';
+import type { ChefQueryFilters } from '../types/queryParams';
 
 
 export function useChefProfile() {
@@ -26,14 +27,11 @@ export function usePublicChefProfile(slug: string) {
   })
 }
 
-export function useBrowseChefsQuery(neighborhoodId: number | null) {
+export function useBrowseChefsQuery(filters: ChefQueryFilters) {
   return useQuery({
-    queryKey: ['chefs', { neighborhoodId }],
-    queryFn: () =>
-      fetchChefs({
-        neighborhood: neighborhoodId,
-      }),
-    enabled: neighborhoodId !== undefined, // prevents weird early calls
+    queryKey: ['chefs', filters],
+    queryFn: () => fetchChefs(filters),
+    enabled: filters.neighborhood !== undefined, // prevents weird early calls
   })
 }
 

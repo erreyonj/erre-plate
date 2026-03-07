@@ -7,6 +7,8 @@ export const queryKeys = {
     all: ['chefs'] as const,
     list: () => [...queryKeys.chefs.all, 'list'] as const,
     detail: (id: string) => [...queryKeys.chefs.all, 'detail', id] as const,
+    browse: (filters: { neighborhood?: string }) =>
+      [...queryKeys.chefs.all, 'browse', filters] as const,
   },
   chefProfile: {
     me: () => ['chef-profile', 'me'] as const,
@@ -31,4 +33,8 @@ export const queryKeys = {
     list: () => [...queryKeys.reviews.all, 'list'] as const,
     detail: (id: string) => [...queryKeys.reviews.all, 'detail', id] as const,
   },
+  neighborhoods: {
+    all: ['neighborhoods'] as const,
+    list: () => [...queryKeys.neighborhoods.all, 'list'] as const
+  }
 } as const;

@@ -1,4 +1,4 @@
-export const neighborhoodNameByID = (id: number | null) => {
+export const neighborhoodNameByID = (id: number | null | undefined): string => {
     
     const neighborhoods = [
         { id: 1, name: 'Downtown', zip_code: '53703' },
@@ -16,7 +16,7 @@ export const neighborhoodNameByID = (id: number | null) => {
         { id: 13, name: 'Shorewood Hills', zip_code: '53726' },
         { id: 14, name: 'UW Hospital', zip_code: '53792' },
     ]
-    return neighborhoods.find((neighborhood) => neighborhood.id === id)?.name;
+    return neighborhoods.find((neighborhood) => neighborhood.id === id)?.name || 'All';
 }
 
 export const neighborhoodZipCodeByID = (id: number | null) => {

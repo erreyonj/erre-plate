@@ -58,10 +58,14 @@ class ProfileController extends Controller
     {
         $neighborhoodId = $request->query('neighborhood');
 
+        if ($neighborhoodId === 'all') {
+            $neighborhoodId = null;
+        }
+
         $chefs = ChefProfile::with('user')
             ->where('status', 'approved')
             ->where('is_paused', false)
-            ->when($neighborhoodId, function ($query) use ($neighborhoodId) {
+            ->when(is_numeric($neighborhoodId), function ($query) use ($neighborhoodId) {
                 $query->whereHas('user', function ($q) use ($neighborhoodId) {
                     $q->where('neighborhood_id', $neighborhoodId);
                 });
@@ -70,24 +74,6 @@ class ProfileController extends Controller
             ->paginate(20);
 
         return PublicChefProfileResource::collection($chefs);
-    }
-
-    public function indexByNeighborhood(Request $request)
-    {
-        $neighborhoodId = $request->query('neighborhood');
-        $chefs = ChefProfile::with('user')
-        ->with('user')
-        ->where('status', 'approved')
-        // ->where('is_available', true)
-        ->when($neighborhoodId, function ($query) use ($neighborhoodId) {
-            $query->where('neighborhood_id', $neighborhoodId);
-        })
-        ->latest()
-        ->paginate(20);
-
-        $publicChefsQuery = PublicChefProfileResource::collection($chefs);
-
-        return response()->json($publicChefsQuery);
     }
 
     public function update(Request $request)

@@ -1,36 +1,66 @@
-import { useSearchParams } from 'react-router-dom'
+import { Navigate, useNavigate, useSearchParams } from 'react-router-dom'
 import { useAuth } from '../contexts/AuthContext'
+import type { ChefQueryFilters } from '../types/queryParams'
+
 
 export function useBrowseFilters() {
   const [searchParams, setSearchParams] = useSearchParams()
   const { user } = useAuth()
+  const navigate = useNavigate()
 
-  const rawNeighborhood = searchParams.get('neighborhood')
 
-  // Normalize to number or null
-  const neighborhood =
-    rawNeighborhood && rawNeighborhood !== '0'
-      ? Number(rawNeighborhood)
+  const neighborhoodParam = searchParams.get('neighborhood')
+  const cuisineParam = searchParams.get('cuisine')
+  const ratingParam = searchParams.get('rating')
+  const searchParam = searchParams.get('search')
+
+  const parsedNeighborhood =
+    neighborhoodParam === 'all'
+      ? null
+      : neighborhoodParam
+      ? Number(neighborhoodParam)
       : null
 
-  // Fallback to logged-in user's neighborhood
   const effectiveNeighborhood =
-    neighborhood ?? user?.neighborhood_id ?? null
+    neighborhoodParam === 'all'
+      ? null
+      : parsedNeighborhood ?? user?.neighborhood_id ?? null
 
-  const setNeighborhood = (id: number | null) => {
+  const filters: ChefQueryFilters = {
+    neighborhood: effectiveNeighborhood,
+    cuisine: cuisineParam ?? undefined,
+    rating: ratingParam ? Number(ratingParam) : undefined,
+    search: searchParam ?? undefined,
+  }
+
+  const setFilter = (key: string, value: string | number | null) => {
     const params = new URLSearchParams(searchParams)
+    console.log('value: ', value);
+    if (value === undefined || value === '') return
 
-    if (id) {
-      params.set('neighborhood', id.toString())
+    if (value === null) {
+      params.set(key, 'all')
     } else {
-      params.delete('neighborhood')
+      params.set(key, value.toString())
     }
 
     setSearchParams(params)
   }
 
+  const clearFilters = () => {
+    navigate('/customer/browse', {replace: true})
+  }
+
+  const setNeighborhood = (value: number | 'all') => {
+    const params = new URLSearchParams(searchParams)
+    params.set('neighborhood', value === 'all' ? 'all' : value.toString())
+    setSearchParams(params)
+  }
+
   return {
-    neighborhood: effectiveNeighborhood,
+    filters,
+    clearFilters,
+    setFilter,
     setNeighborhood,
   }
 }

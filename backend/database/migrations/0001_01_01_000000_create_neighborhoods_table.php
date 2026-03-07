@@ -14,7 +14,6 @@ return new class extends Migration
         Schema::create('neighborhoods', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('slug')->unique()->nullable();
             $table->string('zip_code');
             $table->string('city');
             $table->string('state');

@@ -12,15 +12,16 @@ interface LocationDisplayProps {
 
 export default function LocationDisplay() {
   const theme = useTheme()
-  const { neighborhood, setNeighborhood } = useBrowseFilters()
+  const { filters, setNeighborhood } = useBrowseFilters()
   const [open, setOpen] = useState(false)
+  const neighborhood = filters?.neighborhood
 
   return (
-    <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.75, cursor: 'pointer' }} onClick={()=> setOpen(true)}>
+    <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.75, cursor: 'pointer' }}>
       <LocationOn sx={{color: theme.palette.primary.main}} />
       <Typography sx={{ color: theme.palette.text.primary, fontSize: 16 }}>
         Browse{' '}
-        <Box component="span" sx={{ color: theme.palette.warning.main, fontWeight: 700 }}>
+        <Box component="span" sx={{ color: theme.palette.warning.main, fontWeight: 700 }} onClick={()=> setOpen(true)}>
           {neighborhoodNameByID(neighborhood)}
         </Box>{' '}
         Chefs:
@@ -28,13 +29,15 @@ export default function LocationDisplay() {
 
       <NeighborhoodSelectorModal
         open={open}
-        onClose={() => setOpen(false)}
-        onSelect={(id: number | null) => {
-          setNeighborhood(id)
+        onClose={() => {
           setOpen(false)
         }}
+        onSelect={(id: number | 'all') => {
+          setNeighborhood(id)
+          // setOpen(false)
+        }}
       />
-          </Box>
+    </Box>
   )
 }
 

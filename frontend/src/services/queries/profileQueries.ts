@@ -10,7 +10,7 @@ import type {
   PaginatedResponse
 } from '../../types/profile';
 import type { User } from '../../types/user';
-import type { FetchChefsParams } from '../../types/queryParams';
+import type { ChefQueryFilters, FetchChefsParams } from '../../types/queryParams';
 
 /** Get base authenticated user */
 export const fetchProfile = async (): Promise<User> => {
@@ -72,15 +72,26 @@ export const updateChefProfile = async (
 // * PUBLIC CHEF PROFILE SEARCH QUERIES
 
 export const fetchChefs = async (
-  params: FetchChefsParams
+  filters: ChefQueryFilters
 ): Promise<PublicChefProfile[]> => {
+  const params: Record<string, any> = {}
+
+  if (filters.neighborhood !== undefined) {
+    params.neighborhood =
+      filters.neighborhood === null ? 'all' : filters.neighborhood
+  }
+
+  if (filters.cuisine) {
+    params.cuisine = filters.cuisine
+  }
+
+  if (filters.rating) {
+    params.rating = filters.rating
+  }
+
   const { data } = await api.get<PaginatedResponse<PublicChefProfile[]>>(
     '/chefs',
-    {
-      params: {
-        neighborhood: params.neighborhood ?? undefined,
-      },
-    }
+    { params }
   )
 
   return data.data

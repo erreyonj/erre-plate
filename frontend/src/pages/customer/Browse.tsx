@@ -1,6 +1,6 @@
 import { Box, Typography, useTheme } from '@mui/material'
 import BrowseHeader from '../../components/customer/browseHeader'
-import { useSearchParams } from 'react-router-dom'
+import { useNavigate, useSearchParams } from 'react-router-dom'
 import { useBrowseFilters } from '../../hooks/useBrowseFilters'
 import { useBrowseChefsQuery } from '../../hooks/useProfiles'
 import EmptyChefGrid from '../../components/chef/EmptyChefGrid'
@@ -13,9 +13,14 @@ import ChefCookingCarousel from '../../components/chef/cookingIconsCarousel'
 export default function Browse() {
   const theme = useTheme()
   const mode = theme.palette.mode
-  const { neighborhood, setNeighborhood } = useBrowseFilters()
+  const navigate = useNavigate()
+  const { filters, setNeighborhood } = useBrowseFilters()
 
-  const { data, isLoading } = useBrowseChefsQuery(neighborhood)
+  const { data, isLoading } = useBrowseChefsQuery(filters)
+  const neighborhood = filters.neighborhood
+
+  console.log(filters);
+  
 
   if (isLoading) {
     return (
@@ -27,22 +32,15 @@ export default function Browse() {
   }
 
 
-  if(!neighborhood) {
-    return <EmptyChefGrid hasNeighborhood={false} />
-  }
+  // if(!neighborhood) {
+  //   return <EmptyChefGrid hasNeighborhood={false} onBrowseAll={() => setNeighborhood('all')} onUpdateProfile={() => navigate('/customer/profile/edit')}/>
+  // }
 
 
   return (
     <>
       <BrowseHeader />
-
       <ChefGrid chefs={data ?? []} isLoading={isLoading} neighborhood={neighborhood} setNeighborhood={setNeighborhood} />
-
-      {/* <Box className="flex justify-center items-center h-8 rounded-md mb-2" sx={{bgcolor: mode === 'light' ? "#e8e9e4" : theme.palette.background.paper}}>
-        <Typography variant="body2" className="w-full text-center" sx={{color: theme.palette.text.primary}}>
-          We&apos;re cooking up some stellar chefs for you!
-        </Typography>
-      </Box> */}
     </>
   )
 }

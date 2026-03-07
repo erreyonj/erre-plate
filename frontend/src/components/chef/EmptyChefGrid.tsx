@@ -45,13 +45,11 @@ export default function EmptyChefGrid({
           color: theme.palette.text.secondary,
         }}
       >
-        {hasNeighborhood
-          ? "There aren't any chefs available in this neighborhood just yet. We're actively onboarding new talent!"
-          : "Add your neighborhood so we can show chefs available in your area."}
+        We weren't able to find any chefs for you right now, but we're always actively onboarding new talent!
       </Typography>
 
       {/* Conditional CTAs */}
-      {hasNeighborhood ? (
+      {/* {hasNeighborhood ? (
         onBrowseAll && (
           <EplateButton
             variantStyle="secondary"
@@ -71,7 +69,14 @@ export default function EmptyChefGrid({
             Add Your Neighborhood
           </EplateButton>
         )
-      )}
+      )} */}
+      <EplateButton
+        variantStyle="secondary"
+        onClick={onBrowseAll}
+        sx={{ mt: 2, px: 4 }}
+      >
+        Browse All Chefs
+      </EplateButton>
     </Box>
   )
 }
