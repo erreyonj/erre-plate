@@ -4,11 +4,8 @@ import { useTheme } from '@mui/material/styles'
 import { useBrowseFilters } from '../../hooks/useBrowseFilters'
 import { useState } from 'react'
 import NeighborhoodSelectorModal from './NeighborhoodSelectModal'
-import { neighborhoodNameByID, neighborhoodZipCodeByID } from '../../utils/neighborhoodByID'
+import { neighborhoodNameByID } from '../../utils/neighborhoodByID'
 
-interface LocationDisplayProps {
-  location?: string
-}
 
 export default function LocationDisplay() {
   const theme = useTheme()

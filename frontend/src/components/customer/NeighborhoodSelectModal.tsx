@@ -10,7 +10,6 @@ import {
     Box
   } from '@mui/material'
 import { useNeighborhoodsQuery } from '../../hooks/useNeighborhoods'
-import { Cancel, Close } from '@mui/icons-material'
   
   
   interface Props {

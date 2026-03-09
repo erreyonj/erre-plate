@@ -19,11 +19,7 @@ import { useState } from 'react'
 import CuisineSelect from '../global/CuisineSelect'
 import RatingSelect from '../global/RatingSelect'
 
-interface BrowseFilterProps {
-  onClick?: () => void
-}
-
-export default function BrowseFilter({ onClick }: BrowseFilterProps) {
+export default function BrowseFilter() {
   const theme = useTheme()
   const { filters, clearFilters } = useBrowseFilters()
   const [open, setOpen] = useState(false)

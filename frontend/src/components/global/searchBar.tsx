@@ -30,9 +30,8 @@ useEffect(() => {
       freeSolo
       options={recentSearches}
       inputValue={search}
-      onInputChange={(e, value) => {
+      onInputChange={(_, value: string) => {
         setSearchVal(value)
-        // setFilter('search', value)
       }}
       inputMode='search'
       renderInput={(params) => (
