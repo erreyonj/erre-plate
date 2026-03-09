@@ -10,7 +10,7 @@ import type {
   PaginatedResponse
 } from '../../types/profile';
 import type { User } from '../../types/user';
-import type { ChefQueryFilters, FetchChefsParams } from '../../types/queryParams';
+import type { ChefQueryFilters } from '../../types/queryParams';
 
 /** Get base authenticated user */
 export const fetchProfile = async (): Promise<User> => {
@@ -87,6 +87,10 @@ export const fetchChefs = async (
 
   if (filters.rating) {
     params.rating = filters.rating
+  }
+
+  if (filters.search) {
+    params.search = filters.search
   }
 
   const { data } = await api.get<PaginatedResponse<PublicChefProfile[]>>(

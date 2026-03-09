@@ -56,20 +56,51 @@ class ProfileController extends Controller
 
     public function index(Request $request)
     {
-        $neighborhoodId = $request->query('neighborhood');
+        $validated = $request->validate([
+            'neighborhood' => 'nullable|string',
+            'cuisine'      => 'nullable|string|max:100',
+            'rating'       => 'nullable|numeric|min:1|max:5',
+            'search'       => 'nullable|string|max:100',
+        ]);
+
+        $neighborhoodId = $validated['neighborhood'] ?? null;
 
         if ($neighborhoodId === 'all') {
             $neighborhoodId = null;
         }
 
-        $chefs = ChefProfile::with('user')
+        $chefs = ChefProfile::query()
+            ->with('user')
             ->where('status', 'approved')
             ->where('is_paused', false)
-            ->when(is_numeric($neighborhoodId), function ($query) use ($neighborhoodId) {
-                $query->whereHas('user', function ($q) use ($neighborhoodId) {
-                    $q->where('neighborhood_id', $neighborhoodId);
+
+            ->when(is_numeric($neighborhoodId), function ($q) use ($neighborhoodId) {
+                $q->whereHas('user', function ($sub) use ($neighborhoodId) {
+                    $sub->where('neighborhood_id', $neighborhoodId);
                 });
             })
+
+            ->when(!empty($validated['search']), function ($q) use ($validated) {
+                $term = $validated['search'];
+                $q->where(function ($sub) use ($term) {
+                    $sub->where('bio', 'like', "%{$term}%")
+                        ->orWhere('tagline', 'like', "%{$term}%")
+                        ->orWhereJsonContains('specialties', $term)
+                        ->orWhereHas('user', function ($user) use ($term) {
+                            $user->where('first_name', 'like', "%{$term}%")
+                                 ->orWhere('last_name', 'like', "%{$term}%");
+                        });
+                });
+            })
+
+            ->when(!empty($validated['cuisine']), function ($q) use ($validated) {
+                $q->whereJsonContains('specialties', $validated['cuisine']);
+            })
+
+            ->when(!empty($validated['rating']), function ($q) use ($validated) {
+                $q->where('rating_average', '>=', $validated['rating']);
+            })
+
             ->latest()
             ->paginate(20);
 

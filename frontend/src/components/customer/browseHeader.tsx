@@ -15,7 +15,7 @@ export default function BrowseHeader() {
         boxShadow: '0 12px 12px rgb(0 0 0 / 0.15)',
         bgcolor: theme.palette.background.default
     }}>
-      <Box className='gap-3' sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
+      <Box className='gap-1' sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
         <SearchBar width='22rem' placeholder="Search" aria-label="Search chefs" />
         <BrowseFilter />
       </Box>

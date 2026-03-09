@@ -1,7 +1,3 @@
-export interface FetchChefsParams {
-    neighborhood?: number | null
-}
-
 export interface ChefQueryFilters {
   neighborhood?: number | null
   cuisine?: string | null

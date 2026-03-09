@@ -14,7 +14,7 @@ type SearchBarProps = Omit<TextFieldProps, 'variant'> & {
 export default function SearchBar({ width = '18rem', InputProps, sx, ...rest }: SearchBarProps) {
   const theme = useTheme()
   const recentSearches = getRecentSearches()
-  const [search, setSearchVal] = useState(recentSearches[0] ?? '')
+  const [search, setSearchVal] = useState('')
   const { setFilter } = useBrowseFilters()
 
   const debouncedSearch = useDebounce(search, 1000)

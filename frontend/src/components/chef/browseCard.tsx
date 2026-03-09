@@ -4,7 +4,7 @@ import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder'
 import SoupKitchenIcon from '@mui/icons-material/SoupKitchen'
 import StarIcon from '@mui/icons-material/Star'
 import type { PublicChefProfile } from '../../types/profile'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 
 type BrowseCardProps = {
   chef: PublicChefProfile
@@ -13,7 +13,7 @@ type BrowseCardProps = {
 
 export default function BrowseCard({ chef, liked = false }: BrowseCardProps) {
   const theme = useTheme()
-  const navigate = useNavigate()
+  const location = useLocation()
   
 
   const fullName = `${chef.first_name} ${chef.last_name}`
@@ -85,7 +85,7 @@ export default function BrowseCard({ chef, liked = false }: BrowseCardProps) {
 
       {/* Content */}
       <Box sx={{ px: 1.5, pt: 1, pb: 1.5 }}>
-        <Link to={`/chef/${chef.slug}`}>
+        <Link to={`/chef/${chef.slug}`} state={{ from: location }}>
           <Typography
             sx={{ fontWeight: 800, color: theme.palette.text.primary, fontSize: 15 }}
             noWrap

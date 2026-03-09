@@ -10,6 +10,7 @@ import ChefIconsCarousel from "../../components/chef/cookingIconsCarousel"
 import NotFound from "../../components/chef/NotFound"
 import ChefReviewsPlaceholder from "../../components/chef/ChefReviewsPlaceholder"
 import MenusPending from "../../components/chef/menu/MenusPending"
+import BackToBrowseButton from "../../components/global/BackToBrowseButton"
 
 
 export default function PublicChefProfile() {
@@ -24,7 +25,10 @@ export default function PublicChefProfile() {
     if (!chef) return <NotFound />
   
     return (
-      <Container maxWidth="lg" sx={{pt: 4}}>
+      <Container maxWidth="lg" sx={{ pt: 4 }}>
+        <Box mb={2}>
+          <BackToBrowseButton />
+        </Box>
         <ChefPublicHero chef={chef} />
   
         <Box mt={4}>
