@@ -6,7 +6,6 @@ import { useBrowseFilters } from '../../hooks/useBrowseFilters'
 import { useEffect, useState } from 'react'
 import { useDebounce } from '../../hooks/useDebounce'
 
-
 type SearchBarProps = Omit<TextFieldProps, 'variant'> & {
   width?: string
 }

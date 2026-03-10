@@ -56,7 +56,7 @@ export default function MenuCardCarousel({ menus }: MenuCardCarouselProps) {
             <Box
               key={menu.id}
               sx={{
-                flex: '0 0 280px',
+                flex: '0 0 280px', p: 1,
               }}
             >
               <WeeklyMenuCard menu={menu} />

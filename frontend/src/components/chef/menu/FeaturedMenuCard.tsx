@@ -1,3 +1,4 @@
+import React from 'react'
 import { Box, Typography, Button, Stack, Chip, Divider } from '@mui/material'
 import type { PublicWeeklyMenu } from '../../../types/menu'
 import FeaturedMenuPhotoCarousel from '../menu/FeaturedMenuPhotoCarousel'
@@ -5,11 +6,14 @@ import FeaturedMenuPhotoCarousel from '../menu/FeaturedMenuPhotoCarousel'
 interface FeaturedMenuCardProps {
     menu: PublicWeeklyMenu
     onOrder?: () => void
+    /** Optional render prop — replaces the default "Order This Menu" button */
+    orderButton?: React.ReactNode
   }
 
 export default function FeaturedMenuCard({
   menu,
   onOrder,
+  orderButton,
 }: FeaturedMenuCardProps) {
   const price = menu.base_price ?? 0
 
@@ -72,18 +76,20 @@ export default function FeaturedMenuCard({
               ${price}
             </Typography>
 
-            <Button
-              variant="contained"
-              size="large"
-              onClick={onOrder}
-              sx={{
-                borderRadius: 3,
-                px: 3,
-                fontWeight: 600,
-              }}
-            >
-              Order This Menu
-            </Button>
+            {orderButton ?? (
+              <Button
+                variant="contained"
+                size="large"
+                onClick={onOrder}
+                sx={{
+                  borderRadius: 3,
+                  px: 3,
+                  fontWeight: 600,
+                }}
+              >
+                Order This Menu
+              </Button>
+            )}
           </Stack>
         </Stack>
       </Box>

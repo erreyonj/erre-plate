@@ -6,7 +6,9 @@ import {
   updateWeeklyMenu,
   publishWeeklyMenu,
   archiveWeeklyMenu,
+  fetchPublicMenu,
 } from '../services/queries/menuQueries'
+import { queryKeys } from '../services/queryKeys'
 
 const CHEF_MENUS_KEY = ['chefMenus'] as const
 
@@ -66,5 +68,13 @@ export function useArchiveWeeklyMenu() {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: CHEF_MENUS_KEY })
     },
+  })
+}
+
+export function usePublicMenuDetail(menuId: number | string | undefined) {
+  return useQuery({
+    queryKey: queryKeys.menus.publicDetail(menuId ?? ''),
+    queryFn: () => fetchPublicMenu(menuId as number | string),
+    enabled: !!menuId,
   })
 }

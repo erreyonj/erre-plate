@@ -217,18 +217,19 @@ class WeeklyMenuController extends Controller
         }
 
         if ($menu->menu_scope === 'full') {
+            $duration = (int) $menu->duration_days;
             $breakfast = $assigned->where('meal_type', 'breakfast')->sum('meals_covered');
             $lunch = $assigned->where('meal_type', 'lunch')->sum('meals_covered');
             $dinner = $assigned->where('meal_type', 'dinner')->sum('meals_covered');
 
-            if ($breakfast < 1) {
-                $errors[] = 'Full-scope menus must have at least one breakfast meal.';
+            if ($breakfast !== $duration) {
+                $errors[] = "Breakfast dishes must cover exactly {$duration} meals (currently {$breakfast}).";
             }
-            if ($lunch < 1) {
-                $errors[] = 'Full-scope menus must have at least one lunch meal.';
+            if ($lunch !== $duration) {
+                $errors[] = "Lunch dishes must cover exactly {$duration} meals (currently {$lunch}).";
             }
-            if ($dinner < 1) {
-                $errors[] = 'Full-scope menus must have at least one dinner meal.';
+            if ($dinner !== $duration) {
+                $errors[] = "Dinner dishes must cover exactly {$duration} meals (currently {$dinner}).";
             }
         }
 

@@ -20,6 +20,7 @@ class DishResource extends JsonResource
             'description' => $this->description,
             'meal_type' => $this->meal_type,
             'prep_time_minutes' => $this->prep_time_minutes,
+            'ingredients' => $this->ingredients,
             'dietary_tags' => $this->dietary_tags,
 
             'photos' => DishPhotoResource::collection(

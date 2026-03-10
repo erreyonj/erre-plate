@@ -54,6 +54,15 @@ class ProfileController extends Controller
         ]);
     }
 
+    public function showPublicMenu(WeeklyMenu $menu)
+    {
+        abort_if($menu->status !== 'published', 404);
+
+        $menu->load('assignedDishes.dish.photos', 'chefProfile.user');
+
+        return new WeeklyMenuResource($menu);
+    }
+
     public function index(Request $request)
     {
         $validated = $request->validate([

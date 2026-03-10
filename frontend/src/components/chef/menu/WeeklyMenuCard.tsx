@@ -80,7 +80,6 @@ export default function WeeklyMenuCard({
           gap: 1,
         }}
       >
-        <Chip label={menu.status} size="small" />
         <Typography variant="h6" fontWeight={600}>
           {menu.title}
         </Typography>
@@ -102,13 +101,14 @@ export default function WeeklyMenuCard({
 
         {onSelect && (
           <Button
-            variant="contained"
-            fullWidth
-            onClick={() => onSelect(menu)}
+          variant="contained"
+          fullWidth
+          onClick={() => onSelect(menu)}
           >
             View Menu
           </Button>
         )}
+        <Chip label={menu.status} size="small" />
       </CardContent>
     </Card>
   )

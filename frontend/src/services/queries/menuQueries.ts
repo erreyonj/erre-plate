@@ -1,5 +1,5 @@
 import { api } from '../api'
-import type { WeeklyMenuSummary, WeeklyMenuDetail } from '../../types/menu'
+import type { WeeklyMenuSummary, WeeklyMenuDetail, PublicMenuDetail } from '../../types/menu'
 
 export const fetchChefMenus = async (): Promise<WeeklyMenuSummary[]> => {
   const res = await api.get('/chef/weekly-menus')
@@ -43,4 +43,11 @@ export const archiveWeeklyMenu = async (
 ): Promise<WeeklyMenuDetail> => {
   const res = await api.patch(`/chef/weekly-menus/${id}/archive`)
   return res.data
+}
+
+export const fetchPublicMenu = async (
+  menuId: number | string
+): Promise<PublicMenuDetail> => {
+  const res = await api.get(`/menus/${menuId}`)
+  return res.data.data ?? res.data
 }

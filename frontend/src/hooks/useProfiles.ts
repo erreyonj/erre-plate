@@ -42,6 +42,7 @@ export function useUpdateProfileMutation() {
     return useMutation({
       mutationFn: updateProfile,
       onSuccess: (user) => {
+        console.log("user", user);
         queryClient.setQueryData(queryKeys.auth.me(), user);
       },
     });

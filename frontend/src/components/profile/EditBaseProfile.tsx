@@ -25,6 +25,7 @@ export default function CustomerProfileEdit() {
   const queryClient = useQueryClient();
   const navigate = useNavigate();
   const { user } = useAuth();
+  console.log("user", user);
   const updateProfile = useUpdateProfileMutation();
   const [isInEditMode, setIsInEditMode] = useState(false);
 
@@ -45,16 +46,16 @@ export default function CustomerProfileEdit() {
       first_name: user?.first_name ?? "",
       last_name: user?.last_name ?? "",
       phone: user?.phone ?? "",
-      dietary_preferences: "",
-      allergies: "",
+      dietary_preferences: user?.dietary_preferences ?? "",
+      allergies: user?.allergies ?? "",
       address: {
-        street: "",
-        city: "",
-        state: "",
-        zip: "",
-        country: "",
-        lat: undefined,
-        lng: undefined,
+        street: user?.address?.street ?? "",
+        city: user?.address?.city ?? "",
+        state: user?.address?.state ?? "",
+        zip: user?.address?.zip ?? "",
+        country: user?.address?.country ?? "",
+        lat: user?.address?.lat ?? undefined,
+        lng: user?.address?.lng ?? undefined,
       },
     },
   });
@@ -64,6 +65,8 @@ export default function CustomerProfileEdit() {
     queryClient.invalidateQueries({ queryKey: queryKeys.auth.me() });
     navigate(`/${user?.role}/profile`);
   };
+
+  const addressLabel = `${user?.address?.street} ${user?.address?.city}, ${user?.address?.state} ${user?.address?.zip} ${user?.address?.country}`;
 
   return (
     <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
@@ -126,7 +129,7 @@ export default function CustomerProfileEdit() {
                   setValue("address", extracted.address);
                 }}
               >
-                <TextField fullWidth label="Address" disabled={!isInEditMode}/>
+                <TextField fullWidth label={addressLabel || "Enter address"} disabled={!isInEditMode}/>
               </Autocomplete>
             )}
 

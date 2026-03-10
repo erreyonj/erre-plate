@@ -1,7 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\OrderController;
+use App\Http\Controllers\Customer\OrderController;
+use App\Http\Controllers\Chef\ChefOrderController;
 
 /*
 |--------------------------------------------------------------------------
@@ -9,43 +10,36 @@ use App\Http\Controllers\OrderController;
 |--------------------------------------------------------------------------
 */
 
-Route::middleware('auth:api')->group(function () {
+/*
+|--------------------------------------------------------------------------
+| Customer Routes
+|--------------------------------------------------------------------------
+*/
+Route::middleware(['auth:api', 'role:customer'])->group(function () {
 
-    /*
-    |--------------------------------------------------------------------------
-    | Customer Routes
-    |--------------------------------------------------------------------------
-    */
-    Route::middleware('role:customer')->prefix('customer')->group(function () {
+    // List the authenticated customer's orders
+    Route::get('/orders', [OrderController::class, 'index']);
 
-        // Create order
-        Route::post('/orders', [OrderController::class, 'store']);
+    // Place a new order
+    Route::post('/orders', [OrderController::class, 'store']);
 
-        // View own orders
-        Route::get('/orders', [OrderController::class, 'customerIndex']);
+    // View a single order
+    Route::get('/orders/{order}', [OrderController::class, 'show']);
 
-        // View single order
-        Route::get('/orders/{order}', [OrderController::class, 'customerShow']);
+    // Cancel an order
+    Route::post('/orders/{order}/cancel', [OrderController::class, 'cancel']);
+});
 
-        // Cancel order (only certain statuses allowed)
-        Route::patch('/orders/{order}/cancel', [OrderController::class, 'cancel']);
-    });
+/*
+|--------------------------------------------------------------------------
+| Chef Routes
+|--------------------------------------------------------------------------
+*/
+Route::middleware(['auth:api', 'role:chef'])->prefix('chef')->group(function () {
 
-    /*
-    |--------------------------------------------------------------------------
-    | Chef Routes
-    |--------------------------------------------------------------------------
-    */
-    Route::middleware('role:chef')->prefix('chef')->group(function () {
+    // List incoming orders for the chef
+    Route::get('/orders', [ChefOrderController::class, 'index']);
 
-        // View orders assigned to chef
-        Route::get('/orders', [OrderController::class, 'chefIndex']);
-
-        // View specific order
-        Route::get('/orders/{order}', [OrderController::class, 'chefShow']);
-
-        // Update status
-        Route::patch('/orders/{order}/status', [OrderController::class, 'updateStatus']);
-    });
-
+    // Update the status of an order
+    Route::patch('/orders/{order}/status', [ChefOrderController::class, 'updateStatus']);
 });

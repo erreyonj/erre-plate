@@ -46,13 +46,16 @@ export interface WeeklyMenuBuilder {
 }
 
 export interface PublicWeeklyMenu {
-  id: string
+  id: number
   title: string
   duration_days: 5 | 7
   menu_scope: MenuScope
+  required_meal_count?: number | null
   status: MenuStatus
   base_price: number
   dishes: Dish[]
+  saved_by_customer_count?: number | null
+  ordered_by_customer_count?: number | null
 }
 
 export interface WeeklyMenuSummary {
@@ -74,14 +77,31 @@ export interface WeeklyMenuDetail extends WeeklyMenuSummary {
     dish_id: number
     meals_covered: number
     meal_type: MealType
-    dish: {
-      id: number
-      name: string
-      description: string
-      meal_type: 'breakfast' | 'lunch' | 'dinner'
-      ingredients: unknown
-      dietary_tags: unknown
-    }
+    dish: Dish
+  }>
+}
+
+/**
+ * Full public menu detail — matches WeeklyMenuResource response shape.
+ * Used for the customer order flow when viewing a single menu with all dishes.
+ */
+export interface PublicMenuDetail {
+  id: number
+  title: string
+  description: string | null
+  duration_days: number
+  menu_scope: MenuScope
+  required_meal_count: number
+  base_price: string
+  status: MenuStatus
+  created_at: string
+  updated_at: string
+  assigned_dishes: Array<{
+    id: number
+    dish_id: number
+    meals_covered: number
+    meal_type: MealType
+    dish: Dish
   }>
 }
 

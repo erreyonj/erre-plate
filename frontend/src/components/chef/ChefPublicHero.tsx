@@ -6,11 +6,12 @@ import {
     Button,
     Stack,
     Rating,
-    Divider
+    Divider,
   } from '@mui/material'
   import type { PublicChefProfile } from '../../types/profile'
+import { Link } from 'react-router-dom'
   
-  export default function ChefPublicHero({ chef }: {chef: PublicChefProfile}) {
+  export default function ChefPublicHero({ chef }: { chef: PublicChefProfile }) {
     
     const fullName = `${chef.first_name} ${chef.last_name}`
   
@@ -114,19 +115,21 @@ import {
   
           {/* CTA */}
           <Box>
-            <Button
-              variant="contained"
-              size="large"
-              disabled={!canOrder}
-              sx={{
-                px: 4,
-                py: 1.5,
-                fontWeight: 600,
-                borderRadius: 3,
-              }}
-            >
-              {canOrder ? 'Order Now' : 'Not Available'}
-            </Button>
+            <Link to={canOrder ? `/customer/order/${chef.slug}` : '#'}>
+              <Button
+                variant="contained"
+                size="large"
+                disabled={!canOrder}
+                sx={{
+                  px: 4,
+                  py: 1.5,
+                  fontWeight: 600,
+                  borderRadius: 3,
+                }}
+              >
+                {canOrder ? 'Order Now' : 'Not Available'}
+              </Button>
+            </Link>
           </Box>
         </Stack>
   

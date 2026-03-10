@@ -22,6 +22,7 @@ export const fetchProfile = async (): Promise<User> => {
 export async function updateProfile(
   payload: UpdateProfilePayload
 ): Promise<User> {
+  console.log("payload", payload);
   const { data } = await api.put<UpdateProfileResponse>(
     '/profile',
     payload

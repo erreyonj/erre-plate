@@ -11,6 +11,7 @@ import NotFound from "../../components/chef/NotFound"
 import ChefReviewsPlaceholder from "../../components/chef/ChefReviewsPlaceholder"
 import MenusPending from "../../components/chef/menu/MenusPending"
 import BackToBrowseButton from "../../components/global/BackToBrowseButton"
+import OrderButton from "../../components/customer/OrderButton"
 
 
 export default function PublicChefProfile() {
@@ -37,17 +38,18 @@ export default function PublicChefProfile() {
 
         {!weeklyMenus?.length && <MenusPending />}
   
-        
         {featuredMenu && (
-            <Box mt={6}>
-            <FeaturedMenuCard menu={featuredMenu} />
+          <Box mt={6}>
+            <FeaturedMenuCard
+              menu={featuredMenu}
+              orderButton={<OrderButton weeklyMenuId={featuredMenu.id} />}
+            />
           </Box>
         )}
   
-        
         {weeklyMenus && (
-            <Box mt={6}>
-                <MenuCardCarousel menus={weeklyMenus} />
+          <Box mt={6}>
+            <MenuCardCarousel menus={weeklyMenus} />
           </Box>
         )}
   

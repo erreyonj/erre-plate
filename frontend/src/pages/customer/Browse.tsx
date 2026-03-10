@@ -13,6 +13,9 @@ export default function Browse() {
   const { data, isLoading } = useBrowseChefsQuery(filters)
   const neighborhood = filters.neighborhood
 
+  console.log(data);
+  
+
   if (isLoading) {
     return (
       <LoadingState 
@@ -21,11 +24,6 @@ export default function Browse() {
       />
     )
   }
-
-
-  // if(!neighborhood) {
-  //   return <EmptyChefGrid hasNeighborhood={false} onBrowseAll={() => setNeighborhood('all')} onUpdateProfile={() => navigate('/customer/profile/edit')}/>
-  // }
 
 
   return (

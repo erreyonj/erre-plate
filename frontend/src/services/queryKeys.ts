@@ -33,6 +33,10 @@ export const queryKeys = {
     list: () => [...queryKeys.reviews.all, 'list'] as const,
     detail: (id: string) => [...queryKeys.reviews.all, 'detail', id] as const,
   },
+  menus: {
+    all: ['menus'] as const,
+    publicDetail: (id: number | string) => [...queryKeys.menus.all, 'public', String(id)] as const,
+  },
   neighborhoods: {
     all: ['neighborhoods'] as const,
     list: () => [...queryKeys.neighborhoods.all, 'list'] as const

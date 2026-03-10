@@ -5,6 +5,8 @@ import { Auth } from './pages/auth/Auth'
 import Browse from './pages/customer/Browse'
 import Menus from './pages/chef/Menus'
 import Orders from './pages/customer/Orders'
+import OrderDetail from './pages/customer/OrderDetail'
+import OrderBuilder from './pages/customer/OrderBuilder'
 import Tickets from './pages/chef/Tickets'
 import CustomerProfile from './pages/customer/CustomerProfile'
 import ProfileEdit from './pages/profile/ProfileEdit'
@@ -44,6 +46,7 @@ function App() {
           <Route path="browse" element={<Browse />} />
           {/* <Route path="browse?neighborhood=:neighborhoodId" element={<Browse />} /> */}
           <Route path="orders" element={<Orders />} />
+          <Route path="orders/:id" element={<OrderDetail />} />
           <Route path="profile" element={<CustomerProfile />} />
           <Route path="profile/edit" element={<ProfileEdit />} />
         </Route>
@@ -75,7 +78,16 @@ function App() {
         }
       >
         <Route path=":slug" element={<PublicChefProfile />} />
-      </Route >
+      </Route>
+
+      <Route
+        path="/customer/order/:slug"
+        element={
+          <ProtectedRoute allowedRoles={['customer']} forbiddenPath="/customer/browse">
+            <OrderBuilder />
+          </ProtectedRoute>
+        }
+      />
 
       <Route
         path="/admin"

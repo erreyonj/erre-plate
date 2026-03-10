@@ -21,6 +21,8 @@ Route::middleware(['auth:api'])->group(function () {
     Route::get('/chefs', [ProfileController::class, 'index']);
     // Get single chef public profile
     Route::get('/chefs/{slug}', [ProfileController::class, 'showPublicChef']);
+    // Get a single published menu with full dish details (for order flow)
+    Route::get('/menus/{menu}', [ProfileController::class, 'showPublicMenu']);
 });
 
 // Authorized Users can POST their photo

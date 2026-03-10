@@ -99,11 +99,11 @@ class User extends Authenticatable implements JWTSubject
 
 
     /**
-     * Customer Orders relationship
+     * Customer orders relationship
      */
     public function orders()
     {
-        return $this->hasMany(Order::class, 'customer_id');
+        return $this->hasMany(Order::class, 'user_id');
     }
 
     public function neighborhood()
