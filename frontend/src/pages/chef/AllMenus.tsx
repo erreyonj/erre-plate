@@ -39,7 +39,7 @@ export default function AllMenus() {
   }
 
   return (
-    <Box className="space-y-4">
+    <Box className="space-y-4 mt-2">
       <Stack direction="row" justifyContent="space-between" alignItems="center">
         <Box>
           <Typography variant="h5" sx={{ fontWeight: 700 }}>

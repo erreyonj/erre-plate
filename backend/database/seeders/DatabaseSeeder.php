@@ -19,6 +19,8 @@ class DatabaseSeeder extends Seeder
             NeighborhoodSeeder::class,
             CustomerSeeder::class,
             ChefSeeder::class,
+            DishSeeder::class,
+            WeeklyMenuSeeder::class,
         ]);
     }
 }

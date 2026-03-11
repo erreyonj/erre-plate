@@ -13,9 +13,6 @@ export default function Browse() {
   const { data, isLoading } = useBrowseChefsQuery(filters)
   const neighborhood = filters.neighborhood
 
-  console.log(data);
-  
-
   if (isLoading) {
     return (
       <LoadingState 

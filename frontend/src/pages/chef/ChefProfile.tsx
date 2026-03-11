@@ -43,7 +43,7 @@ export default function ChefProfile() {
   const certifications = ['ServSafe', 'Allergen aware']
 
   return (
-    <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
+    <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2, mt: 2 }}>
       {/* Header row with title + notification bell */}
       <Box
         sx={{

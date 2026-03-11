@@ -140,7 +140,7 @@ export function useMenuBuilder() {
       meals_covered: 1,
       meal_type: dish.meal_type,
       dish: {
-        id: Number(dish.id),
+        id: dish.id,
         name: dish.name,
         description: dish.description,
         meal_type: dish.meal_type,

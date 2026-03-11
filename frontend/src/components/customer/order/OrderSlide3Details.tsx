@@ -37,6 +37,8 @@ export default function OrderSlide3Details({
 
   const handlePurchase = () => {
     if (!menuId) return
+    // I believe from this step we'd actually send customer to payment processing
+    // The callback from provider (Stripe? whats good for chefs?) would take them to /customer/orders/order.id
     createOrder(
       { weekly_menu_id: menuId },
       {
