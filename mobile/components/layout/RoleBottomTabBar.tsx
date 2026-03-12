@@ -8,6 +8,7 @@ import {
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
 import type { BottomTabBarProps } from '@react-navigation/bottom-tabs';
+import { colors } from '../../constants/theme';
 
 type Role = 'customer' | 'chef';
 
@@ -68,7 +69,7 @@ export default function RoleBottomTabBar({ state, descriptors, navigation, role 
                 <Ionicons
                   name={isFocused ? tab.activeIcon : tab.icon}
                   size={22}
-                  color={isFocused ? '#f59e0b' : 'rgba(255,255,255,0.75)'}
+                  color={isFocused ? colors.gold : 'rgba(255,255,255,0.75)'}
                 />
               </View>
             </Pressable>
@@ -99,7 +100,7 @@ const styles = StyleSheet.create({
   },
   pill: {
     flexDirection: 'row',
-    backgroundColor: '#1a1a1a',
+    backgroundColor: colors.charcoal,
     borderRadius: 999,
     height: 64,
     width: '100%',
@@ -125,6 +126,6 @@ const styles = StyleSheet.create({
     borderRadius: 22,
   },
   iconWrapActive: {
-    backgroundColor: 'rgba(245,158,11,0.12)',
+    backgroundColor: 'rgba(241,184,77,0.15)',
   },
 });

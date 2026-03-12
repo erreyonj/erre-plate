@@ -10,26 +10,26 @@ const STATUS_COLORS: Record<string, string> = {
   confirmed: 'bg-blue-100 text-blue-700',
   preparing: 'bg-indigo-100 text-indigo-700',
   ready: 'bg-green-100 text-green-700',
-  completed: 'bg-gray-100 text-gray-600',
+  completed: 'bg-eplate-lightgray text-eplate-darkgray',
   cancelled: 'bg-red-100 text-red-700',
 };
 
 function OrderCard({ order, onPress }: { order: OrderSummary; onPress: () => void }) {
-  const colorClass = STATUS_COLORS[order.status] ?? 'bg-gray-100 text-gray-600';
+  const colorClass = STATUS_COLORS[order.status] ?? 'bg-eplate-lightgray text-eplate-darkgray';
   const [bgClass, textClass] = colorClass.split(' ');
 
   return (
     <Pressable
-      className="bg-white rounded-2xl border border-gray-100 p-4 mb-3"
+      className="bg-white rounded-2xl border border-eplate-lightgray p-4 mb-3"
       onPress={onPress}
     >
       <View className="flex-row justify-between items-start">
         <View className="flex-1">
-          <Text className="text-base font-bold text-gray-900">
+          <Text className="text-base font-bold text-eplate-charcoal">
             {order.menu_name ?? 'Weekly Menu'}
           </Text>
           {order.chef_name && (
-            <Text className="text-sm text-gray-500 mt-0.5">by {order.chef_name}</Text>
+            <Text className="text-sm text-eplate-midgray mt-0.5">by {order.chef_name}</Text>
           )}
         </View>
         <View className={`px-2.5 py-1 rounded-full ${bgClass}`}>
@@ -39,12 +39,12 @@ function OrderCard({ order, onPress }: { order: OrderSummary; onPress: () => voi
         </View>
       </View>
       <View className="flex-row justify-between items-center mt-3">
-        <Text className="text-sm text-gray-500">
+        <Text className="text-sm text-eplate-midgray">
           {order.placed_at
             ? new Date(order.placed_at).toLocaleDateString()
             : 'Pending'}
         </Text>
-        <Text className="text-base font-bold text-gray-900">
+        <Text className="text-base font-bold text-eplate-charcoal">
           ${order.total}
         </Text>
       </View>
@@ -58,7 +58,7 @@ export default function OrdersScreen({ navigation }: CustomerScreenProps<'Orders
   if (isLoading) {
     return (
       <View className="flex-1 items-center justify-center bg-white">
-        <ActivityIndicator size="large" />
+        <ActivityIndicator size="large" color="#038568" />
       </View>
     );
   }
@@ -74,11 +74,11 @@ export default function OrdersScreen({ navigation }: CustomerScreenProps<'Orders
   if (!orders || orders.length === 0) {
     return (
       <View className="flex-1 items-center justify-center bg-white px-6">
-        <View className="w-14 h-14 rounded-full bg-gray-100 items-center justify-center mb-3">
-          <Ionicons name="receipt-outline" size={24} color="#9ca3af" />
+        <View className="w-14 h-14 rounded-full bg-eplate-lightgray items-center justify-center mb-3">
+          <Ionicons name="receipt-outline" size={24} color="#9a9d95" />
         </View>
-        <Text className="text-lg font-semibold text-gray-800">No orders yet</Text>
-        <Text className="text-sm text-gray-500 mt-1 text-center">
+        <Text className="text-lg font-semibold text-eplate-charcoal">No orders yet</Text>
+        <Text className="text-sm text-eplate-midgray mt-1 text-center">
           Browse chefs and place your first order!
         </Text>
       </View>
@@ -87,7 +87,7 @@ export default function OrdersScreen({ navigation }: CustomerScreenProps<'Orders
 
   return (
     <FlatList
-      className="bg-gray-50"
+      className="bg-eplate-offwhite"
       contentContainerClassName="px-4 pt-4 pb-20"
       data={orders}
       keyExtractor={(item) => String(item.id)}

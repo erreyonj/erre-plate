@@ -57,34 +57,34 @@ export default function RegisterScreen({ navigation }: AuthScreenProps<'Register
 
   return (
     <KeyboardAvoidingView
-      className="flex-1 bg-white"
+      className="flex-1 bg-eplate-offwhite"
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
     >
       <ScrollView
         contentContainerClassName="py-12 px-6"
         keyboardShouldPersistTaps="handled"
       >
-        <Text className="text-3xl font-bold text-gray-900 mb-2">
+        <Text className="text-3xl font-bold text-eplate-charcoal mb-2">
           Create account
         </Text>
-        <Text className="text-base text-gray-500 mb-8">
+        <Text className="text-base text-eplate-midgray mb-8">
           Join errePlate and start exploring
         </Text>
 
         <View className="flex-row gap-3 mb-4">
           <View className="flex-1">
-            <Text className="text-sm font-medium text-gray-700 mb-1">First name</Text>
+            <Text className="text-sm font-medium text-eplate-darkgray mb-1">First name</Text>
             <TextInput
-              className="border border-gray-300 rounded-xl px-4 py-3 text-base bg-gray-50"
+              className="border border-eplate-lightgray rounded-xl px-4 py-3 text-base bg-white"
               value={form.first_name}
               onChangeText={(v) => update('first_name', v)}
               autoComplete="given-name"
             />
           </View>
           <View className="flex-1">
-            <Text className="text-sm font-medium text-gray-700 mb-1">Last name</Text>
+            <Text className="text-sm font-medium text-eplate-darkgray mb-1">Last name</Text>
             <TextInput
-              className="border border-gray-300 rounded-xl px-4 py-3 text-base bg-gray-50"
+              className="border border-eplate-lightgray rounded-xl px-4 py-3 text-base bg-white"
               value={form.last_name}
               onChangeText={(v) => update('last_name', v)}
               autoComplete="family-name"
@@ -93,9 +93,9 @@ export default function RegisterScreen({ navigation }: AuthScreenProps<'Register
         </View>
 
         <View className="mb-4">
-          <Text className="text-sm font-medium text-gray-700 mb-1">Email</Text>
+          <Text className="text-sm font-medium text-eplate-darkgray mb-1">Email</Text>
           <TextInput
-            className="border border-gray-300 rounded-xl px-4 py-3 text-base bg-gray-50"
+            className="border border-eplate-lightgray rounded-xl px-4 py-3 text-base bg-white"
             value={form.email}
             onChangeText={(v) => update('email', v)}
             keyboardType="email-address"
@@ -105,21 +105,21 @@ export default function RegisterScreen({ navigation }: AuthScreenProps<'Register
         </View>
 
         <View className="mb-4">
-          <Text className="text-sm font-medium text-gray-700 mb-1">I am a</Text>
+          <Text className="text-sm font-medium text-eplate-darkgray mb-1">I am a</Text>
           <View className="flex-row gap-3">
             <Pressable
-              className={`flex-1 rounded-xl py-3 items-center border ${form.role === 'customer' ? 'border-amber-600 bg-amber-50' : 'border-gray-300 bg-gray-50'}`}
+              className={`flex-1 rounded-xl py-3 items-center border ${form.role === 'customer' ? 'border-eplate-gold bg-eplate-gold-subtle' : 'border-eplate-lightgray bg-white'}`}
               onPress={() => update('role', 'customer')}
             >
-              <Text className={form.role === 'customer' ? 'text-amber-700 font-semibold' : 'text-gray-600'}>
+              <Text className={form.role === 'customer' ? 'text-eplate-brown font-semibold' : 'text-eplate-midgray'}>
                 Customer
               </Text>
             </Pressable>
             <Pressable
-              className={`flex-1 rounded-xl py-3 items-center border ${form.role === 'chef' ? 'border-amber-600 bg-amber-50' : 'border-gray-300 bg-gray-50'}`}
+              className={`flex-1 rounded-xl py-3 items-center border ${form.role === 'chef' ? 'border-eplate-gold bg-eplate-gold-subtle' : 'border-eplate-lightgray bg-white'}`}
               onPress={() => update('role', 'chef')}
             >
-              <Text className={form.role === 'chef' ? 'text-amber-700 font-semibold' : 'text-gray-600'}>
+              <Text className={form.role === 'chef' ? 'text-eplate-brown font-semibold' : 'text-eplate-midgray'}>
                 Chef
               </Text>
             </Pressable>
@@ -127,9 +127,9 @@ export default function RegisterScreen({ navigation }: AuthScreenProps<'Register
         </View>
 
         <View className="mb-4">
-          <Text className="text-sm font-medium text-gray-700 mb-1">Password</Text>
+          <Text className="text-sm font-medium text-eplate-darkgray mb-1">Password</Text>
           <TextInput
-            className="border border-gray-300 rounded-xl px-4 py-3 text-base bg-gray-50"
+            className="border border-eplate-lightgray rounded-xl px-4 py-3 text-base bg-white"
             value={form.password}
             onChangeText={(v) => update('password', v)}
             secureTextEntry
@@ -139,9 +139,9 @@ export default function RegisterScreen({ navigation }: AuthScreenProps<'Register
         </View>
 
         <View className="mb-6">
-          <Text className="text-sm font-medium text-gray-700 mb-1">Confirm password</Text>
+          <Text className="text-sm font-medium text-eplate-darkgray mb-1">Confirm password</Text>
           <TextInput
-            className="border border-gray-300 rounded-xl px-4 py-3 text-base bg-gray-50"
+            className="border border-eplate-lightgray rounded-xl px-4 py-3 text-base bg-white"
             value={form.password_confirmation}
             onChangeText={(v) => update('password_confirmation', v)}
             secureTextEntry
@@ -150,7 +150,7 @@ export default function RegisterScreen({ navigation }: AuthScreenProps<'Register
         </View>
 
         <Pressable
-          className={`rounded-xl py-3.5 items-center ${isLoading ? 'bg-gray-400' : 'bg-gray-900'}`}
+          className={`rounded-xl py-3.5 items-center ${isLoading ? 'bg-eplate-midgray' : 'bg-eplate-charcoal'}`}
           onPress={handleRegister}
           disabled={isLoading}
         >
@@ -160,9 +160,9 @@ export default function RegisterScreen({ navigation }: AuthScreenProps<'Register
         </Pressable>
 
         <View className="flex-row justify-center mt-6">
-          <Text className="text-gray-500">Already have an account? </Text>
+          <Text className="text-eplate-midgray">Already have an account? </Text>
           <Pressable onPress={() => navigation.navigate('Login')}>
-            <Text className="text-amber-600 font-semibold">Sign in</Text>
+            <Text className="text-eplate-gold font-semibold">Sign in</Text>
           </Pressable>
         </View>
       </ScrollView>

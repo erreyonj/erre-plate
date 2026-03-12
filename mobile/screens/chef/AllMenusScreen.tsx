@@ -13,7 +13,7 @@ const FILTERS: { label: string; value: MenuStatus | 'all' }[] = [
 ];
 
 const STATUS_BADGE: Record<string, { bg: string; text: string }> = {
-  draft: { bg: 'bg-gray-100', text: 'text-gray-600' },
+  draft: { bg: 'bg-eplate-lightgray', text: 'text-eplate-darkgray' },
   published: { bg: 'bg-green-100', text: 'text-green-700' },
   archived: { bg: 'bg-yellow-100', text: 'text-yellow-700' },
 };
@@ -34,25 +34,25 @@ export default function AllMenusScreen({ navigation }: ChefScreenProps<'AllMenus
   if (isLoading) {
     return (
       <View className="flex-1 items-center justify-center bg-white">
-        <ActivityIndicator size="large" />
+        <ActivityIndicator size="large" color="#038568" />
       </View>
     );
   }
 
   return (
-    <View className="flex-1 bg-gray-50">
+    <View className="flex-1 bg-eplate-offwhite">
       <View className="flex-row gap-2 px-4 py-3">
         {FILTERS.map((f) => (
           <Pressable
             key={f.value}
             className={`px-3 py-1.5 rounded-full ${
-              statusFilter === f.value ? 'bg-gray-900' : 'bg-gray-100'
+              statusFilter === f.value ? 'bg-eplate-charcoal' : 'bg-eplate-lightgray'
             }`}
             onPress={() => setStatusFilter(f.value)}
           >
             <Text
               className={`text-sm font-semibold ${
-                statusFilter === f.value ? 'text-white' : 'text-gray-600'
+                statusFilter === f.value ? 'text-white' : 'text-eplate-darkgray'
               }`}
             >
               {f.label}
@@ -69,11 +69,11 @@ export default function AllMenusScreen({ navigation }: ChefScreenProps<'AllMenus
           const badge = STATUS_BADGE[item.status] ?? STATUS_BADGE.draft;
           return (
             <Pressable
-              className="bg-white border border-gray-100 rounded-2xl p-4 mb-3"
+              className="bg-white border border-eplate-lightgray rounded-2xl p-4 mb-3"
               onPress={() => navigation.navigate('MenuBuilder', { menuId: String(item.id) })}
             >
               <View className="flex-row justify-between items-start">
-                <Text className="text-base font-bold text-gray-900 flex-1" numberOfLines={1}>
+                <Text className="text-base font-bold text-eplate-charcoal flex-1" numberOfLines={1}>
                   {item.title || 'Untitled Menu'}
                 </Text>
                 <View className={`px-2 py-0.5 rounded-full ml-2 ${badge.bg}`}>
@@ -83,16 +83,16 @@ export default function AllMenusScreen({ navigation }: ChefScreenProps<'AllMenus
                 </View>
               </View>
               <View className="flex-row items-center gap-3 mt-2">
-                <Text className="text-sm text-gray-500">{item.duration_days} days</Text>
-                <Text className="text-sm text-gray-500">{getMenuScopeLabel(item.menu_scope)}</Text>
-                <Text className="text-sm font-semibold text-gray-700">${item.base_price}</Text>
+                <Text className="text-sm text-eplate-midgray">{item.duration_days} days</Text>
+                <Text className="text-sm text-eplate-midgray">{getMenuScopeLabel(item.menu_scope)}</Text>
+                <Text className="text-sm font-semibold text-eplate-darkgray">${item.base_price}</Text>
               </View>
             </Pressable>
           );
         }}
         ListEmptyComponent={
           <View className="items-center py-10">
-            <Text className="text-gray-500">No menus match this filter.</Text>
+            <Text className="text-eplate-midgray">No menus match this filter.</Text>
           </View>
         }
       />

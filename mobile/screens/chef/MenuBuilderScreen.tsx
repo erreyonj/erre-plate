@@ -43,7 +43,7 @@ export default function MenuBuilderScreen({
   if (isLoading || !draft) {
     return (
       <View className="flex-1 items-center justify-center bg-white">
-        <ActivityIndicator size="large" />
+        <ActivityIndicator size="large" color="#038568" />
       </View>
     );
   }
@@ -53,7 +53,7 @@ export default function MenuBuilderScreen({
       <View className="flex-1 items-center justify-center bg-white px-6">
         <Text className="text-red-500 text-center">Could not load this menu.</Text>
         <Pressable className="mt-4" onPress={() => navigation.goBack()}>
-          <Text className="text-amber-600 font-semibold">Go back</Text>
+          <Text className="text-eplate-gold font-semibold">Go back</Text>
         </Pressable>
       </View>
     );
@@ -64,9 +64,9 @@ export default function MenuBuilderScreen({
   return (
     <ScrollView className="flex-1 bg-white" contentContainerClassName="px-4 py-4 pb-32">
       <View className="mb-4">
-        <Text className="text-sm font-medium text-gray-700 mb-1">Menu Title</Text>
+        <Text className="text-sm font-medium text-eplate-darkgray mb-1">Menu Title</Text>
         <TextInput
-          className="border border-gray-300 rounded-xl px-4 py-3 text-base bg-gray-50"
+          className="border border-eplate-lightgray rounded-xl px-4 py-3 text-base bg-eplate-offwhite"
           value={draft.title}
           onChangeText={handleTitleChange}
           placeholder="e.g. Summer Wellness Pack"
@@ -74,9 +74,9 @@ export default function MenuBuilderScreen({
       </View>
 
       <View className="mb-4">
-        <Text className="text-sm font-medium text-gray-700 mb-1">Base Price ($)</Text>
+        <Text className="text-sm font-medium text-eplate-darkgray mb-1">Base Price ($)</Text>
         <TextInput
-          className="border border-gray-300 rounded-xl px-4 py-3 text-base bg-gray-50"
+          className="border border-eplate-lightgray rounded-xl px-4 py-3 text-base bg-eplate-offwhite"
           value={String(draft.base_price)}
           onChangeText={(v) => handleBasePriceChange(Number(v) || 0)}
           keyboardType="numeric"
@@ -84,21 +84,21 @@ export default function MenuBuilderScreen({
       </View>
 
       <View className="mb-4">
-        <Text className="text-sm font-medium text-gray-700 mb-2">Duration</Text>
+        <Text className="text-sm font-medium text-eplate-darkgray mb-2">Duration</Text>
         <View className="flex-row gap-3">
           {([5, 7] as const).map((d) => (
             <Pressable
               key={d}
               className={`flex-1 rounded-xl py-3 items-center border ${
-                draft.duration_days === d ? 'border-amber-500 bg-amber-50' : 'border-gray-300'
+                draft.duration_days === d ? 'border-eplate-gold bg-eplate-gold-subtle' : 'border-eplate-lightgray'
               }`}
               onPress={() => handleDurationChange(d)}
             >
               <Text
                 className={
                   draft.duration_days === d
-                    ? 'text-amber-700 font-semibold'
-                    : 'text-gray-600'
+                    ? 'text-eplate-brown font-semibold'
+                    : 'text-eplate-midgray'
                 }
               >
                 {d} days
@@ -109,23 +109,23 @@ export default function MenuBuilderScreen({
       </View>
 
       <View className="mb-4">
-        <Text className="text-sm font-medium text-gray-700 mb-2">Scope</Text>
+        <Text className="text-sm font-medium text-eplate-darkgray mb-2">Scope</Text>
         <View className="flex-row flex-wrap gap-2">
           {SCOPE_OPTIONS.map((opt) => (
             <Pressable
               key={opt.value}
               className={`px-4 py-2 rounded-xl border ${
                 draft.menu_scope === opt.value
-                  ? 'border-amber-500 bg-amber-50'
-                  : 'border-gray-300'
+                  ? 'border-eplate-gold bg-eplate-gold-subtle'
+                  : 'border-eplate-lightgray'
               }`}
               onPress={() => handleScopeChange(opt.value)}
             >
               <Text
                 className={
                   draft.menu_scope === opt.value
-                    ? 'text-amber-700 font-semibold text-sm'
-                    : 'text-gray-600 text-sm'
+                    ? 'text-eplate-brown font-semibold text-sm'
+                    : 'text-eplate-midgray text-sm'
                 }
               >
                 {opt.label}
@@ -135,15 +135,15 @@ export default function MenuBuilderScreen({
         </View>
       </View>
 
-      <View className="border border-gray-100 rounded-2xl p-4 mb-4">
-        <Text className="text-sm font-bold text-gray-800 mb-2">Meal Progress</Text>
-        <Text className="text-sm text-gray-600">
+      <View className="border border-eplate-lightgray rounded-2xl p-4 mb-4">
+        <Text className="text-sm font-bold text-eplate-darkgray mb-2">Meal Progress</Text>
+        <Text className="text-sm text-eplate-darkgray">
           {counts.total} / {requiredTotal} meals assigned
         </Text>
         <View className="flex-row gap-4 mt-2">
-          <Text className="text-xs text-gray-500">B: {counts.breakfast}</Text>
-          <Text className="text-xs text-gray-500">L: {counts.lunch}</Text>
-          <Text className="text-xs text-gray-500">D: {counts.dinner}</Text>
+          <Text className="text-xs text-eplate-midgray">B: {counts.breakfast}</Text>
+          <Text className="text-xs text-eplate-midgray">L: {counts.lunch}</Text>
+          <Text className="text-xs text-eplate-midgray">D: {counts.dinner}</Text>
         </View>
       </View>
 
@@ -157,22 +157,22 @@ export default function MenuBuilderScreen({
         </View>
       )}
 
-      <Text className="text-base font-bold text-gray-900 mb-3">Assigned Dishes</Text>
+      <Text className="text-base font-bold text-eplate-charcoal mb-3">Assigned Dishes</Text>
       {assignedForUi.length === 0 ? (
-        <Text className="text-sm text-gray-500 mb-4">No dishes assigned yet.</Text>
+        <Text className="text-sm text-eplate-midgray mb-4">No dishes assigned yet.</Text>
       ) : (
         assignedForUi.map((assigned) => (
           <View
             key={assigned.id}
-            className="border border-gray-100 rounded-xl p-3 mb-2 flex-row justify-between items-center"
+            className="border border-eplate-lightgray rounded-xl p-3 mb-2 flex-row justify-between items-center"
           >
             <View className="flex-1">
-              <Text className="text-sm font-semibold text-gray-900">{assigned.dish.name}</Text>
-              <Text className="text-xs text-gray-500 capitalize">{assigned.meal_type}</Text>
+              <Text className="text-sm font-semibold text-eplate-charcoal">{assigned.dish.name}</Text>
+              <Text className="text-xs text-eplate-midgray capitalize">{assigned.meal_type}</Text>
             </View>
             <View className="flex-row items-center gap-3">
               <TextInput
-                className="border border-gray-300 rounded-lg px-2 py-1 w-12 text-center text-sm"
+                className="border border-eplate-lightgray rounded-lg px-2 py-1 w-12 text-center text-sm"
                 value={String(assigned.meals_covered)}
                 onChangeText={(v) =>
                   handleChangeMealsCovered(assigned.id, Number(v) || 1)
@@ -190,7 +190,7 @@ export default function MenuBuilderScreen({
       <View className="mt-6 gap-3">
         <Pressable
           className={`rounded-xl py-3.5 items-center ${
-            !dirty || isSaving ? 'bg-gray-300' : 'bg-amber-600'
+            !dirty || isSaving ? 'bg-eplate-midgray' : 'bg-eplate-terracotta'
           }`}
           onPress={handleSave}
           disabled={!dirty || isSaving}
@@ -202,7 +202,7 @@ export default function MenuBuilderScreen({
 
         <Pressable
           className={`rounded-xl py-3.5 items-center ${
-            !canPublish || isPublishing ? 'bg-gray-300' : 'bg-gray-900'
+            !canPublish || isPublishing ? 'bg-eplate-midgray' : 'bg-eplate-charcoal'
           }`}
           onPress={handlePublish}
           disabled={!canPublish || isPublishing}

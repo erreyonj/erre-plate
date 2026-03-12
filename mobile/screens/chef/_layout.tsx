@@ -13,6 +13,7 @@
 
 import React, { useState, useCallback } from 'react';
 import { View, StyleSheet } from 'react-native';
+import { colors } from '../../constants/theme';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
@@ -105,6 +106,6 @@ export default function ChefLayout() {
 const styles = StyleSheet.create({
   root: {
     flex: 1,
-    backgroundColor: '#f9fafb',
+    backgroundColor: colors.offWhite,
   },
 });

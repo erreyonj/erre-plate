@@ -8,6 +8,7 @@ import {
 } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
+import { colors } from '../../constants/theme';
 
 const logo = require('../../assets/logo-white.png');
 
@@ -38,7 +39,7 @@ export default function AppHeader({ onOpenDrawer }: AppHeaderProps) {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: '#1a1a1a',
+    backgroundColor: colors.charcoal,
     borderBottomWidth: StyleSheet.hairlineWidth,
     borderBottomColor: 'rgba(255,255,255,0.1)',
     zIndex: 100,

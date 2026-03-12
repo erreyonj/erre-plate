@@ -103,14 +103,14 @@ export default function ProfileEditScreen() {
           {user.photo_url ? (
             <Image source={{ uri: user.photo_url }} className="w-20 h-20 rounded-full" />
           ) : (
-            <View className="w-20 h-20 rounded-full bg-gray-200 items-center justify-center">
-              <Text className="text-2xl font-bold text-gray-500">
+            <View className="w-20 h-20 rounded-full bg-eplate-lightgray items-center justify-center">
+              <Text className="text-2xl font-bold text-eplate-midgray">
                 {form.first_name.charAt(0).toUpperCase()}
               </Text>
             </View>
           )}
           <Pressable className="mt-2" onPress={handlePickPhoto}>
-            <Text className="text-amber-600 font-semibold text-sm">
+            <Text className="text-eplate-gold font-semibold text-sm">
               {uploadPhoto.isPending ? 'Uploading...' : 'Change Photo'}
             </Text>
           </Pressable>
@@ -118,17 +118,17 @@ export default function ProfileEditScreen() {
 
         <View className="flex-row gap-3 mb-4">
           <View className="flex-1">
-            <Text className="text-sm font-medium text-gray-700 mb-1">First name</Text>
+            <Text className="text-sm font-medium text-eplate-darkgray mb-1">First name</Text>
             <TextInput
-              className="border border-gray-300 rounded-xl px-4 py-3 text-base bg-gray-50"
+              className="border border-eplate-lightgray rounded-xl px-4 py-3 text-base bg-eplate-offwhite"
               value={form.first_name}
               onChangeText={(v) => update('first_name', v)}
             />
           </View>
           <View className="flex-1">
-            <Text className="text-sm font-medium text-gray-700 mb-1">Last name</Text>
+            <Text className="text-sm font-medium text-eplate-darkgray mb-1">Last name</Text>
             <TextInput
-              className="border border-gray-300 rounded-xl px-4 py-3 text-base bg-gray-50"
+              className="border border-eplate-lightgray rounded-xl px-4 py-3 text-base bg-eplate-offwhite"
               value={form.last_name}
               onChangeText={(v) => update('last_name', v)}
             />
@@ -136,9 +136,9 @@ export default function ProfileEditScreen() {
         </View>
 
         <View className="mb-4">
-          <Text className="text-sm font-medium text-gray-700 mb-1">Phone</Text>
+          <Text className="text-sm font-medium text-eplate-darkgray mb-1">Phone</Text>
           <TextInput
-            className="border border-gray-300 rounded-xl px-4 py-3 text-base bg-gray-50"
+            className="border border-eplate-lightgray rounded-xl px-4 py-3 text-base bg-eplate-offwhite"
             value={form.phone}
             onChangeText={(v) => update('phone', v)}
             keyboardType="phone-pad"
@@ -146,9 +146,9 @@ export default function ProfileEditScreen() {
         </View>
 
         <View className="mb-4">
-          <Text className="text-sm font-medium text-gray-700 mb-1">Street</Text>
+          <Text className="text-sm font-medium text-eplate-darkgray mb-1">Street</Text>
           <TextInput
-            className="border border-gray-300 rounded-xl px-4 py-3 text-base bg-gray-50"
+            className="border border-eplate-lightgray rounded-xl px-4 py-3 text-base bg-eplate-offwhite"
             value={form.street}
             onChangeText={(v) => update('street', v)}
           />
@@ -156,17 +156,17 @@ export default function ProfileEditScreen() {
 
         <View className="flex-row gap-3 mb-4">
           <View className="flex-1">
-            <Text className="text-sm font-medium text-gray-700 mb-1">City</Text>
+            <Text className="text-sm font-medium text-eplate-darkgray mb-1">City</Text>
             <TextInput
-              className="border border-gray-300 rounded-xl px-4 py-3 text-base bg-gray-50"
+              className="border border-eplate-lightgray rounded-xl px-4 py-3 text-base bg-eplate-offwhite"
               value={form.city}
               onChangeText={(v) => update('city', v)}
             />
           </View>
           <View className="flex-1">
-            <Text className="text-sm font-medium text-gray-700 mb-1">ZIP</Text>
+            <Text className="text-sm font-medium text-eplate-darkgray mb-1">ZIP</Text>
             <TextInput
-              className="border border-gray-300 rounded-xl px-4 py-3 text-base bg-gray-50"
+              className="border border-eplate-lightgray rounded-xl px-4 py-3 text-base bg-eplate-offwhite"
               value={form.zip}
               onChangeText={(v) => update('zip', v)}
               keyboardType="numeric"
@@ -175,9 +175,9 @@ export default function ProfileEditScreen() {
         </View>
 
         <View className="mb-4">
-          <Text className="text-sm font-medium text-gray-700 mb-1">Dietary Preferences</Text>
+          <Text className="text-sm font-medium text-eplate-darkgray mb-1">Dietary Preferences</Text>
           <TextInput
-            className="border border-gray-300 rounded-xl px-4 py-3 text-base bg-gray-50"
+            className="border border-eplate-lightgray rounded-xl px-4 py-3 text-base bg-eplate-offwhite"
             value={form.dietary_preferences}
             onChangeText={(v) => update('dietary_preferences', v)}
             placeholder="e.g. Vegetarian, Gluten-free"
@@ -185,9 +185,9 @@ export default function ProfileEditScreen() {
         </View>
 
         <View className="mb-6">
-          <Text className="text-sm font-medium text-gray-700 mb-1">Allergies</Text>
+          <Text className="text-sm font-medium text-eplate-darkgray mb-1">Allergies</Text>
           <TextInput
-            className="border border-gray-300 rounded-xl px-4 py-3 text-base bg-gray-50"
+            className="border border-eplate-lightgray rounded-xl px-4 py-3 text-base bg-eplate-offwhite"
             value={form.allergies}
             onChangeText={(v) => update('allergies', v)}
             placeholder="e.g. Peanuts, Shellfish"
@@ -196,7 +196,7 @@ export default function ProfileEditScreen() {
 
         <Pressable
           className={`rounded-xl py-3.5 items-center ${
-            updateProfile.isPending ? 'bg-gray-400' : 'bg-gray-900'
+            updateProfile.isPending ? 'bg-eplate-midgray' : 'bg-eplate-charcoal'
           }`}
           onPress={handleSave}
           disabled={updateProfile.isPending}

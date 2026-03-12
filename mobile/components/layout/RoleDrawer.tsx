@@ -12,6 +12,7 @@ import {
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
 import { useAuth } from '../../contexts/AuthContext';
+import { colors } from '../../constants/theme';
 
 type Role = 'customer' | 'chef';
 
@@ -160,7 +161,7 @@ export default function RoleDrawer({ role, open, onClose, onNavigate }: RoleDraw
             style={({ pressed }) => [styles.closeBtn, pressed && styles.closeBtnPressed]}
             accessibilityLabel="Close menu"
           >
-            <Ionicons name="close" size={22} color="#1a1a1a" />
+            <Ionicons name="close" size={22} color={colors.charcoal} />
           </Pressable>
         </View>
 
@@ -183,7 +184,7 @@ export default function RoleDrawer({ role, open, onClose, onNavigate }: RoleDraw
                   <Ionicons
                     name={item.icon}
                     size={20}
-                    color={item.action === 'logout' ? '#ef4444' : '#6b7280'}
+                    color={item.action === 'logout' ? colors.error : colors.midGray}
                     style={styles.itemIcon}
                   />
                   <Text style={[styles.itemLabel, item.action === 'logout' && styles.itemLabelLogout]}>
@@ -225,20 +226,20 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     paddingVertical: 16,
     borderBottomWidth: StyleSheet.hairlineWidth,
-    borderBottomColor: '#e5e7eb',
+    borderBottomColor: colors.lightGray,
   },
   drawerLabel: {
     fontSize: 11,
     fontWeight: '700',
     letterSpacing: 1,
     textTransform: 'uppercase',
-    color: '#9ca3af',
+    color: colors.midGray,
     marginBottom: 2,
   },
   drawerTitle: {
     fontSize: 18,
     fontWeight: '800',
-    color: '#111827',
+    color: colors.charcoal,
     lineHeight: 22,
   },
   closeBtn: {
@@ -249,7 +250,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   closeBtnPressed: {
-    backgroundColor: '#f3f4f6',
+    backgroundColor: colors.lightGray,
   },
   content: {
     flex: 1,
@@ -259,7 +260,7 @@ const styles = StyleSheet.create({
     fontWeight: '700',
     letterSpacing: 0.8,
     textTransform: 'uppercase',
-    color: '#9ca3af',
+    color: colors.midGray,
     paddingHorizontal: 20,
     paddingTop: 20,
     paddingBottom: 6,
@@ -274,7 +275,7 @@ const styles = StyleSheet.create({
     paddingVertical: 13,
   },
   itemRowPressed: {
-    backgroundColor: '#f9fafb',
+    backgroundColor: colors.offWhite,
   },
   itemRowLogout: {},
   itemIcon: {
@@ -284,14 +285,14 @@ const styles = StyleSheet.create({
   itemLabel: {
     fontSize: 14,
     fontWeight: '500',
-    color: '#111827',
+    color: colors.charcoal,
   },
   itemLabelLogout: {
-    color: '#ef4444',
+    color: colors.error,
   },
   divider: {
     height: StyleSheet.hairlineWidth,
-    backgroundColor: '#e5e7eb',
+    backgroundColor: colors.lightGray,
     marginHorizontal: 20,
     marginTop: 12,
   },

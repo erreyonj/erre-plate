@@ -5,6 +5,7 @@ import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { StatusBar } from 'expo-status-bar';
 import { AuthProvider } from './contexts/AuthContext';
 import AppNavigator from './navigation/AppNavigator';
+import './global.css';
 
 const queryClient = new QueryClient({
   defaultOptions: {

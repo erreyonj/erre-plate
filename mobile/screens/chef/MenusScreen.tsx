@@ -7,7 +7,7 @@ import { getMenuScopeLabel } from '../../utils/getMenuScopeLabel';
 import { Ionicons } from '@expo/vector-icons';
 
 const STATUS_BADGE: Record<string, { bg: string; text: string }> = {
-  draft: { bg: 'bg-gray-100', text: 'text-gray-600' },
+  draft: { bg: 'bg-eplate-lightgray', text: 'text-eplate-darkgray' },
   published: { bg: 'bg-green-100', text: 'text-green-700' },
   archived: { bg: 'bg-yellow-100', text: 'text-yellow-700' },
 };
@@ -22,11 +22,11 @@ function MenuCard({
   const badge = STATUS_BADGE[menu.status] ?? STATUS_BADGE.draft;
   return (
     <Pressable
-      className="bg-white border border-gray-100 rounded-2xl p-4 mb-3"
+      className="bg-white border border-eplate-lightgray rounded-2xl p-4 mb-3"
       onPress={onEdit}
     >
       <View className="flex-row justify-between items-start">
-        <Text className="text-base font-bold text-gray-900 flex-1" numberOfLines={1}>
+        <Text className="text-base font-bold text-eplate-charcoal flex-1" numberOfLines={1}>
           {menu.title || 'Untitled Menu'}
         </Text>
         <View className={`px-2 py-0.5 rounded-full ml-2 ${badge.bg}`}>
@@ -36,9 +36,9 @@ function MenuCard({
         </View>
       </View>
       <View className="flex-row items-center gap-3 mt-2">
-        <Text className="text-sm text-gray-500">{menu.duration_days} days</Text>
-        <Text className="text-sm text-gray-500">{getMenuScopeLabel(menu.menu_scope)}</Text>
-        <Text className="text-sm font-semibold text-gray-700">${menu.base_price}</Text>
+        <Text className="text-sm text-eplate-midgray">{menu.duration_days} days</Text>
+        <Text className="text-sm text-eplate-midgray">{getMenuScopeLabel(menu.menu_scope)}</Text>
+        <Text className="text-sm font-semibold text-eplate-darkgray">${menu.base_price}</Text>
       </View>
     </Pressable>
   );
@@ -53,10 +53,10 @@ export default function MenusScreen({ navigation }: ChefScreenProps<'Menus'>) {
       headerRight: () => (
         <View className="flex-row gap-4 mr-2">
           <Pressable onPress={() => navigation.navigate('Tickets')}>
-            <Ionicons name="receipt-outline" size={22} color="#111827" />
+            <Ionicons name="receipt-outline" size={22} color="#2b322a" />
           </Pressable>
           <Pressable onPress={() => navigation.navigate('ChefProfile')}>
-            <Ionicons name="person-outline" size={22} color="#111827" />
+            <Ionicons name="person-outline" size={22} color="#2b322a" />
           </Pressable>
         </View>
       ),
@@ -79,22 +79,22 @@ export default function MenusScreen({ navigation }: ChefScreenProps<'Menus'>) {
   if (isLoading) {
     return (
       <View className="flex-1 items-center justify-center bg-white">
-        <ActivityIndicator size="large" />
+        <ActivityIndicator size="large" color="#038568" />
       </View>
     );
   }
 
   return (
-    <View className="flex-1 bg-gray-50">
+    <View className="flex-1 bg-eplate-offwhite">
       <View className="px-4 pt-4 pb-2 flex-row justify-between items-center">
         <View>
-          <Text className="text-lg font-bold text-gray-900">Weekly Menus</Text>
-          <Text className="text-sm text-gray-500">
+          <Text className="text-lg font-bold text-eplate-charcoal">Weekly Menus</Text>
+          <Text className="text-sm text-eplate-midgray">
             Create and manage your menu bundles.
           </Text>
         </View>
         <Pressable
-          className="bg-gray-900 px-4 py-2 rounded-xl"
+          className="bg-eplate-charcoal px-4 py-2 rounded-xl"
           onPress={handleCreate}
         >
           <Text className="text-white font-semibold text-sm">New Menu</Text>
@@ -106,7 +106,7 @@ export default function MenusScreen({ navigation }: ChefScreenProps<'Menus'>) {
           className="mx-4 mb-2"
           onPress={() => navigation.navigate('AllMenus')}
         >
-          <Text className="text-amber-600 font-semibold text-sm">View All Menus</Text>
+          <Text className="text-eplate-gold font-semibold text-sm">View All Menus</Text>
         </Pressable>
       )}
 
@@ -118,12 +118,12 @@ export default function MenusScreen({ navigation }: ChefScreenProps<'Menus'>) {
 
       {!isError && sorted.length === 0 && (
         <View className="flex-1 items-center justify-center px-6">
-          <Ionicons name="restaurant-outline" size={48} color="#d1d5db" />
-          <Text className="text-lg font-semibold text-gray-800 mt-3">No menus yet</Text>
-          <Text className="text-sm text-gray-500 mt-1 text-center">
+          <Ionicons name="restaurant-outline" size={48} color="#e8e9e4" />
+          <Text className="text-lg font-semibold text-eplate-charcoal mt-3">No menus yet</Text>
+          <Text className="text-sm text-eplate-midgray mt-1 text-center">
             Create your first weekly menu to start receiving orders.
           </Text>
-          <Pressable className="bg-gray-900 px-6 py-3 rounded-xl mt-4" onPress={handleCreate}>
+          <Pressable className="bg-eplate-charcoal px-6 py-3 rounded-xl mt-4" onPress={handleCreate}>
             <Text className="text-white font-semibold">Create First Menu</Text>
           </Pressable>
         </View>

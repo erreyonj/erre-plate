@@ -15,6 +15,7 @@ import {
 import { useVideoPlayer, VideoView } from 'expo-video';
 import { useAuth } from '../../contexts/AuthContext';
 import type { AuthScreenProps } from '../../navigation/types';
+import { colors } from '../../constants/theme';
 
 const { width, height } = Dimensions.get('window');
 
@@ -136,7 +137,7 @@ export default function LoginScreen({ navigation }: AuthScreenProps<'Login'>) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#1a1a1a',
+    backgroundColor: colors.charcoal,
   },
   video: {
     ...StyleSheet.absoluteFillObject,
@@ -145,7 +146,7 @@ const styles = StyleSheet.create({
   },
   overlay: {
     ...StyleSheet.absoluteFillObject,
-    backgroundColor: 'rgba(31, 31, 31, 0.70)',
+    backgroundColor: 'rgba(43,50,42,0.72)',
   },
   logoContainer: {
     position: 'absolute',
@@ -215,7 +216,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(255,255,255,0.85)',
   },
   buttonText: {
-    color: '#1a1a1a',
+    color: colors.charcoal,
     fontWeight: '600',
     fontSize: 15,
   },
@@ -229,7 +230,7 @@ const styles = StyleSheet.create({
     fontSize: 14,
   },
   switchLink: {
-    color: '#f59e0b',
+    color: colors.gold,
     fontWeight: '600',
     fontSize: 14,
   },

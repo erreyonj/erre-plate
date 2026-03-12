@@ -10,7 +10,7 @@ const STATUS_COLORS: Record<string, { bg: string; text: string }> = {
   confirmed: { bg: 'bg-blue-100', text: 'text-blue-700' },
   preparing: { bg: 'bg-indigo-100', text: 'text-indigo-700' },
   ready: { bg: 'bg-green-100', text: 'text-green-700' },
-  completed: { bg: 'bg-gray-100', text: 'text-gray-600' },
+  completed: { bg: 'bg-eplate-lightgray', text: 'text-eplate-darkgray' },
   cancelled: { bg: 'bg-red-100', text: 'text-red-700' },
 };
 
@@ -33,14 +33,14 @@ function TicketCard({
   const isActive = !['completed', 'cancelled'].includes(order.status);
 
   return (
-    <View className="bg-white border border-gray-100 rounded-2xl p-4 mb-3">
+    <View className="bg-white border border-eplate-lightgray rounded-2xl p-4 mb-3">
       <View className="flex-row justify-between items-start">
         <View className="flex-1">
-          <Text className="text-base font-bold text-gray-900">
+          <Text className="text-base font-bold text-eplate-charcoal">
             {order.menu_name ?? 'Order'}
           </Text>
           {order.chef_name && (
-            <Text className="text-sm text-gray-500 mt-0.5">
+            <Text className="text-sm text-eplate-midgray mt-0.5">
               Customer order #{order.id}
             </Text>
           )}
@@ -52,9 +52,9 @@ function TicketCard({
         </View>
       </View>
       <View className="flex-row justify-between items-center mt-3">
-        <Text className="text-sm font-semibold text-gray-900">${order.total}</Text>
+        <Text className="text-sm font-semibold text-eplate-charcoal">${order.total}</Text>
         {isActive && nextStatus && onAdvance && (
-          <Pressable className="bg-gray-900 px-4 py-2 rounded-xl" onPress={onAdvance}>
+          <Pressable className="bg-eplate-charcoal px-4 py-2 rounded-xl" onPress={onAdvance}>
             <Text className="text-white text-sm font-semibold capitalize">
               Mark {nextStatus}
             </Text>
@@ -72,7 +72,7 @@ export default function TicketsScreen({ navigation }: ChefScreenProps<'Tickets'>
   if (isLoading) {
     return (
       <View className="flex-1 items-center justify-center bg-white">
-        <ActivityIndicator size="large" />
+        <ActivityIndicator size="large" color="#038568" />
       </View>
     );
   }
@@ -88,11 +88,11 @@ export default function TicketsScreen({ navigation }: ChefScreenProps<'Tickets'>
   if (!orders || orders.length === 0) {
     return (
       <View className="flex-1 items-center justify-center bg-white px-6">
-        <View className="w-14 h-14 rounded-full bg-gray-100 items-center justify-center mb-3">
-          <Ionicons name="receipt-outline" size={24} color="#9ca3af" />
+        <View className="w-14 h-14 rounded-full bg-eplate-lightgray items-center justify-center mb-3">
+          <Ionicons name="receipt-outline" size={24} color="#9a9d95" />
         </View>
-        <Text className="text-lg font-semibold text-gray-800">No orders yet</Text>
-        <Text className="text-sm text-gray-500 mt-1 text-center">
+        <Text className="text-lg font-semibold text-eplate-charcoal">No orders yet</Text>
+        <Text className="text-sm text-eplate-midgray mt-1 text-center">
           Orders from customers will appear here.
         </Text>
       </View>
@@ -104,7 +104,7 @@ export default function TicketsScreen({ navigation }: ChefScreenProps<'Tickets'>
 
   return (
     <FlatList
-      className="bg-gray-50"
+      className="bg-eplate-offwhite"
       contentContainerClassName="px-4 pt-4 pb-20"
       data={[...active, ...past]}
       keyExtractor={(item) => String(item.id)}
@@ -127,7 +127,7 @@ export default function TicketsScreen({ navigation }: ChefScreenProps<'Tickets'>
       }}
       ListHeaderComponent={
         active.length > 0 ? (
-          <Text className="text-lg font-bold text-gray-900 mb-3">Active Orders</Text>
+          <Text className="text-lg font-bold text-eplate-charcoal mb-3">Active Orders</Text>
         ) : null
       }
     />

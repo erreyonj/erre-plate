@@ -20,47 +20,47 @@ export default function ChefProfileScreen({ navigation }: ChefScreenProps<'ChefP
         {user?.photo_url ? (
           <Image source={{ uri: user.photo_url }} className="w-20 h-20 rounded-full" />
         ) : (
-          <View className="w-20 h-20 rounded-full bg-gray-900 items-center justify-center">
+          <View className="w-20 h-20 rounded-full bg-eplate-charcoal items-center justify-center">
             <Text className="text-white text-2xl font-bold">
               {displayName.charAt(0).toUpperCase()}
             </Text>
           </View>
         )}
-        <Text className="text-xl font-bold text-gray-900 mt-3">{displayName}</Text>
-        <Text className="text-sm text-gray-500">{user?.email}</Text>
+        <Text className="text-xl font-bold text-eplate-charcoal mt-3">{displayName}</Text>
+        <Text className="text-sm text-eplate-midgray">{user?.email}</Text>
       </View>
 
       <Pressable
-        className="flex-row items-center justify-between bg-white border border-gray-100 rounded-2xl p-4 mb-3"
+        className="flex-row items-center justify-between bg-white border border-eplate-lightgray rounded-2xl p-4 mb-3"
         onPress={() => navigation.navigate('ChefProfileEdit')}
       >
         <View className="flex-row items-center gap-3">
-          <Ionicons name="person-outline" size={20} color="#374151" />
-          <Text className="text-base text-gray-900">Edit Profile</Text>
+          <Ionicons name="person-outline" size={20} color="#4a5248" />
+          <Text className="text-base text-eplate-charcoal">Edit Profile</Text>
         </View>
-        <Ionicons name="chevron-forward" size={18} color="#9ca3af" />
+        <Ionicons name="chevron-forward" size={18} color="#9a9d95" />
       </Pressable>
 
       <Pressable
-        className="flex-row items-center justify-between bg-white border border-gray-100 rounded-2xl p-4 mb-3"
+        className="flex-row items-center justify-between bg-white border border-eplate-lightgray rounded-2xl p-4 mb-3"
         onPress={() => navigation.navigate('Menus')}
       >
         <View className="flex-row items-center gap-3">
-          <Ionicons name="restaurant-outline" size={20} color="#374151" />
-          <Text className="text-base text-gray-900">My Menus</Text>
+          <Ionicons name="restaurant-outline" size={20} color="#4a5248" />
+          <Text className="text-base text-eplate-charcoal">My Menus</Text>
         </View>
-        <Ionicons name="chevron-forward" size={18} color="#9ca3af" />
+        <Ionicons name="chevron-forward" size={18} color="#9a9d95" />
       </Pressable>
 
       <Pressable
-        className="flex-row items-center justify-between bg-white border border-gray-100 rounded-2xl p-4 mb-3"
+        className="flex-row items-center justify-between bg-white border border-eplate-lightgray rounded-2xl p-4 mb-3"
         onPress={() => navigation.navigate('Tickets')}
       >
         <View className="flex-row items-center gap-3">
-          <Ionicons name="receipt-outline" size={20} color="#374151" />
-          <Text className="text-base text-gray-900">Orders</Text>
+          <Ionicons name="receipt-outline" size={20} color="#4a5248" />
+          <Text className="text-base text-eplate-charcoal">Orders</Text>
         </View>
-        <Ionicons name="chevron-forward" size={18} color="#9ca3af" />
+        <Ionicons name="chevron-forward" size={18} color="#9a9d95" />
       </Pressable>
 
       <Pressable
