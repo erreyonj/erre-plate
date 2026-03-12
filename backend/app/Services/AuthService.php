@@ -96,4 +96,13 @@ class AuthService
         JWTAuth::setToken($token);
         return JWTAuth::refresh();
     }
+
+    /**
+     * Refresh using an explicit token string (mobile clients).
+     */
+    public function refreshFromToken(string $token): string
+    {
+        JWTAuth::setToken($token);
+        return JWTAuth::refresh();
+    }
 }

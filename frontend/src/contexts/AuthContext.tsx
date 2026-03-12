@@ -20,6 +20,7 @@ import {
   useRefreshMutation,
 } from '../hooks/useAuthHooks';
 import type { User } from '../types/user';
+import type { RegisterPayload } from '../types/auth';
 
 interface AuthContextValue {
   user: User | null | undefined;
@@ -30,16 +31,6 @@ interface AuthContextValue {
   logout: () => Promise<void>;
 }
 
-interface RegisterPayload {
-  first_name: string;
-  last_name: string;
-  email: string;
-  password: string;
-  password_confirmation: string;
-  role?: 'customer' | 'chef' | 'admin';
-  phone?: string;
-  address?: Record<string, unknown>;
-}
 
 const AuthContext = createContext<AuthContextValue | null>(null);
 

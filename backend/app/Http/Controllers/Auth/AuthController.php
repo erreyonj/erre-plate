@@ -62,6 +62,7 @@ class AuthController extends Controller
             'message' => 'User registered successfully',
             'user' => $user,
             'token' => $accessToken,
+            'refreshToken' => $refreshToken,
             'token_type' => 'bearer',
         ], 201);
 
@@ -93,6 +94,7 @@ class AuthController extends Controller
             'message' => 'Login successful',
             'user' => $user,
             'token' => $accessToken,
+            'refreshToken' => $refreshToken,
             'token_type' => 'bearer',
         ]);
 
@@ -126,11 +128,14 @@ class AuthController extends Controller
     }
 
     /**
-     * Refresh access token using httpOnly cookie. No Bearer token required.
+     * Refresh access token using body token (mobile) or httpOnly cookie (web).
      */
-    public function refresh(): JsonResponse
+    public function refresh(Request $request): JsonResponse
     {
-        $accessToken = $this->authService->refreshTokenFromCookie();
+        $bodyToken = $request->input('refreshToken');
+        $accessToken = $bodyToken
+            ? $this->authService->refreshFromToken($bodyToken)
+            : $this->authService->refreshTokenFromCookie();
 
         return response()->json([
             'token' => $accessToken,
