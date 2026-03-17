@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->string('email')->unique();
-            $table->string('password_hash');
+            $table->string('password_hash')->nullable();
             $table->enum('role', ['customer', 'chef', 'admin'])->default('customer');
             $table->string('first_name')->nullable();
             $table->string('last_name')->nullable();

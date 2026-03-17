@@ -16,6 +16,10 @@ export function Login({ onSwitchToRegister }: LoginProps) {
   const [error, setError] = useState('')
   const [isLoading, setIsLoading] = useState(false)
 
+  const handleGoogleLogin = () => {
+    window.location.href = '/auth/google/redirect'
+  }
+
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
     setError('')
@@ -98,6 +102,21 @@ export function Login({ onSwitchToRegister }: LoginProps) {
           {isLoading ? 'Signing in…' : 'Sign in'}
         </button>
       </form>
+
+      <div className="mt-6">
+        <button
+          type="button"
+          onClick={handleGoogleLogin}
+          className="auth-btn w-full py-3 sm:py-3.5 text-base font-medium flex items-center justify-center gap-2 bg-white text-eplate-charcoal border border-eplate-charcoal/10 hover:bg-eplate-cream transition-colors"
+        >
+          <img
+            src="/google-logo.svg"
+            alt="Google"
+            className="w-5 h-5"
+          />
+          <span>Continue with Google</span>
+        </button>
+      </div>
 
       <p className="mt-6 text-center text-sm text-eplate-charcoal/80">
         Don&apos;t have an account?{' '}

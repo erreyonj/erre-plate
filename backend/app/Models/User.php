@@ -29,6 +29,10 @@ class User extends Authenticatable implements JWTSubject
         'neighborhood_id',
         'dietary_preferences',
         'allergies',
+        'provider_id',
+        'provider_name',
+        'provider_token',
+        'provider_refresh_token',
         // 'credit_balance',
     ];
 
@@ -39,6 +43,8 @@ class User extends Authenticatable implements JWTSubject
      */
     protected $hidden = [
         'password_hash',
+        'provider_token',
+        'provider_refresh_token',
     ];
 
     /**
