@@ -18,7 +18,7 @@ class ProviderRedirectController extends Controller
         }
 
         try {
-            return Socialite::driver($provider)->redirect();
+            return Socialite::driver($provider)->stateless()->redirect();
         } catch (\Exception $e) {
             return response()->json(['error' => $e->getMessage()], 500);
         }

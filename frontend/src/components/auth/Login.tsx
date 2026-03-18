@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useAuth } from '../../contexts/AuthContext'
 import { Typography } from '@mui/material'
+import GoogleIcon from '@mui/icons-material/Google'
 
 interface LoginProps {
   /** When provided, used instead of Link for switching to register */
@@ -109,11 +110,7 @@ export function Login({ onSwitchToRegister }: LoginProps) {
           onClick={handleGoogleLogin}
           className="auth-btn w-full py-3 sm:py-3.5 text-base font-medium flex items-center justify-center gap-2 bg-white text-eplate-charcoal border border-eplate-charcoal/10 hover:bg-eplate-cream transition-colors"
         >
-          <img
-            src="/google-logo.svg"
-            alt="Google"
-            className="w-5 h-5"
-          />
+          <GoogleIcon className="w-5 h-5" />
           <span>Continue with Google</span>
         </button>
       </div>

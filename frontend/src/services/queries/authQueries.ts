@@ -44,3 +44,8 @@ export async function restoreSession(): Promise<User | null> {
 }
 
 
+export async function googleLogin() {
+  const { data } = await api.get('/auth/google/redirect');
+  return data;
+}
+

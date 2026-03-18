@@ -45,7 +45,7 @@ class ProviderCallbackController extends Controller
         }
 
         try {
-            $socialiteUser = Socialite::driver($provider)->user();
+            $socialiteUser = Socialite::driver($provider)->stateless()->user();
 
             $email = $socialiteUser->getEmail();
             $providerId = $socialiteUser->getId();
