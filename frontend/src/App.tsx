@@ -18,6 +18,7 @@ import AllMenus from './pages/chef/AllMenus'
 import { DashboardRedirect } from './routes/DashboardRedirect'
 import OnboardingLayout from './pages/layouts/OnboardingLayout'
 import OnboardingV1 from './pages/onboarding/Onboardingv1'
+import SocialOnboarding from './pages/onboarding/SocialOnboarding'
 import PublicChefProfile from './pages/chef/PublicChefProfile'
 
 function App() {
@@ -30,6 +31,7 @@ function App() {
 
       <Route path="/onboarding" element={<OnboardingLayout />}>
         <Route path="new-user" element={<OnboardingV1 />} />
+        <Route path="social" element={<SocialOnboarding />} />
       </Route>
 
       {/* Authenticated routes */}

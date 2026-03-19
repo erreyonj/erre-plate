@@ -18,6 +18,7 @@ export const DashboardRedirect = () => {
     const { user } = useAuth()
 
     if (!user) return <Navigate to="/login" replace />
+    if (user.role === null) return <Navigate to="/onboarding/social" replace />
   
     return <Navigate to={getDashboardPath(user.role)} replace />
 }

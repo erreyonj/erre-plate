@@ -18,7 +18,8 @@ export function Login({ onSwitchToRegister }: LoginProps) {
   const [isLoading, setIsLoading] = useState(false)
 
   const handleGoogleLogin = () => {
-    window.location.href = '/auth/google/redirect'
+    const apiBase = String(import.meta.env.VITE_API_URL || '').replace(/\/$/, '')
+    window.location.href = `${apiBase}/google/redirect`
   }
 
   async function handleSubmit(e: React.FormEvent) {

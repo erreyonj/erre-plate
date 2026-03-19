@@ -28,7 +28,7 @@ class AuthService
             'last_name'       => $data['last_name'],
             'email'           => $data['email'],
             'password_hash'   => Hash::make($data['password']), // confirm column name
-            'role'            => $data['role'],
+            'role'            => $data['role'] ?? null,
             'phone'           => $data['phone'] ?? null,
             'address'         => $data['address'] ?? null,
             'neighborhood_id' => $neighborhood?->id,

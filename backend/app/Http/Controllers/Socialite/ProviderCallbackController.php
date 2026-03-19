@@ -5,9 +5,9 @@ namespace App\Http\Controllers\Socialite;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Services\AuthService;
-use Illuminate\Http\JsonResponse;
 use Laravel\Socialite\Facades\Socialite;
 use Symfony\Component\HttpFoundation\Cookie;
+use Symfony\Component\HttpFoundation\Response;
 
 class ProviderCallbackController extends Controller
 {
@@ -18,7 +18,7 @@ class ProviderCallbackController extends Controller
     /**
      * Attach refresh token cookie to the response.
      */
-    private function attachRefreshCookie(JsonResponse $response, string $refreshToken): JsonResponse
+    private function attachRefreshCookie(Response $response, string $refreshToken): Response
     {
         $minutes = (int) config('jwt.refresh_ttl', 20160);
 
@@ -38,15 +38,18 @@ class ProviderCallbackController extends Controller
     /**
      * Handle the incoming request.
      */
-    public function __invoke(string $provider): JsonResponse
+    public function __invoke(string $provider): Response
     {
         if (!in_array($provider, ['google', 'facebook', 'twitter', 'linkedin'])) {
             return response()->json(['error' => 'Invalid provider'], 400);
         }
 
         try {
-            $socialiteUser = Socialite::driver($provider)->stateless()->user();
+            /** @var \Laravel\Socialite\Two\AbstractProvider $driver */
+            $driver = Socialite::driver($provider);
+            $socialiteUser = $driver->stateless()->user();
 
+            // We break this up here instead of User::updateOrCreate() becasuse we dont have a user_provider table or unique provider_id column rules
             $email = $socialiteUser->getEmail();
             $providerId = $socialiteUser->getId();
             $name = $socialiteUser->getName() ?? '';
@@ -75,7 +78,7 @@ class ProviderCallbackController extends Controller
             if (!$user) {
                 $user = new User();
                 $user->email = $email;
-                $user->role = 'customer';
+                $user->role = null;
             }
 
             $user->first_name = $user->first_name ?? $firstName;
@@ -93,13 +96,12 @@ class ProviderCallbackController extends Controller
             $accessToken = $this->authService->createAccessToken($user);
             $refreshToken = $this->authService->createRefreshToken($user);
 
-            $response = response()->json([
-                'message' => 'Login successful',
-                'user' => $user,
-                'token' => $accessToken,
-                'refreshToken' => $refreshToken,
-                'token_type' => 'bearer',
-            ]);
+            // We intentionally avoid placing tokens into URL query params.
+            // The SPA should restore session via refresh cookie.
+            $frontendUrl = rtrim((string) config('app.frontend_url'), '/');
+            $redirectTo = $frontendUrl . '/onboarding/social';
+
+            $response = redirect()->away($redirectTo);
 
             return $this->attachRefreshCookie($response, $refreshToken);
         } catch (\Exception $e) {

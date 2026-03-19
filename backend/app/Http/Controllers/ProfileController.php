@@ -119,6 +119,7 @@ class ProfileController extends Controller
     public function update(Request $request)
     {
         $validated = $request->validate([
+            'role' => 'nullable|in:customer,chef,admin',
             'first_name' => 'string|max:255',
             'last_name' => 'string|max:255',
             'phone' => 'nullable|string|max:20',
@@ -139,6 +140,28 @@ class ProfileController extends Controller
         return DB::transaction(function () use ($validated, $request) {
 
             $user = $request->user();
+
+            if (array_key_exists('role', $validated)) {
+                $requestedRole = $validated['role'];
+
+                // Disallow switching roles after it has been set.
+                if ($user->role !== null && $requestedRole !== null && $requestedRole !== $user->role) {
+                    return response()->json(['message' => 'Role cannot be changed once set'], 422);
+                }
+
+                // Allow setting role from null -> chosen role.
+                if ($user->role === null && $requestedRole !== null) {
+                    $user->role = $requestedRole;
+
+                    if ($requestedRole === 'chef' && !$user->chefProfile) {
+                        $user->chefProfile()->create([
+                            'status' => 'pending',
+                        ]);
+                    }
+                }
+
+                unset($validated['role']);
+            }
     
             $user->update($validated);
     

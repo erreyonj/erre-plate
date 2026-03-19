@@ -33,6 +33,10 @@ export function ProtectedRoute({
     return <Navigate to={loginPath} state={{ from: pathname }} replace />;
   }
 
+  if (user.role === null) {
+    return <Navigate to="/onboarding/social" replace />;
+  }
+
   if (allowedRoles && allowedRoles.length > 0 && !allowedRoles.includes(user.role)) {
     return <Navigate to={forbiddenPath} replace />;
   }

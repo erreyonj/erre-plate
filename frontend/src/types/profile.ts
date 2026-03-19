@@ -7,7 +7,7 @@ export interface UpdateProfilePayload {
   phone?: string | null;
   dietary_preferences?: string | null;
   allergies?: string | null;
-  role: "customer" | "chef";
+  role?: "customer" | "chef" | null;
   // photo_url?: string | null;
   address: {
     street?: string;

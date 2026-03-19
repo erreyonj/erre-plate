@@ -9,7 +9,6 @@ import {
 import type { UpdateProfilePayload } from "../../types/profile";
 import { extractAddressComponents } from "../../utils/extractAddressComponents";
 import { PhotoUpload } from "../../components/user/photoUpload";
-import { useTheme } from "@mui/material/styles";
 import { useQueryClient } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
@@ -21,7 +20,6 @@ import { eplateColors } from "../../../design/theme";
 import { queryKeys } from "../../services/queryKeys";
 
 export default function CustomerProfileEdit() {
-  const theme = useTheme();
   const queryClient = useQueryClient();
   const navigate = useNavigate();
   const { user } = useAuth();
@@ -63,7 +61,11 @@ export default function CustomerProfileEdit() {
   const onSubmit = async (values: UpdateProfilePayload) => {
     await updateProfile.mutateAsync(values);
     queryClient.invalidateQueries({ queryKey: queryKeys.auth.me() });
-    navigate(`/${user?.role}/profile`);
+    if (!user?.role) {
+      navigate(`/onboarding/social`, { replace: true });
+      return;
+    }
+    navigate(`/${user.role}/profile`);
   };
 
   const addressLabel = `${user?.address?.street} ${user?.address?.city}, ${user?.address?.state} ${user?.address?.zip} ${user?.address?.country}`;
