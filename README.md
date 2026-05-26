@@ -1,6 +1,26 @@
-# erre-plate
+<p align="center">
+  <img src="mobile/assets/airplate-app-iconv1.png" alt="airplate app icon" width="140" />
+</p>
 
-Hyperlocal neighborhood meal-prep marketplace with a credit economy for chefs and customers. Connects home cooks and neighbors in zip-based communities (demo data: Madison, WI) so labor and meals can circulate locally instead of only through large gig platforms.
+<h1 align="center">erre-plate</h1>
+
+<p align="center">
+  <strong>A mobile-first neighborhood meal-prep marketplace for local chefs, customers, and circulating meal credits.</strong>
+</p>
+
+<p align="center">
+  <a href="#quick-start-docker--recommended-for-reviewers">Quick Start</a>
+  ·
+  <a href="#demo-accounts">Demo Accounts</a>
+  ·
+  <a href="#what-to-try-2-minute-tour">2-Minute Tour</a>
+  ·
+  <a href="#resume-bullet-copy-paste">Resume Bullet</a>
+</p>
+
+---
+
+erre-plate connects home cooks and neighbors in zip-based communities (demo data: Madison, WI) so labor, food, and value can circulate locally instead of being routed through large gig platforms.
 
 > **Mobile web app** — The UI is optimized for phones. For the intended experience, open the app on a mobile browser or use Chrome DevTools device mode (viewport width ≤ 600px). Desktop layouts exist but are secondary.
 
